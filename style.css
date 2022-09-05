@@ -1,0 +1,21 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+.parameters-elements {
+	width: 300px;
+	margin: 20px;
+}
+label {
+	display: block;
+}
+.elements {
+	position: relative;
+}
+.add-element {
+	position: absolute;
+	right: 0;
+	top: 0;
+	cursor: pointer;
+}
