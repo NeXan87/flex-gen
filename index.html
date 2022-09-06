@@ -15,33 +15,33 @@
 			<fieldset class="flex box-parent main-fieldset">
 				<legend>Параметры родителя</legend>
 				<label for="width-container" class="flex-title element">Ширина</label>
-				<input type="number" class="number element" id="width-container" min="100" max="2000" value="100">
-				<select name="unit" id="unit-parent" class="unit element">
+				<input type="number" class="number element oninput input-parent" id="width-container" min="100" max="2000" value="100">
+				<select name="unit" id="width-parent" class="unit width-unit element oninput input-parent">
 					<option value="%" selected>%</option>
 					<option value="px">px</option>
 				</select>
 				<label for="height-container" class="flex-title element">Высота</label>
-				<input type="number" class="number element" id="height-container" min="100" max="1000" value="100">
-				<select name="unit" id="unit-parent" class="unit element">
+				<input type="number" class="number element oninput input-parent" id="height-container" min="100" max="1000" value="100">
+				<select name="unit" id="height-parent" class="unit height-unit element oninput input-parent">
 					<option value="vh" selected>vh</option>
 					<option value="%">%</option>
 					<option value="px">px</option>
 				</select>
 				<label for="flex-direction" class="element">flex-direction</label>
-				<select name="flex-direction" id="flex-direction" class="value element">
+				<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 					<option value="row" selected>row</option>
 					<option value="row-reverse">row-reverse</option>
 					<option value="column">column</option>
 					<option value="column-reverse">column-reverse</option>
 				</select>
 				<label for="flex-wrap" class="element">flex-wrap</label>
-				<select name="flex-wrap" id="flex-wrap" class="value element">
+				<select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
 					<option value="nowrap" selected>nowrap</option>
 					<option value="wrap">wrap</option>
 					<option value="wrap-reverse">wrap-reverse</option>
 				</select>
 				<label for="justify-content" class="element">justify-content</label>
-				<select name="justify-content" id="justify-content" class="value element">
+				<select name="justify-content" id="justify-content" class="value element oninput input-parent">
 					<option value="flex-start" selected>flex-start</option>
 					<option value="flex-end">flex-end</option>
 					<option value="center">center</option>
@@ -50,7 +50,7 @@
 					<option value="space-evenly">space-evenly</option>
 				</select>
 				<label for="align-items" class="element">align-items</label>
-				<select name="align-items" id="align-items" class="value element">
+				<select name="align-items" id="align-items" class="value element oninput input-parent">
 					<option value="stretch" selected>stretch</option>
 					<option value="flex-start">flex-start</option>
 					<option value="flex-end">flex-end</option>
@@ -58,7 +58,7 @@
 					<option value="baseline">baseline</option>
 				</select>
 				<label for="align-content" class="element">align-content</label>
-				<select name="align-content" id="align-content" class="value element">
+				<select name="align-content" id="align-content" class="value element oninput input-parent">
 					<option value="stretch" selected>stretch</option>
 					<option value="flex-start">flex-start</option>
 					<option value="flex-end">flex-end</option>
@@ -73,16 +73,21 @@
 				<button type="button" class="button-element add" onclick="addElement()">+</button>
 				<fieldset class="flex item">
 					<legend>Элемент 1</legend>
-					<label for="flex-grow-element-1" class=" element">Flex-grow</label>
-					<input type="number" class="number flex-grow element" id="flex-grow-element-1" min="0" max="100">
-					<label for="flex-shrink-element-1" class="flex-title element">Flex-shrink</label>
-					<input type="number" class="number flex-shrink element" id="flex-shrink-element-1" min="0" max="100">
-					<label for="flex-basis-element-1" class="flex-title element">Flex-basis</label>
-					<input type="number" class="number flex-basis element" id="flex-basis-element-1" min="0" max="1000">
-					<select name="unit" id="flex-basis-unit-1" class="unit element">
-						<option value="%" selected>%</option>
-						<option value="px">px</option>
+					<label for="flex-grow-element-1" class="element">flex-grow</label>
+					<input type="number" class="number flex-grow element element-1 oninput input-child" id="flex-grow-1" min="0" max="100">
+					<label for="flex-shrink-element-1" class="flex-title element">flex-shrink</label>
+					<input type="number" class="number flex-shrink element element-1 oninput input-child" id="flex-shrink-1" min="0" max="100">
+					<label for="flex-basis-element-1" class="flex-title element">flex-basis</label>
+					<input type="number" class="number flex-basis element element-1 oninput input-child" id="flex-basis-1" min="0" max="1000">
+					<select name="unit" id="flex-basis-unit-1" class="unit element element-1 oninput input-child">
+						<option value="%">%</option>
+						<option value="px" selected>px</option>
 					</select>
+					<label for="margin-element-1" class="flex-title element">margin</label>
+					<input type="text" class="number margin-top element element-1 oninput input-child" id="margin-top-1" placeholder="top">
+					<input type="text" class="number margin-right element element-1 oninput input-child" id="margin-right-1" placeholder="right">
+					<input type="text" class="number margin-bottom element element-1 oninput input-child" id="margin-bottom-1" placeholder="bottom">
+					<input type="text" class="number margin-left element element-1 oninput input-child" id="margin-left-1"placeholder="left">
 				</fieldset>
 			</fieldset>
 		</section>

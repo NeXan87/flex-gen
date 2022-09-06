@@ -33,10 +33,10 @@ html {
 
 body {
 	background-color: #f8f8f8;
-	font-family: "Lucida Sans Unicode",
-		"Lucida Grande",
+	font-family: Verdana,
+		Geneva,
 		sans-serif;
-	font-size: 16px;
+	font-size: 14px;
 }
 
 input,
@@ -66,7 +66,7 @@ input[type="number"]:focus {
 }
 
 fieldset {
-	padding: 15px 10px 10px 10px;
+	padding: 5px 10px 10px 10px;
 	border-radius: 5px;
 	position: relative;
 }
@@ -81,7 +81,6 @@ legend {
 }
 
 label {
-	font-size: 14px;
 	align-self: center;
 	flex-basis: 80px;
 }
@@ -97,6 +96,7 @@ label {
 	overflow-x: hidden;
 	max-height: 92vh;
 	box-sizing: content-box;
+	border: 1px solid #d5d5d5;
 }
 
 .flex {
@@ -105,6 +105,7 @@ label {
 	align-items: stretch;
 	flex-wrap: wrap;
 	padding-top: 5px;
+	padding-bottom: 8px;
 }
 
 .flex:not(:last-child) .remove {
@@ -118,18 +119,20 @@ label {
 .elements .button-element {
 	position: absolute;
 	right: 10px;
-	top: -22px;
+	top: -19px;
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
 }
 
-.box-parent .element:not(:nth-last-child(-n + 2)) {
-	margin-bottom: 5px;
+.elements,
+.elements .flex.item:not(:first-of-type) {
+	margin-top: 15px;
 }
 
-.elements .element:not(:nth-last-child(-n + 3)) {
-	margin-bottom: 5px;
+.element {
+	margin-bottom: 2px;
+	margin-top: 2px;
 }
 
 .box-parent input:nth-of-type(-n + 2) {
@@ -167,4 +170,18 @@ label {
 	flex-grow: 0;
 	max-width: 45px;
 	margin-left: 5px;
+}
+
+label[for^="margin-element"] {
+	max-width: 50px;
+}
+
+.margin-top,
+.margin-right,
+.margin-bottom,
+.margin-left {
+	max-width: 33px;
+	font-size: 11px;
+	padding-left: 3px;
+	padding-right: 3px;
 }
