@@ -5,7 +5,7 @@ let flexGrow = document.querySelectorAll('.flex-grow');
 let flexShrink = document.querySelectorAll('.flex-shrink');
 let flexBasis = document.querySelectorAll('.flex-basis');
 let idElement = 1;
-let element;
+let item;
 
 // const idNum = Symbol('idNumber');
 // const inputAttribute = {
@@ -63,7 +63,7 @@ function removeElement(input) {
 }
 
 function updateItems() {
-	element = document.querySelectorAll('.item');
+	item = document.querySelectorAll('.item');
 	flexGrow = document.querySelectorAll('.flex-grow');
 	flexShrink = document.querySelectorAll('.flex-shrink');
 	flexBasis = document.querySelectorAll('.flex-basis');
