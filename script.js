@@ -58,6 +58,7 @@ function addElement() {
 }
 
 function removeElement(input) {
+	idElement--;
 	elements.removeChild(input.parentNode);
 	updateItems();
 }
