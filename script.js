@@ -2,6 +2,8 @@ let elements = document.querySelector('.elements');
 let flex = document.querySelector('.item');
 let ButtonRemove = document.querySelector('.remove');
 let flexGrow = document.querySelectorAll('.flex-grow');
+let flexShrink = document.querySelectorAll('.flex-shrink');
+let flexBasis = document.querySelectorAll('.flex-basis');
 let idElement = 1;
 let element;
 
@@ -51,13 +53,23 @@ function addElement() {
 						<option value="px">px</option>
 					</select>`;
 		elements.appendChild(fieldset);
-		element = document.querySelectorAll('.item');
+		updateItems();
 	}
 }
 
 function removeElement(input) {
 	elements.removeChild(input.parentNode);
+	updateItems();
+}
+
+function updateItems() {
 	element = document.querySelectorAll('.item');
+	flexGrow = document.querySelectorAll('.flex-grow');
+	flexShrink = document.querySelectorAll('.flex-shrink');
+	flexBasis = document.querySelectorAll('.flex-basis');
+	console.log(flexGrow);
+	console.log(flexShrink);
+	console.log(flexBasis);
 }
 
 
