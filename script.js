@@ -6,11 +6,11 @@ let buttonAdd = document.querySelector('.add');
 let flexGrow = document.querySelectorAll('.flex-grow');
 let flexShrink = document.querySelectorAll('.flex-shrink');
 let flexBasis = document.querySelectorAll('.flex-basis');
-let idElement = 0, unitWidthOrHeight;
+let idElement = 0, unitWidthOrHeight, compression, extension, op, spbr;
 
 const inputParameters = {
 	parent: {
-		"width": "100%",
+		"width": "800",
 		"height": "90vh",
 		"flex-direction": "row",
 		"flex-wrap": "nowrap",
@@ -21,12 +21,16 @@ const inputParameters = {
 	"element-0": {},
 };
 
+let shk = +inputParameters.parent.width || 0;
+
 addToInputParameters();
 
 function addElement() {
 
 	if (idElement < 9) {
 		idElement++;
+		compression = document.querySelector(`s-compression-${idElement}`);
+		extension = document.querySelector(`s-extension-${idElement}`);
 		let fieldset = document.createElement('fieldset');
 		fieldset.classList.add('flex', 'item');
 		fieldset.innerHTML = `<legend>Элемент ${idElement + 1}</legend>
@@ -84,52 +88,65 @@ function addToInputParameters() {
 
 		boxPatameter.oninput = function () {
 
-			if (boxPatameter.classList.contains('input-parent')) joinWidthOrHeight(boxPatameter);
-			if (boxPatameter.classList.contains('input-child')) joinFlexBasis(boxPatameter);
-			console.log(inputParameters);
+			joinFlexObject(boxPatameter);
+			calcFinalSizeSrink();
 
 		}
 	}
 }
 
-function joinWidthOrHeight(boxPatameter) {
+function joinFlexObject(boxPatameter) {
 
-	if (boxPatameter.getAttribute('id') === "width" || boxPatameter.getAttribute('id') === "height") {
-
-		if (boxPatameter.getAttribute('id') === "width") {
-			inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value + boxParameters[1].value;
-		} else {
-			inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value + boxParameters[3].value;
-		}
-
-	} else if (boxPatameter.getAttribute('id') === "width-parent" || boxPatameter.getAttribute('id') === "height-parent") {
-
-		if (boxPatameter.getAttribute('id') === "width-parent") {
-			inputParameters.parent[boxParameters[0].getAttribute('id')] = boxParameters[0].value + boxPatameter.value;
-		} else {
-			inputParameters.parent[boxParameters[2].getAttribute('id')] = boxParameters[2].value + boxPatameter.value;
-		}
-
-	} else {
-
-		inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
-
-	}
-
-}
-
-function joinFlexBasis(boxPatameter) {
+	inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
 
 	for (let i = 0; i <= idElement; i++) {
 
 		if (+boxPatameter.getAttribute('id').replace(/[^0-9]/g, '') === i) {
 			inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = boxPatameter.value;
+			calcFinalSizeSrink();
+			break;
 		}
 
 	}
 
 }
 
+function calcFinalSizeSrink() {
+
+	for (let j = 0; j < idElement; j++) {
+		inputParameters.op = +inputParameters.parent.width - ((+inputParameters[`element-${j}`]?.["flex-basis"] || 0) + (+inputParameters[`element-${j + 1}`]?.["flex-basis"] || 0));
+	}
+
+	inputParameters.spbr = (((+inputParameters[`element-0`]?.["flex-basis"] || 0) * (+inputParameters[`element-0`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-1`]?.["flex-basis"] || 0) * (+inputParameters[`element-1`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-2`]?.["flex-basis"] || 0) * (+inputParameters[`element-2`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-3`]?.["flex-basis"] || 0) * (+inputParameters[`element-3`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-4`]?.["flex-basis"] || 0) * (+inputParameters[`element-4`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-5`]?.["flex-basis"] || 0) * (+inputParameters[`element-5`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-6`]?.["flex-basis"] || 0) * (+inputParameters[`element-6`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-7`]?.["flex-basis"] || 0) * (+inputParameters[`element-7`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-8`]?.["flex-basis"] || 0) * (+inputParameters[`element-8`]?.["flex-shrink"] || 0))
+		+ ((+inputParameters[`element-9`]?.["flex-basis"] || 0) * (+inputParameters[`element-9`]?.["flex-shrink"] || 0)));
+
+	inputParameters[`element-0`].nks = (+inputParameters[`element-0`]?.["flex-basis"] || 0) * (+inputParameters[`element-0`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+	inputParameters[`element-0`].ir = (+inputParameters[`element-0`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-0`].nks * +inputParameters.op));
+
+	if (inputParameters[`element-1`]) {
+		inputParameters[`element-1`].nks = (+inputParameters[`element-1`]?.["flex-basis"] || 0) * (+inputParameters[`element-1`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+		inputParameters[`element-1`].ir = (+inputParameters[`element-1`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-1`].nks * +inputParameters.op));
+
+	}
+
+	console.log("Отрицательное пространство: " + inputParameters.op);
+	console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
+	console.log("Нормированный коэффициент сжатия 1: " + inputParameters[`element-0`]?.nks);
+	console.log("Нормированный коэффициент сжатия 2: " + inputParameters[`element-1`]?.nks);
+	console.log("Итоговый размер 1: " + inputParameters[`element-0`]?.ir);
+	console.log("Итоговый размер 2: " + inputParameters[`element-1`]?.ir);
+
+
+	console.log(inputParameters);
+}
 
 // setInterval(function() {
 // 	console.log('1');
