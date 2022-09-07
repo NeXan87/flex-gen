@@ -131,18 +131,39 @@ function calcFinalSizeSrink() {
 	inputParameters[`element-0`].nks = (+inputParameters[`element-0`]?.["flex-basis"] || 0) * (+inputParameters[`element-0`]?.["flex-shrink"] || 0) / inputParameters.spbr;
 	inputParameters[`element-0`].ir = (+inputParameters[`element-0`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-0`].nks * +inputParameters.op));
 
+
 	if (inputParameters[`element-1`]) {
 		inputParameters[`element-1`].nks = (+inputParameters[`element-1`]?.["flex-basis"] || 0) * (+inputParameters[`element-1`]?.["flex-shrink"] || 0) / inputParameters.spbr;
 		inputParameters[`element-1`].ir = (+inputParameters[`element-1`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-1`].nks * +inputParameters.op));
 
+	}
+	if (inputParameters[`element-2`]) {
+		inputParameters[`element-2`].nks = (+inputParameters[`element-2`]?.["flex-basis"] || 0) * (+inputParameters[`element-2`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+		inputParameters[`element-2`].ir = (+inputParameters[`element-2`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-2`].nks * +inputParameters.op));
 	}
 
 	console.log("Отрицательное пространство: " + inputParameters.op);
 	console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
 	console.log("Нормированный коэффициент сжатия 1: " + inputParameters[`element-0`]?.nks);
 	console.log("Нормированный коэффициент сжатия 2: " + inputParameters[`element-1`]?.nks);
+	console.log("Нормированный коэффициент сжатия 3: " + inputParameters[`element-2`]?.nks);
+	console.log("Нормированный коэффициент сжатия 4: " + inputParameters[`element-3`]?.nks);
+	console.log("Нормированный коэффициент сжатия 5: " + inputParameters[`element-4`]?.nks);
+	console.log("Нормированный коэффициент сжатия 6: " + inputParameters[`element-5`]?.nks);
+	console.log("Нормированный коэффициент сжатия 7: " + inputParameters[`element-6`]?.nks);
+	console.log("Нормированный коэффициент сжатия 8: " + inputParameters[`element-7`]?.nks);
+	console.log("Нормированный коэффициент сжатия 9: " + inputParameters[`element-8`]?.nks);
+	console.log("Нормированный коэффициент сжатия 10: " + inputParameters[`element-9`]?.nks);
 	console.log("Итоговый размер 1: " + inputParameters[`element-0`]?.ir);
 	console.log("Итоговый размер 2: " + inputParameters[`element-1`]?.ir);
+	console.log("Итоговый размер 3: " + inputParameters[`element-2`]?.ir);
+	console.log("Итоговый размер 4: " + inputParameters[`element-3`]?.ir);
+	console.log("Итоговый размер 5: " + inputParameters[`element-4`]?.ir);
+	console.log("Итоговый размер 6: " + inputParameters[`element-5`]?.ir);
+	console.log("Итоговый размер 7: " + inputParameters[`element-6`]?.ir);
+	console.log("Итоговый размер 8: " + inputParameters[`element-7`]?.ir);
+	console.log("Итоговый размер 9: " + inputParameters[`element-8`]?.ir);
+	console.log("Итоговый размер 10: " + inputParameters[`element-9`]?.ir);
 
 
 	console.log(inputParameters);
