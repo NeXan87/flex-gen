@@ -139,13 +139,14 @@ label {
 }
 
 .flex-grow,
-.flex-shrink {
+.flex-shrink,
+.flex-basis {
 	flex-grow: 8 !important;
 	max-width: 100px !important;
 }
 
 .number {
-	flex-basis: 45px;
+	flex-basis: 75px;
 	flex-grow: 1;
 	max-width: 60px;
 	padding: 0 5px;
@@ -229,4 +230,11 @@ label[for^="margin-element"] {
 .button-element[disabled] {
 	background-color: #6c6c6c;
 	cursor: not-allowed;
+}
+
+.result {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
 }
