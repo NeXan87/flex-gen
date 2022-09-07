@@ -53,7 +53,7 @@ function addElement() {
 										 <span>ИРР: <output name="result" class="s-extension-${idElement}">0</output></span>
 									 </div>`;
 		elements.appendChild(fieldset);
-		inputParameters[`element-${idElement}`] = {};
+		inputParameters[`element-${idElement}`] = { nks: {}, ir: {} };
 		updateItems();
 	}
 	if (idElement === 9) {
@@ -128,18 +128,9 @@ function calcFinalSizeSrink() {
 		+ ((+inputParameters[`element-8`]?.["flex-basis"] || 0) * (+inputParameters[`element-8`]?.["flex-shrink"] || 0))
 		+ ((+inputParameters[`element-9`]?.["flex-basis"] || 0) * (+inputParameters[`element-9`]?.["flex-shrink"] || 0)));
 
-	inputParameters[`element-0`].nks = (+inputParameters[`element-0`]?.["flex-basis"] || 0) * (+inputParameters[`element-0`]?.["flex-shrink"] || 0) / inputParameters.spbr;
-	inputParameters[`element-0`].ir = (+inputParameters[`element-0`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-0`].nks * +inputParameters.op));
-
-
-	if (inputParameters[`element-1`]) {
-		inputParameters[`element-1`].nks = (+inputParameters[`element-1`]?.["flex-basis"] || 0) * (+inputParameters[`element-1`]?.["flex-shrink"] || 0) / inputParameters.spbr;
-		inputParameters[`element-1`].ir = (+inputParameters[`element-1`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-1`].nks * +inputParameters.op));
-
-	}
-	if (inputParameters[`element-2`]) {
-		inputParameters[`element-2`].nks = (+inputParameters[`element-2`]?.["flex-basis"] || 0) * (+inputParameters[`element-2`]?.["flex-shrink"] || 0) / inputParameters.spbr;
-		inputParameters[`element-2`].ir = (+inputParameters[`element-2`]?.["flex-basis"] || 0) - Math.abs((+inputParameters[`element-2`].nks * +inputParameters.op));
+	for (let k = 0; k <= idElement; k++) {
+		inputParameters[`element-${k}`].nks = (+inputParameters[`element-${k}`]?.["flex-basis"] || 0) * (+inputParameters[`element-${k}`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+		inputParameters[`element-${k}`].ir = Math.abs((+inputParameters[`element-${k}`]?.["flex-basis"] || 0)) - Math.abs((+inputParameters[`element-${k}`].nks * +inputParameters.op));
 	}
 
 	console.log("Отрицательное пространство: " + inputParameters.op);
