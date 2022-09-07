@@ -108,21 +108,12 @@ label {
 	padding-bottom: 8px;
 }
 
-.flex:not(:last-child) .remove {
+.flex:not(:last-child) .button-background {
 	display: none;
 }
 
 .main-fieldset {
 	width: 250px;
-}
-
-.elements .button-element {
-	position: absolute;
-	right: 10px;
-	top: -19px;
-	cursor: pointer;
-	width: 20px;
-	height: 20px;
 }
 
 .elements,
@@ -182,6 +173,60 @@ label[for^="margin-element"] {
 .margin-left {
 	max-width: 33px;
 	font-size: 11px;
-	padding-left: 3px;
-	padding-right: 3px;
+	padding: 3px 3px;
+}
+
+.button-background {
+	position: absolute;
+	right: 7px;
+	top: -19px;
+	width: 30px;
+	height: 20px;
+	background-color: white;
+}
+
+.button-element {
+	position: absolute;
+	right: 0;
+	top: 0;
+	left: 0;
+	background-color: #028e4a;
+	border: 0;
+	border-radius: 50%;
+	color: white;
+	transition: background-color .2s linear;
+	cursor: pointer;
+	width: 20px;
+	height: 20px;
+	margin: auto;
+}
+
+.button-element::before {
+	position: absolute;
+	right: 0;
+	top: 0;
+	font-weight: 700;
+}
+
+.button-element.add::before {
+	content: "+";
+	font-size: 20px;
+	line-height: 1;
+	left: 0;
+}
+
+.button-element.remove::before {
+	content: "-";
+	font-size: 30px;
+	line-height: 15px;
+	left: -1px;
+}
+
+.button-element:hover {
+	background-color: #02773e;
+}
+
+.button-element[disabled] {
+	background-color: #6c6c6c;
+	cursor: not-allowed;
 }
