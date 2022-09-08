@@ -2,9 +2,6 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-}
-
-* {
 	scrollbar-width: thin;
 	scrollbar-color: #cce8db #028e4a;
 }
@@ -80,12 +77,6 @@ legend {
 	padding: 0 5px;
 }
 
-label {
-	align-self: center;
-	flex-basis: 80px;
-}
-
-
 .parameters {
 	background-color: #fff;
 	width: 250px;
@@ -108,12 +99,28 @@ label {
 	padding-bottom: 8px;
 }
 
-.flex:not(:last-child) .button-background {
+.item:nth-of-type(-n + 2) .button-background,
+.item:not(:nth-last-of-type(1)) .button-background {
 	display: none;
 }
 
 .main-fieldset {
 	width: 250px;
+}
+
+.label-title {
+	flex-basis: 105px;
+	flex-grow: 1;
+}
+
+.input-parent,
+.input-child {
+	flex-basis: 100px;
+	flex-grow: 3;
+}
+
+.input-child {
+	flex-basis: 90px;
 }
 
 .elements,
@@ -122,59 +129,12 @@ label {
 }
 
 .element {
-	margin-bottom: 2px;
-	margin-top: 2px;
-}
-
-.box-parent input:nth-of-type(-n + 2) {
-	min-width: 71px;
-}
-
-.box-parent label {
-	flex-grow: 2;
-}
-
-label {
-	flex-grow: 4;
-}
-
-.flex-grow,
-.flex-shrink,
-.flex-basis {
-	flex-grow: 8 !important;
-	max-width: 100px !important;
+	margin: 2px 0;
 }
 
 .number {
-	flex-basis: 75px;
-	flex-grow: 1;
-	max-width: 60px;
 	padding: 0 5px;
-	width: 45px;
-}
-
-.value {
-	width: 115px;
-}
-
-.unit {
-	flex-basis: 30px;
-	flex-grow: 0;
-	max-width: 45px;
-	margin-left: 5px;
-}
-
-label[for^="margin-element"] {
-	max-width: 50px;
-}
-
-.margin-top,
-.margin-right,
-.margin-bottom,
-.margin-left {
-	max-width: 33px;
-	font-size: 11px;
-	padding: 3px 3px;
+	text-align: right;
 }
 
 .button-background {

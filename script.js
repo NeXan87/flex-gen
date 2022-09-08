@@ -3,60 +3,57 @@
 let boxParameters = document.querySelectorAll('.oninput');
 let elements = document.querySelector('.elements');
 let buttonAdd = document.querySelector('.add');
-let flexGrow = document.querySelectorAll('.flex-grow');
-let flexShrink = document.querySelectorAll('.flex-shrink');
-let flexBasis = document.querySelectorAll('.flex-basis');
-let idElement = 0, unitWidthOrHeight, compression, extension, op, spbr;
+let irr = document.querySelector('.extension');
+let irs = document.querySelector('.compression');
+let idElement = 0;
 
 const inputParameters = {
 	parent: {
-		"width": "800",
-		"height": "90vh",
+		"width": "200",
 		"flex-direction": "row",
 		"flex-wrap": "nowrap",
 		"justify-content": "flex-start",
 		"align-items": "stretch",
 		"align-content": "stretch",
 	},
-	"element-0": {},
 };
 
-let shk = +inputParameters.parent.width || 0;
+for (let i = 0; i < 2; i++) {
+	addElement();
+}
 
 addToInputParameters();
 
 function addElement() {
 
-	if (idElement < 9) {
-		idElement++;
+	if (idElement < 11) {
+
 		compression = document.querySelector(`s-compression-${idElement}`);
 		extension = document.querySelector(`s-extension-${idElement}`);
 		let fieldset = document.createElement('fieldset');
 		fieldset.classList.add('flex', 'item');
 		fieldset.innerHTML = `<legend>Элемент ${idElement + 1}</legend>
-									 <label for="flex-grow-element-${idElement}" class="element">flex-grow</label>
+									 <label for="flex-grow-element-${idElement}" class="element label-title">flex-grow</label>
 									 <div class="button-background" onclick="removeElement(this)">
 									 	 <button type="button" class="button-element remove"></button>
 									 </div>
 									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" min="0" max="100">
-									 <label for="flex-shrink-element-${idElement}" class="flex-title element">flex-shrink</label>
+									 <label for="flex-shrink-element-${idElement}" class="label-title element">flex-shrink</label>
 									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" min="0" max="100">
-									 <label for="flex-basis-element-${idElement}" class="flex-title element">flex-basis</label>
-									 <input type="text" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" min="0" max="1000">
-									 <label for="margin-element-${idElement}" class="flex-title element">margin</label>
-									 <input type="text" class="number margin-top element element-${idElement} oninput input-child" id="margin-top-${idElement}" placeholder="top">
-									 <input type="text" class="number margin-right element element-${idElement} oninput input-child" id="margin-right-${idElement}" placeholder="right">
-									 <input type="text" class="number margin-bottom element element-${idElement} oninput input-child" id="margin-bottom-${idElement}" placeholder="bottom">
-									 <input type="text" class="number margin-left element element-${idElement} oninput input-child" id="margin-left-${idElement}" placeholder="bottom">
+									 <label for="flex-basis-element-${idElement}" class="label-title element">flex-basis</label>
+									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" min="0" max="1000">
 									 <div class="result">
-										 <span>ИРС: <output name="result" class="s-compression-${idElement}">0</output></span>
-										 <span>ИРР: <output name="result" class="s-extension-${idElement}">0</output></span>
+										 <span>ИРС: <output name="result" class="compression s-compression-${idElement}">NaN</output></span>
+										 <span>ИРР: <output name="result" class="extension s-extension-${idElement}">NaN</output></span>
 									 </div>`;
 		elements.appendChild(fieldset);
-		inputParameters[`element-${idElement}`] = { nks: {}, ir: {} };
+		inputParameters[`element-${idElement}`] = {};
+		idElement++;
 		updateItems();
+		calcFinalSizeSrink();
+		calcFinalSizeGrow();
 	}
-	if (idElement === 9) {
+	if (idElement === 10) {
 		buttonAdd.setAttribute("disabled", "");
 	}
 
@@ -75,9 +72,8 @@ function removeElement(input) {
 function updateItems() {
 
 	boxParameters = document.querySelectorAll('.oninput');
-	flexGrow = document.querySelectorAll('.flex-grow');
-	flexShrink = document.querySelectorAll('.flex-shrink');
-	flexBasis = document.querySelectorAll('.flex-basis');
+	irr = document.querySelectorAll('.extension');
+	irs = document.querySelectorAll('.compression');
 	addToInputParameters();
 
 }
@@ -90,6 +86,7 @@ function addToInputParameters() {
 
 			joinFlexObject(boxPatameter);
 			calcFinalSizeSrink();
+			calcFinalSizeGrow();
 
 		}
 	}
@@ -97,13 +94,21 @@ function addToInputParameters() {
 
 function joinFlexObject(boxPatameter) {
 
-	inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
-
 	for (let i = 0; i <= idElement; i++) {
 
-		if (+boxPatameter.getAttribute('id').replace(/[^0-9]/g, '') === i) {
-			inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = boxPatameter.value;
+		if (+boxPatameter.getAttribute('id').slice(-1) === i) {
+			inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
 			calcFinalSizeSrink();
+			calcFinalSizeGrow();
+			showIrsIrr();
+			break;
+		}
+
+		if (boxPatameter.classList.contains("input-parent")) {
+			inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
+			calcFinalSizeSrink();
+			calcFinalSizeGrow();
+			showIrsIrr();
 			break;
 		}
 
@@ -113,51 +118,68 @@ function joinFlexObject(boxPatameter) {
 
 function calcFinalSizeSrink() {
 
+	// op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
+	inputParameters.op = +inputParameters.parent.width
+		- ((inputParameters[`element-0`]?.["flex-basis"] || 0) + (inputParameters[`element-1`]?.["flex-basis"] || 0)
+			+ (inputParameters[`element-2`]?.["flex-basis"] || 0) + (inputParameters[`element-3`]?.["flex-basis"] || 0)
+			+ (inputParameters[`element-4`]?.["flex-basis"] || 0) + (inputParameters[`element-5`]?.["flex-basis"] || 0)
+			+ (inputParameters[`element-6`]?.["flex-basis"] || 0) + (inputParameters[`element-7`]?.["flex-basis"] || 0)
+			+ (inputParameters[`element-8`]?.["flex-basis"] || 0) + (inputParameters[`element-9`]?.["flex-basis"] || 0));
+
+	// spbr (сумма произведений базовых размеров) = (flex-basis-1 * flex-shrink-1) + ... + (flex-basis-n * flex-shrink-n)
+	inputParameters.spbr = (((+inputParameters[`element-0`]?.["flex-basis"] || 0) * (inputParameters[`element-0`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-1`]?.["flex-basis"] || 0) * (inputParameters[`element-1`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-2`]?.["flex-basis"] || 0) * (inputParameters[`element-2`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-3`]?.["flex-basis"] || 0) * (inputParameters[`element-3`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-4`]?.["flex-basis"] || 0) * (inputParameters[`element-4`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-5`]?.["flex-basis"] || 0) * (inputParameters[`element-5`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-6`]?.["flex-basis"] || 0) * (inputParameters[`element-6`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-7`]?.["flex-basis"] || 0) * (inputParameters[`element-7`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-8`]?.["flex-basis"] || 0) * (inputParameters[`element-8`]?.["flex-shrink"] || 0))
+		+ ((inputParameters[`element-9`]?.["flex-basis"] || 0) * (inputParameters[`element-9`]?.["flex-shrink"] || 0)));
+
 	for (let j = 0; j < idElement; j++) {
-		inputParameters.op = +inputParameters.parent.width - ((+inputParameters[`element-${j}`]?.["flex-basis"] || 0) + (+inputParameters[`element-${j + 1}`]?.["flex-basis"] || 0));
+
+		// nks (нормированный коэффициент сжатия элемента) = flex-basis * flex-shrink / spbr (сумма произведений базовых размеров)
+		inputParameters[`element-${j}`].nks = (inputParameters[`element-${j}`]?.["flex-basis"] || 0) * (inputParameters[`element-${j}`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+
+		// irs (итоговый размер после сжатия элемента) = flex-basis - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство)
+		inputParameters[`element-${j}`].irs = Math.abs((inputParameters[`element-${j}`]?.["flex-basis"] || 0)) - Math.abs((inputParameters[`element-${j}`].nks * inputParameters.op));
 	}
 
-	inputParameters.spbr = (((+inputParameters[`element-0`]?.["flex-basis"] || 0) * (+inputParameters[`element-0`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-1`]?.["flex-basis"] || 0) * (+inputParameters[`element-1`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-2`]?.["flex-basis"] || 0) * (+inputParameters[`element-2`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-3`]?.["flex-basis"] || 0) * (+inputParameters[`element-3`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-4`]?.["flex-basis"] || 0) * (+inputParameters[`element-4`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-5`]?.["flex-basis"] || 0) * (+inputParameters[`element-5`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-6`]?.["flex-basis"] || 0) * (+inputParameters[`element-6`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-7`]?.["flex-basis"] || 0) * (+inputParameters[`element-7`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-8`]?.["flex-basis"] || 0) * (+inputParameters[`element-8`]?.["flex-shrink"] || 0))
-		+ ((+inputParameters[`element-9`]?.["flex-basis"] || 0) * (+inputParameters[`element-9`]?.["flex-shrink"] || 0)));
+	// console.log("Отрицательное пространство: " + inputParameters.op);
+	// console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
+	// for (let index = 0; index < idElement; index++) {
+	// 	console.log(`Нормированный коэффициент сжатия ${index + 1}: ${inputParameters[`element-${index}`]?.nks}`);
+	// 	console.log(`Итоговый размер ${index + 1}: ${inputParameters[`element-${index}`]?.ir}`);
+	// }
 
-	for (let k = 0; k <= idElement; k++) {
-		inputParameters[`element-${k}`].nks = (+inputParameters[`element-${k}`]?.["flex-basis"] || 0) * (+inputParameters[`element-${k}`]?.["flex-shrink"] || 0) / inputParameters.spbr;
-		inputParameters[`element-${k}`].ir = Math.abs((+inputParameters[`element-${k}`]?.["flex-basis"] || 0)) - Math.abs((+inputParameters[`element-${k}`].nks * +inputParameters.op));
+}
+
+function calcFinalSizeGrow() {
+
+	// dsm (доля свободного места) = op (оставшееся пространство) / (flex-grow-1 + flex-grow-2 + ... + flex-grow-n)
+	inputParameters.dsm = Math.abs(inputParameters.op)
+		/ ((+inputParameters[`element-0`]?.["flex-grow"] || 0) + (inputParameters[`element-1`]?.["flex-grow"] || 0)
+			+ (inputParameters[`element-2`]?.["flex-grow"] || 0) + (inputParameters[`element-5`]?.["flex-grow"] || 0)
+			+ (inputParameters[`element-6`]?.["flex-grow"] || 0) + (inputParameters[`element-7`]?.["flex-grow"] || 0)
+			+ (inputParameters[`element-8`]?.["flex-grow"] || 0) + (inputParameters[`element-9`]?.["flex-grow"] || 0));
+
+	for (let k = 0; k < idElement; k++) {
+
+		// irr (итоговый размер расширения элемента) = flex-basis + dsm (доля свободного места) * flex-grow
+		inputParameters[`element-${k}`].irr = (inputParameters[`element-${k}`]?.["flex-basis"] || 0) + inputParameters.dsm * (inputParameters[`element-${k}`]?.["flex-grow"] || 0);
 	}
 
-	console.log("Отрицательное пространство: " + inputParameters.op);
-	console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
-	console.log("Нормированный коэффициент сжатия 1: " + inputParameters[`element-0`]?.nks);
-	console.log("Нормированный коэффициент сжатия 2: " + inputParameters[`element-1`]?.nks);
-	console.log("Нормированный коэффициент сжатия 3: " + inputParameters[`element-2`]?.nks);
-	console.log("Нормированный коэффициент сжатия 4: " + inputParameters[`element-3`]?.nks);
-	console.log("Нормированный коэффициент сжатия 5: " + inputParameters[`element-4`]?.nks);
-	console.log("Нормированный коэффициент сжатия 6: " + inputParameters[`element-5`]?.nks);
-	console.log("Нормированный коэффициент сжатия 7: " + inputParameters[`element-6`]?.nks);
-	console.log("Нормированный коэффициент сжатия 8: " + inputParameters[`element-7`]?.nks);
-	console.log("Нормированный коэффициент сжатия 9: " + inputParameters[`element-8`]?.nks);
-	console.log("Нормированный коэффициент сжатия 10: " + inputParameters[`element-9`]?.nks);
-	console.log("Итоговый размер 1: " + inputParameters[`element-0`]?.ir);
-	console.log("Итоговый размер 2: " + inputParameters[`element-1`]?.ir);
-	console.log("Итоговый размер 3: " + inputParameters[`element-2`]?.ir);
-	console.log("Итоговый размер 4: " + inputParameters[`element-3`]?.ir);
-	console.log("Итоговый размер 5: " + inputParameters[`element-4`]?.ir);
-	console.log("Итоговый размер 6: " + inputParameters[`element-5`]?.ir);
-	console.log("Итоговый размер 7: " + inputParameters[`element-6`]?.ir);
-	console.log("Итоговый размер 8: " + inputParameters[`element-7`]?.ir);
-	console.log("Итоговый размер 9: " + inputParameters[`element-8`]?.ir);
-	console.log("Итоговый размер 10: " + inputParameters[`element-9`]?.ir);
+}
 
+function showIrsIrr() {
 
-	console.log(inputParameters);
+	for (let index = 0; index < idElement; index++) {
+		irs[index].textContent = Math.round(inputParameters[`element-${index}`].irs);
+		irr[index].textContent = Math.round(inputParameters[`element-${index}`].irr);
+	}
+
 }
 
 // setInterval(function() {

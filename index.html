@@ -14,33 +14,22 @@
 		<section class="parameters">
 			<fieldset class="flex box-parent main-fieldset">
 				<legend>Параметры родителя</legend>
-				<label for="width-container" class="flex-title element">Ширина</label>
-				<input type="number" class="number element oninput input-parent" id="width" min="100" max="2000" value="100">
-				<select name="unit" id="width-parent" class="unit width-unit element oninput input-parent">
-					<option value="%" selected>%</option>
-					<option value="px">px</option>
-				</select>
-				<label for="height-container" class="flex-title element">Высота</label>
-				<input type="number" class="number element oninput input-parent" id="height" min="100" max="1000" value="100">
-				<select name="unit" id="height-parent" class="unit height-unit element oninput input-parent">
-					<option value="vh" selected>vh</option>
-					<option value="%">%</option>
-					<option value="px">px</option>
-				</select>
-				<label for="flex-direction" class="element">flex-direction</label>
+				<label for="width-container" class="label-title element">Ширина</label>
+				<input type="number" class="number element oninput input-parent" id="width" min="100" max="2000" value="200">
+				<label for="flex-direction" class="element label-title">flex-direction</label>
 				<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 					<option value="row" selected>row</option>
 					<option value="row-reverse">row-reverse</option>
 					<option value="column">column</option>
 					<option value="column-reverse">column-reverse</option>
 				</select>
-				<label for="flex-wrap" class="element">flex-wrap</label>
+				<label for="flex-wrap" class="element label-title">flex-wrap</label>
 				<select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
 					<option value="nowrap" selected>nowrap</option>
 					<option value="wrap">wrap</option>
 					<option value="wrap-reverse">wrap-reverse</option>
 				</select>
-				<label for="justify-content" class="element">justify-content</label>
+				<label for="justify-content" class="element label-title">justify-content</label>
 				<select name="justify-content" id="justify-content" class="value element oninput input-parent">
 					<option value="flex-start" selected>flex-start</option>
 					<option value="flex-end">flex-end</option>
@@ -49,7 +38,7 @@
 					<option value="space-around">space-around</option>
 					<option value="space-evenly">space-evenly</option>
 				</select>
-				<label for="align-items" class="element">align-items</label>
+				<label for="align-items" class="element label-title">align-items</label>
 				<select name="align-items" id="align-items" class="value element oninput input-parent">
 					<option value="stretch" selected>stretch</option>
 					<option value="flex-start">flex-start</option>
@@ -57,7 +46,7 @@
 					<option value="center">center</option>
 					<option value="baseline">baseline</option>
 				</select>
-				<label for="align-content" class="element">align-content</label>
+				<label for="align-content" class="element label-title">align-content</label>
 				<select name="align-content" id="align-content" class="value element oninput input-parent">
 					<option value="stretch" selected>stretch</option>
 					<option value="flex-start">flex-start</option>
@@ -73,24 +62,6 @@
 				<div class="button-background">
 					<button type="button" class="button-element add" onclick="addElement()"></button>
 				</div>
-				<fieldset class="flex item">
-					<legend>Элемент 1</legend>
-					<label for="flex-grow-0" class="element">flex-grow</label>
-					<input type="number" class="number flex-grow element element-0 oninput input-child" id="flex-grow-0" min="0" max="100">
-					<label for="flex-shrink-0" class="flex-title element">flex-shrink</label>
-					<input type="number" class="number flex-shrink element element-0 oninput input-child" id="flex-shrink-0" min="0" max="100">
-					<label for="flex-basis-0" class="flex-title element">flex-basis</label>
-					<input type="text" class="number flex-basis element element-0 oninput input-child" id="flex-basis-0" min="0" max="1000">
-					<label for="margin-element-0" class="flex-title element">margin</label>
-					<input type="text" class="number margin-top element element-0 oninput input-child" id="margin-top-0" placeholder="top">
-					<input type="text" class="number margin-right element element-0 oninput input-child" id="margin-right-0" placeholder="right">
-					<input type="text" class="number margin-bottom element element-0 oninput input-child" id="margin-bottom-0" placeholder="bottom">
-					<input type="text" class="number margin-left element element-0 oninput input-child" id="margin-left-0" placeholder="left">
-					<div class="result">
-						<span>ИРС: <output name="result" class="s-compression-1">0</output></span>
-						<span>ИРР: <output name="result" class="s-extension-1">0</output></span>
-					</div>
-				</fieldset>
 			</fieldset>
 		</section>
 		<div id="main"></div>
