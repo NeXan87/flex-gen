@@ -3,8 +3,10 @@
 let boxParameters = document.querySelectorAll('.oninput');
 let elements = document.querySelector('.elements');
 let buttonAdd = document.querySelector('.add');
-let irr = document.querySelector('.extension');
-let irs = document.querySelector('.compression');
+let nks = document.querySelectorAll('.nks');
+let dsm = document.querySelectorAll('.dsm');
+let irr = document.querySelectorAll('.irr');
+let irs = document.querySelectorAll('.irs');
 let idElement = 0;
 
 const inputParameters = {
@@ -42,9 +44,11 @@ function addElement() {
 									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" min="0" max="100">
 									 <label for="flex-basis-element-${idElement}" class="label-title element">flex-basis</label>
 									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" min="0" max="1000">
-									 <div class="result">
-										 <span>ИРС: <output name="result" class="compression s-compression-${idElement}">NaN</output></span>
-										 <span>ИРР: <output name="result" class="extension s-extension-${idElement}">NaN</output></span>
+									 <div class="result-box">
+										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}">NaN</output></div>
+										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}">NaN</output></div>
+										 <div class="result-item">ДСМ<output name="result" class="dsm result-${idElement}">NaN</output></div>
+										 <div class="result-item">ИРР<output name="result" class="irr result-${idElement}">NaN</output></div>
 									 </div>`;
 		elements.appendChild(fieldset);
 		inputParameters[`element-${idElement}`] = {};
@@ -72,8 +76,10 @@ function removeElement(input) {
 function updateItems() {
 
 	boxParameters = document.querySelectorAll('.oninput');
-	irr = document.querySelectorAll('.extension');
-	irs = document.querySelectorAll('.compression');
+	nks = document.querySelectorAll('.nks');
+	dsm = document.querySelectorAll('.dsm');
+	irr = document.querySelectorAll('.irr');
+	irs = document.querySelectorAll('.irs');
 	addToInputParameters();
 
 }
@@ -91,7 +97,7 @@ function addToInputParameters() {
 		}
 	}
 }
-
+console.log(inputParameters);
 function joinFlexObject(boxPatameter) {
 
 	for (let i = 0; i <= idElement; i++) {
@@ -100,7 +106,6 @@ function joinFlexObject(boxPatameter) {
 			inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
 			calcFinalSizeSrink();
 			calcFinalSizeGrow();
-			showIrsIrr();
 			break;
 		}
 
@@ -108,7 +113,6 @@ function joinFlexObject(boxPatameter) {
 			inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
 			calcFinalSizeSrink();
 			calcFinalSizeGrow();
-			showIrsIrr();
 			break;
 		}
 
@@ -147,12 +151,6 @@ function calcFinalSizeSrink() {
 		inputParameters[`element-${j}`].irs = Math.abs((inputParameters[`element-${j}`]?.["flex-basis"] || 0)) - Math.abs((inputParameters[`element-${j}`].nks * inputParameters.op));
 	}
 
-	// console.log("Отрицательное пространство: " + inputParameters.op);
-	// console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
-	// for (let index = 0; index < idElement; index++) {
-	// 	console.log(`Нормированный коэффициент сжатия ${index + 1}: ${inputParameters[`element-${index}`]?.nks}`);
-	// 	console.log(`Итоговый размер ${index + 1}: ${inputParameters[`element-${index}`]?.ir}`);
-	// }
 
 }
 
@@ -171,13 +169,76 @@ function calcFinalSizeGrow() {
 		inputParameters[`element-${k}`].irr = (inputParameters[`element-${k}`]?.["flex-basis"] || 0) + inputParameters.dsm * (inputParameters[`element-${k}`]?.["flex-grow"] || 0);
 	}
 
+	showIrsIrr();
+
+	// console.log("Отрицательное пространство: " + inputParameters.op);
+	// console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
+	// for (let index = 0; index < idElement; index++) {
+	// 	console.log(`Доля свободного места ${index + 1}: ${inputParameters.dsm}`);
+	// 	console.log(`Нормированный коэффициент сжатия ${index + 1}: ${inputParameters[`element-${index}`]?.nks}`);
+	// 	console.log(`Итоговый размер после растяжения ${index + 1}: ${inputParameters[`element-${index}`]?.irr}`);
+	// 	console.log(`Итоговый размер после сжатия ${index + 1}: ${inputParameters[`element-${index}`]?.irs}`);
+	// }
+	// console.log(inputParameters);
 }
 
 function showIrsIrr() {
 
 	for (let index = 0; index < idElement; index++) {
-		irs[index].textContent = Math.round(inputParameters[`element-${index}`].irs);
-		irr[index].textContent = Math.round(inputParameters[`element-${index}`].irr);
+
+		nks[index].textContent = Math.floor(inputParameters[`element-${index}`]?.nks * 10) / 10;
+		irs[index].textContent = Math.round(inputParameters[`element-${index}`]?.irs);
+		dsm[index].textContent = Math.floor(inputParameters.dsm * 10) / 10;
+		irr[index].textContent = Math.round(inputParameters[`element-${index}`]?.irr);
+
+		if (nks[index].textContent === "NaN") {
+			nks[index].style.color = "#CC0000";
+			nks[index].textContent = "NOT";
+		} else {
+			nks[index].style.color = null;
+		}
+
+		if (irs[index].textContent === "NaN" || irs[index].textContent > 1000 || irs[index].textContent < 0) {
+			irs[index].style.color = "#CC0000";
+			if (irs[index].textContent > 1000) {
+				irs[index].textContent = "MAX";
+			} else if (irs[index].textContent < 0) {
+				irs[index].textContent = "MIN";
+			} else {
+				irs[index].textContent = "NOT";
+			}
+		} else {
+			irs[index].style.color = null;
+		}
+
+		if (dsm[index].textContent === "NaN" || dsm[index].textContent === Infinity || dsm[index].textContent > 1000 || dsm[index].textContent < 0) {
+			dsm[index].style.color = "#CC0000";
+			if (inputParameters.dsm === Infinity) {
+				dsm[index].textContent = "NOT";
+			} else if (dsm[index].textContent > 1000) {
+				dsm[index].textContent = "MAX";
+			} else if (dsm[index].textContent < 0) {
+				dsm[index].textContent = "MIN";
+			} else {
+				dsm[index].textContent = "NOT";
+			}
+		} else {
+			dsm[index].style.color = null;
+		}
+
+		if (irr[index].textContent === "NaN" || irr[index].textContent > 1000 || irr[index].textContent < 0) {
+			irr[index].style.color = "#CC0000";
+			if (irr[index].textContent > 1000) {
+				irr[index].textContent = "MAX";
+			} else if (irr[index].textContent < 0) {
+				irr[index].textContent = "MIN";
+			} else {
+				irr[index].textContent = "NOT";
+			}
+		} else {
+			irr[index].style.color = null;
+		}
+
 	}
 
 }
