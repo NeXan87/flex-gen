@@ -30,9 +30,7 @@ html {
 
 body {
 	background-color: #f8f8f8;
-	font-family: Verdana,
-		Geneva,
-		sans-serif;
+	font-family: Verdana, Geneva, sans-serif;
 	font-size: 14px;
 }
 
@@ -72,22 +70,68 @@ fieldset:not(:last-child) {
 	margin-bottom: 10px;
 }
 
+h1 {
+	font-size: 22px;
+	line-height: 28px;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
 legend {
 	font-weight: bold;
 	padding: 0 5px;
 }
 
-.parameters {
+main {
+	display: grid;
+	grid-template-columns: 290px minmax(300px, 1fr) 300px;
+	grid-template-rows: auto 1fr 150px;
+	gap: 20px;
+}
+
+section {
 	background-color: #fff;
-	width: 250px;
-	margin: 20px;
 	padding: 5px 10px 10px 10px;
 	border-radius: 5px;
+	border: 1px solid #d5d5d5;
+}
+
+.main-header {
+	grid-column: 1 / 4;
+	grid-row-start: 1;
+	background-color: #028e4a;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	height: 50px;
+}
+
+.parameters {
+	width: 250px;
 	overflow-y: auto;
 	overflow-x: hidden;
-	max-height: 92vh;
+	max-height: 100vh;
 	box-sizing: content-box;
-	border: 1px solid #d5d5d5;
+	justify-self: end;
+	grid-row: 2 / 4;
+	grid-column-start: 1;
+}
+
+.preview {
+	grid-column-start: 2;
+	grid-row-start: 2;
+}
+
+.legend {
+	grid-column-start: 2;
+	grid-row-start: 3;
+}
+
+.css-styles {
+	grid-column-start: 3;
+	grid-row: 2 / 4;
+	justify-self: left;
+	width: 280px;
+	font-family: 'Courier New', Courier, monospace;
 }
 
 .flex {
@@ -198,9 +242,14 @@ legend {
 
 .result-box {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	width: 100%;
+}
+
+.result-item.general {
+	display: block;
+	margin: 10px 0 13px 3px;
 }
 
 .result-item {

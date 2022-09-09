@@ -6,16 +6,21 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=no">
 	<link rel="stylesheet" href="style.css">
-	<title>Онлайн-калькулятор FlexBox - flex-grow и flex-shrink</title>
+	<title>Онлайн калькулятор FlexBox с предпросмотром</title>
+	<meta name="description" content="С помощью онлайн калькулятора FlexBox вы можете гибко рассчитать количество flex-элементов и посмотреть, как они будут выглядеть на практике">
 </head>
 
 <body>
 	<main>
+		<header class="main-header">
+			<h1>Онлайн калькулятор FlexBox с предпросмотром</h1>
+		</header>
 		<section class="parameters">
 			<fieldset class="flex box-parent main-fieldset">
 				<legend>Параметры родителя</legend>
 				<label for="width-container" class="label-title element">Ширина</label>
-				<input type="number" class="number element oninput input-parent" id="width" min="100" max="2000" value="200">
+				<input type="number" class="number element oninput input-parent" id="width" min="300" max="1000" value="200"
+					placeholder="300-1000px">
 				<label for="flex-direction" class="element label-title">flex-direction</label>
 				<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 					<option value="row" selected>row</option>
@@ -62,9 +67,12 @@
 				<div class="button-background">
 					<button type="button" class="button-element add" onclick="addElement()"></button>
 				</div>
+				<div class="result-item general">Доля свободного места: <output name="result" class="dsm">NaN</output></div>
 			</fieldset>
 		</section>
-		<div id="main"></div>
+		<section class="preview"></section>
+		<section class="legend"></section>
+		<section class="css-styles"></section>
 	</main>
 	<script src="script.js"></script>
 </body>

@@ -1,13 +1,8 @@
 "use script"
 
-let boxParameters = document.querySelectorAll('.oninput');
 let elements = document.querySelector('.elements');
 let buttonAdd = document.querySelector('.add');
-let nks = document.querySelectorAll('.nks');
-let dsm = document.querySelectorAll('.dsm');
-let irr = document.querySelectorAll('.irr');
-let irs = document.querySelectorAll('.irs');
-let idElement = 0;
+let boxParameters, nks, dsm, irr, irs, idElement = 0;
 
 const inputParameters = {
 	parent: {
@@ -30,8 +25,6 @@ function addElement() {
 
 	if (idElement < 11) {
 
-		compression = document.querySelector(`s-compression-${idElement}`);
-		extension = document.querySelector(`s-extension-${idElement}`);
 		let fieldset = document.createElement('fieldset');
 		fieldset.classList.add('flex', 'item');
 		fieldset.innerHTML = `<legend>Элемент ${idElement + 1}</legend>
@@ -47,7 +40,7 @@ function addElement() {
 									 <div class="result-box">
 										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}">NaN</output></div>
 										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}">NaN</output></div>
-										 <div class="result-item">ДСМ<output name="result" class="dsm result-${idElement}">NaN</output></div>
+
 										 <div class="result-item">ИРР<output name="result" class="irr result-${idElement}">NaN</output></div>
 									 </div>`;
 		elements.appendChild(fieldset);
@@ -77,7 +70,7 @@ function updateItems() {
 
 	boxParameters = document.querySelectorAll('.oninput');
 	nks = document.querySelectorAll('.nks');
-	dsm = document.querySelectorAll('.dsm');
+	dsm = document.querySelector('.dsm');
 	irr = document.querySelectorAll('.irr');
 	irs = document.querySelectorAll('.irs');
 	addToInputParameters();
@@ -97,7 +90,7 @@ function addToInputParameters() {
 		}
 	}
 }
-console.log(inputParameters);
+
 function joinFlexObject(boxPatameter) {
 
 	for (let i = 0; i <= idElement; i++) {
@@ -184,11 +177,27 @@ function calcFinalSizeGrow() {
 
 function showIrsIrr() {
 
+	dsm.textContent = Math.floor(inputParameters.dsm * 10) / 10;
+
+	if (dsm.textContent === "NaN" || dsm.textContent === Infinity || dsm.textContent > 1000 || dsm.textContent < 0) {
+		dsm.style.color = "#CC0000";
+		if (inputParameters.dsm === Infinity) {
+			dsm.textContent = "NOT";
+		} else if (dsm.textContent > 1000) {
+			dsm.textContent = "MAX";
+		} else if (dsm.textContent < 0) {
+			dsm.textContent = "MIN";
+		} else {
+			dsm.textContent = "NOT";
+		}
+	} else {
+		dsm.style.color = null;
+	}
+
 	for (let index = 0; index < idElement; index++) {
 
 		nks[index].textContent = Math.floor(inputParameters[`element-${index}`]?.nks * 10) / 10;
 		irs[index].textContent = Math.round(inputParameters[`element-${index}`]?.irs);
-		dsm[index].textContent = Math.floor(inputParameters.dsm * 10) / 10;
 		irr[index].textContent = Math.round(inputParameters[`element-${index}`]?.irr);
 
 		if (nks[index].textContent === "NaN") {
@@ -209,21 +218,6 @@ function showIrsIrr() {
 			}
 		} else {
 			irs[index].style.color = null;
-		}
-
-		if (dsm[index].textContent === "NaN" || dsm[index].textContent === Infinity || dsm[index].textContent > 1000 || dsm[index].textContent < 0) {
-			dsm[index].style.color = "#CC0000";
-			if (inputParameters.dsm === Infinity) {
-				dsm[index].textContent = "NOT";
-			} else if (dsm[index].textContent > 1000) {
-				dsm[index].textContent = "MAX";
-			} else if (dsm[index].textContent < 0) {
-				dsm[index].textContent = "MIN";
-			} else {
-				dsm[index].textContent = "NOT";
-			}
-		} else {
-			dsm[index].style.color = null;
 		}
 
 		if (irr[index].textContent === "NaN" || irr[index].textContent > 1000 || irr[index].textContent < 0) {
