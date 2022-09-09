@@ -6,69 +6,73 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=no">
 	<link rel="stylesheet" href="style.css">
-	<title>Онлайн калькулятор FlexBox с предпросмотром</title>
-	<meta name="description" content="С помощью онлайн калькулятора FlexBox вы можете гибко рассчитать количество flex-элементов и посмотреть, как они будут выглядеть на практике">
+	<title>Онлайн конструктор FlexBox с калькулятором и предпросмотром</title>
+	<meta name="description"
+		content="С помощью онлайн калькулятора FlexBox вы можете гибко рассчитать количество flex-элементов и посмотреть, как они будут выглядеть на практике">
 </head>
 
 <body>
 	<main>
 		<header class="main-header">
-			<h1>Онлайн калькулятор FlexBox с предпросмотром</h1>
+			<h1>Онлайн конструктор FlexBox с калькулятором и предпросмотром</h1>
 		</header>
 		<section class="parameters">
-			<fieldset class="flex box-parent main-fieldset">
-				<legend>Параметры родителя</legend>
-				<label for="width-container" class="label-title element">Ширина</label>
-				<input type="number" class="number element oninput input-parent" id="width" min="300" max="1000" value="200"
-					placeholder="300-1000px">
-				<label for="flex-direction" class="element label-title">flex-direction</label>
-				<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
-					<option value="row" selected>row</option>
-					<option value="row-reverse">row-reverse</option>
-					<option value="column">column</option>
-					<option value="column-reverse">column-reverse</option>
-				</select>
-				<label for="flex-wrap" class="element label-title">flex-wrap</label>
-				<select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
-					<option value="nowrap" selected>nowrap</option>
-					<option value="wrap">wrap</option>
-					<option value="wrap-reverse">wrap-reverse</option>
-				</select>
-				<label for="justify-content" class="element label-title">justify-content</label>
-				<select name="justify-content" id="justify-content" class="value element oninput input-parent">
-					<option value="flex-start" selected>flex-start</option>
-					<option value="flex-end">flex-end</option>
-					<option value="center">center</option>
-					<option value="space-between">space-between</option>
-					<option value="space-around">space-around</option>
-					<option value="space-evenly">space-evenly</option>
-				</select>
-				<label for="align-items" class="element label-title">align-items</label>
-				<select name="align-items" id="align-items" class="value element oninput input-parent">
-					<option value="stretch" selected>stretch</option>
-					<option value="flex-start">flex-start</option>
-					<option value="flex-end">flex-end</option>
-					<option value="center">center</option>
-					<option value="baseline">baseline</option>
-				</select>
-				<label for="align-content" class="element label-title">align-content</label>
-				<select name="align-content" id="align-content" class="value element oninput input-parent">
-					<option value="stretch" selected>stretch</option>
-					<option value="flex-start">flex-start</option>
-					<option value="flex-end">flex-end</option>
-					<option value="center">center</option>
-					<option value="space-between">space-between</option>
-					<option value="space-around">space-around</option>
-					<option value="space-evenly">space-evenly</option>
-				</select>
-			</fieldset>
-			<fieldset class="elements main-fieldset">
-				<legend>Параметры элементов</legend>
-				<div class="button-background">
-					<button type="button" class="button-element add" onclick="addElement()"></button>
-				</div>
-				<div class="result-item general">Доля свободного места: <output name="result" class="dsm">NaN</output></div>
-			</fieldset>
+			<div class="pad">
+				<fieldset class="flex box-parent main-fieldset">
+					<legend>Параметры родителя</legend>
+					<label for="width-container" class="label-title element">Ширина</label>
+					<input type="number" class="number element oninput input-parent" id="width" min="300" max="1000"
+						value="200" placeholder="300-1000px">
+					<label for="flex-direction" class="element label-title">flex-direction</label>
+					<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
+						<option value="row" selected>row</option>
+						<option value="row-reverse">row-reverse</option>
+						<option value="column">column</option>
+						<option value="column-reverse">column-reverse</option>
+					</select>
+					<label for="flex-wrap" class="element label-title">flex-wrap</label>
+					<select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
+						<option value="nowrap" selected>nowrap</option>
+						<option value="wrap">wrap</option>
+						<option value="wrap-reverse">wrap-reverse</option>
+					</select>
+					<label for="justify-content" class="element label-title">justify-content</label>
+					<select name="justify-content" id="justify-content" class="value element oninput input-parent">
+						<option value="flex-start" selected>flex-start</option>
+						<option value="flex-end">flex-end</option>
+						<option value="center">center</option>
+						<option value="space-between">space-between</option>
+						<option value="space-around">space-around</option>
+						<option value="space-evenly">space-evenly</option>
+					</select>
+					<label for="align-items" class="element label-title">align-items</label>
+					<select name="align-items" id="align-items" class="value element oninput input-parent">
+						<option value="stretch" selected>stretch</option>
+						<option value="flex-start">flex-start</option>
+						<option value="flex-end">flex-end</option>
+						<option value="center">center</option>
+						<option value="baseline">baseline</option>
+					</select>
+					<label for="align-content" class="element label-title">align-content</label>
+					<select name="align-content" id="align-content" class="value element oninput input-parent">
+						<option value="stretch" selected>stretch</option>
+						<option value="flex-start">flex-start</option>
+						<option value="flex-end">flex-end</option>
+						<option value="center">center</option>
+						<option value="space-between">space-between</option>
+						<option value="space-around">space-around</option>
+						<option value="space-evenly">space-evenly</option>
+					</select>
+				</fieldset>
+				<fieldset class="elements main-fieldset">
+					<legend>Параметры элементов</legend>
+					<div class="button-background">
+						<button type="button" class="button-element add" onclick="addElement()"></button>
+					</div>
+					<div class="result-item general">Доля свободного места: <output name="result" class="dsm">NaN</output>
+					</div>
+				</fieldset>
+			</div>
 		</section>
 		<section class="preview"></section>
 		<section class="legend"></section>
