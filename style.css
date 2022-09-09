@@ -46,21 +46,6 @@ select:focus {
 	outline: none;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
-
-input[type="number"] {
-	-moz-appearance: textfield;
-}
-
-input[type="number"]:hover,
-input[type="number"]:focus {
-	-moz-appearance: number-input;
-}
-
 fieldset {
 	padding: 5px 10px 10px 10px;
 	border-radius: 5px;
@@ -105,7 +90,7 @@ section.parameters {
 	border-radius: 0;
 }
 
-.pad{
+.pad {
 	background-color: #fff;
 	padding: 5px 10px 10px 10px;
 	border: 1px solid #d5d5d5;
@@ -168,19 +153,28 @@ section.parameters {
 	width: 250px;
 }
 
+.box-parent .number {
+	flex-basis: 116px;
+	max-width: 116px;
+}
+
 .label-title {
 	flex-basis: 105px;
 	flex-grow: 1;
 }
 
-.input-parent,
-.input-child {
-	flex-basis: 100px;
-	flex-grow: 3;
+.elements .label-title {
+	flex-basis: 80px;
 }
 
-.input-child {
+.elements .number {
 	flex-basis: 90px;
+	max-width: 90px;
+}
+
+.input-parent {
+	flex-basis: 100px;
+	flex-grow: 3;
 }
 
 .elements,
@@ -197,7 +191,7 @@ section.parameters {
 }
 
 .number {
-	padding: 0 5px;
+	padding-left: 5px;
 	text-align: right;
 }
 

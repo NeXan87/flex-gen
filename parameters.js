@@ -27,16 +27,16 @@ function addElement() {
 
 		let fieldset = document.createElement('fieldset');
 		fieldset.classList.add('flex', 'item');
-		fieldset.innerHTML = `<legend>Элемент ${idElement + 1}</legend>
-									 <label for="flex-grow-element-${idElement}" class="element label-title">flex-grow</label>
-									 <div class="button-background" onclick="removeElement(this)">
+		fieldset.innerHTML = `<div class="button-background" onclick="removeElement(this)">
 									 	 <button type="button" class="button-element remove"></button>
 									 </div>
-									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" min="0" max="100">
+									 <legend>Элемент ${idElement + 1}</legend>
+									 <label for="flex-grow-element-${idElement}" class="element label-title">flex-grow</label>
+									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
 									 <label for="flex-shrink-element-${idElement}" class="label-title element">flex-shrink</label>
-									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" min="0" max="100">
+									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
 									 <label for="flex-basis-element-${idElement}" class="label-title element">flex-basis</label>
-									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" min="0" max="1000">
+									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}"placeholder="0-1000px">
 									 <div class="result-box">
 										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}">NaN</output></div>
 										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}">NaN</output></div>
@@ -53,15 +53,17 @@ function addElement() {
 	if (idElement === 10) {
 		buttonAdd.setAttribute("disabled", "");
 	}
-
 }
 
 function removeElement(input) {
 
-	delete inputParameters[`element-${idElement}`];
+	delete inputParameters[`element-${idElement - 1}`];
+	console.log(`element-${idElement}`);
 	elements.removeChild(input.parentNode);
 	buttonAdd.removeAttribute("disabled", "");
 	idElement--;
+	calcFinalSizeSrink();
+	calcFinalSizeGrow();
 	updateItems();
 
 }
@@ -69,10 +71,10 @@ function removeElement(input) {
 function updateItems() {
 
 	boxParameters = document.querySelectorAll('.oninput');
-	nks = document.querySelectorAll('.nks');
-	dsm = document.querySelector('.dsm');
-	irr = document.querySelectorAll('.irr');
-	irs = document.querySelectorAll('.irs');
+	nks = document.querySelectorAll('.nks');		// nks (нормированный коэффициент сжатия элемента)
+	dsm = document.querySelector('.dsm');			// dsm (доля свободного места)
+	irr = document.querySelectorAll('.irr');		// irr (итоговый размер расширения элемента)
+	irs = document.querySelectorAll('.irs');		// irs (итоговый размер после сжатия элемента)
 	addToInputParameters();
 
 }
@@ -83,40 +85,49 @@ function addToInputParameters() {
 
 		boxPatameter.oninput = function () {
 
-			joinFlexObject(boxPatameter);
+			for (let i = 0; i <= idElement; i++) {
+
+				if (+boxPatameter.getAttribute('id').slice(-1) === i) {
+
+					if (boxPatameter.classList.contains("flex-basis") && boxPatameter.value > 1000) {
+						boxPatameter.value = boxPatameter.value.slice(0, -1);
+					} else if ((boxPatameter.classList.contains("flex-grow") || boxPatameter.classList.contains("flex-shrink")) && boxPatameter.value > 10) {
+						boxPatameter.value = boxPatameter.value.slice(0, -1);
+					} else {
+						inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
+						break;
+					}
+					break;
+
+				} else if (boxPatameter.classList.contains("input-parent") && !boxPatameter.classList.contains("width")) {
+
+					inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
+					break;
+
+				} else if (boxPatameter.classList.contains("width")) {
+
+					if (boxPatameter.value > 1000) {
+						boxPatameter.value = boxPatameter.value.slice(0, -1);
+					} else {
+						inputParameters.parent[boxPatameter.getAttribute('id')] = +boxPatameter.value;
+						break;
+					}
+
+				}
+
+			}
+
 			calcFinalSizeSrink();
 			calcFinalSizeGrow();
 
 		}
 	}
-}
-
-function joinFlexObject(boxPatameter) {
-
-	for (let i = 0; i <= idElement; i++) {
-
-		if (+boxPatameter.getAttribute('id').slice(-1) === i) {
-			inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
-			calcFinalSizeSrink();
-			calcFinalSizeGrow();
-			break;
-		}
-
-		if (boxPatameter.classList.contains("input-parent")) {
-			inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
-			calcFinalSizeSrink();
-			calcFinalSizeGrow();
-			break;
-		}
-
-	}
-
 }
 
 function calcFinalSizeSrink() {
 
 	// op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
-	inputParameters.op = +inputParameters.parent.width
+	inputParameters.op = inputParameters.parent.width
 		- ((inputParameters[`element-0`]?.["flex-basis"] || 0) + (inputParameters[`element-1`]?.["flex-basis"] || 0)
 			+ (inputParameters[`element-2`]?.["flex-basis"] || 0) + (inputParameters[`element-3`]?.["flex-basis"] || 0)
 			+ (inputParameters[`element-4`]?.["flex-basis"] || 0) + (inputParameters[`element-5`]?.["flex-basis"] || 0)
@@ -142,9 +153,8 @@ function calcFinalSizeSrink() {
 
 		// irs (итоговый размер после сжатия элемента) = flex-basis - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство)
 		inputParameters[`element-${j}`].irs = Math.abs((inputParameters[`element-${j}`]?.["flex-basis"] || 0)) - Math.abs((inputParameters[`element-${j}`].nks * inputParameters.op));
+
 	}
-
-
 }
 
 function calcFinalSizeGrow() {
@@ -161,7 +171,7 @@ function calcFinalSizeGrow() {
 		// irr (итоговый размер расширения элемента) = flex-basis + dsm (доля свободного места) * flex-grow
 		inputParameters[`element-${k}`].irr = (inputParameters[`element-${k}`]?.["flex-basis"] || 0) + inputParameters.dsm * (inputParameters[`element-${k}`]?.["flex-grow"] || 0);
 	}
-
+	console.log(inputParameters);
 	showIrsIrr();
 
 	// console.log("Отрицательное пространство: " + inputParameters.op);
@@ -197,8 +207,8 @@ function showIrsIrr() {
 	for (let index = 0; index < idElement; index++) {
 
 		nks[index].textContent = Math.floor(inputParameters[`element-${index}`]?.nks * 10) / 10;
-		irs[index].textContent = Math.round(inputParameters[`element-${index}`]?.irs);
-		irr[index].textContent = Math.round(inputParameters[`element-${index}`]?.irr);
+		irs[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irs)}px`;
+		irr[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irr)}px`;
 
 		if (nks[index].textContent === "NaN") {
 			nks[index].style.color = "#CC0000";
@@ -207,7 +217,7 @@ function showIrsIrr() {
 			nks[index].style.color = null;
 		}
 
-		if (irs[index].textContent === "NaN" || irs[index].textContent > 1000 || irs[index].textContent < 0) {
+		if (irs[index].textContent === "NaNpx" || irs[index].textContent > 1000 || irs[index].textContent < 0) {
 			irs[index].style.color = "#CC0000";
 			if (irs[index].textContent > 1000) {
 				irs[index].textContent = "MAX";
@@ -220,7 +230,7 @@ function showIrsIrr() {
 			irs[index].style.color = null;
 		}
 
-		if (irr[index].textContent === "NaN" || irr[index].textContent > 1000 || irr[index].textContent < 0) {
+		if (irr[index].textContent === "NaNpx" || irr[index].textContent > 1000 || irr[index].textContent < 0) {
 			irr[index].style.color = "#CC0000";
 			if (irr[index].textContent > 1000) {
 				irr[index].textContent = "MAX";
@@ -234,9 +244,4 @@ function showIrsIrr() {
 		}
 
 	}
-
 }
-
-// setInterval(function() {
-// 	console.log('1');
-// }, 1000);
