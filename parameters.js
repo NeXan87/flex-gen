@@ -1,7 +1,8 @@
 "use script"
 
 let elements = document.querySelector('.elements');
-let buttonAdd = document.querySelector('.add');
+const buttonAdd = document.querySelector('.add');
+let preview = document.querySelector('.preview-box');
 let boxParameters, op, nks, dsm, irr, irs, idElement = 0;
 
 const inputParameters = {
@@ -19,6 +20,8 @@ for (let i = 0; i < 2; i++) {
 	addElement();
 }
 
+showPreview();
+
 function addElement() {
 
 	if (idElement < 11) {
@@ -30,9 +33,9 @@ function addElement() {
 									 </div>
 									 <legend>Элемент ${idElement + 1}</legend>
 									 <label for="flex-grow-element-${idElement}" class="element label-title">flex-grow</label>
-									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
+									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-1000">
 									 <label for="flex-shrink-element-${idElement}" class="label-title element">flex-shrink</label>
-									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
+									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-1000">
 									 <label for="flex-basis-element-${idElement}" class="label-title element">flex-basis</label>
 									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}"placeholder="0-1000px">
 									 <div class="result-box">
@@ -87,13 +90,13 @@ function addToInputParameters() {
 
 				if (+boxPatameter.getAttribute('id').slice(-1) === i) {
 
-						if (boxPatameter.value > 1000) {
-							boxPatameter.value = boxPatameter.value.slice(0, -1);
-						} else if (boxPatameter.value < 0) {
-							boxPatameter.value = 0;
-						} else {
-							inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
-						}
+					if (boxPatameter.value > 1000) {
+						boxPatameter.value = boxPatameter.value.slice(0, -1);
+					} else if (boxPatameter.value < 0) {
+						boxPatameter.value = 0;
+					} else {
+						inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
+					}
 					break;
 
 				}
@@ -112,6 +115,7 @@ function addToInputParameters() {
 
 			calcFinalSizeSrink();
 			calcFinalSizeGrow();
+			showPreview();
 
 		}
 	}
@@ -247,4 +251,22 @@ function showIrsIrr() {
 		}
 
 	}
+}
+
+function showPreview() {
+
+	preview.style.cssText = `width: ${+inputParameters.parent.width}px;
+									 display: flex;
+									 flex-direction: ${inputParameters.parent["flex-direction"]};
+									 flex-wrap: ${inputParameters.parent["flex-wrap"]};
+									 justify-content: ${inputParameters.parent["justify-content"]};
+									 align-items: ${inputParameters.parent["align-items"]};
+									 align-content: ${inputParameters.parent["align-content"]};`;
+
+	for (let index = 0; index < idElement; index++) {
+		let flexElement = document.createElement('li');
+		// preview.append(flexElement);
+		console.log(flexElement);
+	}
+
 }
