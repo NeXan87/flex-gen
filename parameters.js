@@ -2,24 +2,22 @@
 
 let elements = document.querySelector('.elements');
 let buttonAdd = document.querySelector('.add');
-let boxParameters, nks, dsm, irr, irs, idElement = 0;
+let boxParameters, op, nks, dsm, irr, irs, idElement = 0;
 
 const inputParameters = {
 	parent: {
-		"width": "200",
-		"flex-direction": "row",
-		"flex-wrap": "nowrap",
-		"justify-content": "flex-start",
-		"align-items": "stretch",
-		"align-content": "stretch",
+		"width": document.querySelector("#width").value,
+		"flex-direction": document.querySelector("#flex-direction").value,
+		"flex-wrap": document.querySelector("#flex-wrap").value,
+		"justify-content": document.querySelector("#justify-content").value,
+		"align-items": document.querySelector("#align-items").value,
+		"align-content": document.querySelector("#align-content").value,
 	},
 };
 
 for (let i = 0; i < 2; i++) {
 	addElement();
 }
-
-addToInputParameters();
 
 function addElement() {
 
@@ -38,10 +36,10 @@ function addElement() {
 									 <label for="flex-basis-element-${idElement}" class="label-title element">flex-basis</label>
 									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}"placeholder="0-1000px">
 									 <div class="result-box">
-										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}">NaN</output></div>
-										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}">NaN</output></div>
+										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}"></output></div>
+										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}"></output></div>
 
-										 <div class="result-item">ИРР<output name="result" class="irr result-${idElement}">NaN</output></div>
+										 <div class="result-item">ИРР<output name="result" class="irr result-${idElement}"></output></div>
 									 </div>`;
 		elements.appendChild(fieldset);
 		inputParameters[`element-${idElement}`] = {};
@@ -58,7 +56,6 @@ function addElement() {
 function removeElement(input) {
 
 	delete inputParameters[`element-${idElement - 1}`];
-	console.log(`element-${idElement}`);
 	elements.removeChild(input.parentNode);
 	buttonAdd.removeAttribute("disabled", "");
 	idElement--;
@@ -71,6 +68,7 @@ function removeElement(input) {
 function updateItems() {
 
 	boxParameters = document.querySelectorAll('.oninput');
+	op = document.querySelector('.op');			// op (оставшееся пространство)
 	nks = document.querySelectorAll('.nks');		// nks (нормированный коэффициент сжатия элемента)
 	dsm = document.querySelector('.dsm');			// dsm (доля свободного места)
 	irr = document.querySelectorAll('.irr');		// irr (итоговый размер расширения элемента)
@@ -89,32 +87,27 @@ function addToInputParameters() {
 
 				if (+boxPatameter.getAttribute('id').slice(-1) === i) {
 
-					if (boxPatameter.classList.contains("flex-basis") && boxPatameter.value > 1000) {
-						boxPatameter.value = boxPatameter.value.slice(0, -1);
-					} else if ((boxPatameter.classList.contains("flex-grow") || boxPatameter.classList.contains("flex-shrink")) && boxPatameter.value > 10) {
-						boxPatameter.value = boxPatameter.value.slice(0, -1);
-					} else {
-						inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
-						break;
-					}
+						if (boxPatameter.value > 1000) {
+							boxPatameter.value = boxPatameter.value.slice(0, -1);
+						} else if (boxPatameter.value < 0) {
+							boxPatameter.value = 0;
+						} else {
+							inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = +boxPatameter.value;
+						}
 					break;
-
-				} else if (boxPatameter.classList.contains("input-parent") && !boxPatameter.classList.contains("width")) {
-
-					inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
-					break;
-
-				} else if (boxPatameter.classList.contains("width")) {
-
-					if (boxPatameter.value > 1000) {
-						boxPatameter.value = boxPatameter.value.slice(0, -1);
-					} else {
-						inputParameters.parent[boxPatameter.getAttribute('id')] = +boxPatameter.value;
-						break;
-					}
 
 				}
+			}
 
+			if (boxPatameter.classList.contains("input-parent")) {
+
+				if (boxPatameter.value > 1000) {
+					boxPatameter.value = boxPatameter.value.slice(0, -1);
+				} else if (boxPatameter.value < 0) {
+					boxPatameter.value = 0;
+				} else {
+					inputParameters.parent[boxPatameter.getAttribute('id')] = boxPatameter.value;
+				}
 			}
 
 			calcFinalSizeSrink();
@@ -126,45 +119,48 @@ function addToInputParameters() {
 
 function calcFinalSizeSrink() {
 
-	// op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
-	inputParameters.op = inputParameters.parent.width
-		- ((inputParameters[`element-0`]?.["flex-basis"] || 0) + (inputParameters[`element-1`]?.["flex-basis"] || 0)
-			+ (inputParameters[`element-2`]?.["flex-basis"] || 0) + (inputParameters[`element-3`]?.["flex-basis"] || 0)
-			+ (inputParameters[`element-4`]?.["flex-basis"] || 0) + (inputParameters[`element-5`]?.["flex-basis"] || 0)
-			+ (inputParameters[`element-6`]?.["flex-basis"] || 0) + (inputParameters[`element-7`]?.["flex-basis"] || 0)
-			+ (inputParameters[`element-8`]?.["flex-basis"] || 0) + (inputParameters[`element-9`]?.["flex-basis"] || 0));
+	inputParameters.op = 0;
+	inputParameters.spbr = 0;
 
-	// spbr (сумма произведений базовых размеров) = (flex-basis-1 * flex-shrink-1) + ... + (flex-basis-n * flex-shrink-n)
-	inputParameters.spbr = (((+inputParameters[`element-0`]?.["flex-basis"] || 0) * (inputParameters[`element-0`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-1`]?.["flex-basis"] || 0) * (inputParameters[`element-1`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-2`]?.["flex-basis"] || 0) * (inputParameters[`element-2`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-3`]?.["flex-basis"] || 0) * (inputParameters[`element-3`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-4`]?.["flex-basis"] || 0) * (inputParameters[`element-4`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-5`]?.["flex-basis"] || 0) * (inputParameters[`element-5`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-6`]?.["flex-basis"] || 0) * (inputParameters[`element-6`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-7`]?.["flex-basis"] || 0) * (inputParameters[`element-7`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-8`]?.["flex-basis"] || 0) * (inputParameters[`element-8`]?.["flex-shrink"] || 0))
-		+ ((inputParameters[`element-9`]?.["flex-basis"] || 0) * (inputParameters[`element-9`]?.["flex-shrink"] || 0)));
+	for (let index = 0; index < idElement; index++) {
 
-	for (let j = 0; j < idElement; j++) {
+		// op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
+		inputParameters.op += (inputParameters[`element-${index}`]?.["flex-basis"] || 0);
+
+	}
+
+	inputParameters.op = +inputParameters.parent.width - inputParameters.op;
+
+	for (let index = 0; index < idElement; index++) {
+
+		// spbr (сумма произведений базовых размеров) = (flex-basis-1 * flex-shrink-1) + ... + (flex-basis-n * flex-shrink-n)
+		inputParameters.spbr += (inputParameters[`element-${index}`]?.["flex-basis"] || 0) * (inputParameters[`element-${index}`]?.["flex-shrink"] || 0)
+
+	}
+
+	for (let index = 0; index < idElement; index++) {
 
 		// nks (нормированный коэффициент сжатия элемента) = flex-basis * flex-shrink / spbr (сумма произведений базовых размеров)
-		inputParameters[`element-${j}`].nks = (inputParameters[`element-${j}`]?.["flex-basis"] || 0) * (inputParameters[`element-${j}`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+		inputParameters[`element-${index}`].nks = (inputParameters[`element-${index}`]?.["flex-basis"] || 0) * (inputParameters[`element-${index}`]?.["flex-shrink"] || 0) / inputParameters.spbr;
 
 		// irs (итоговый размер после сжатия элемента) = flex-basis - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство)
-		inputParameters[`element-${j}`].irs = Math.abs((inputParameters[`element-${j}`]?.["flex-basis"] || 0)) - Math.abs((inputParameters[`element-${j}`].nks * inputParameters.op));
+		inputParameters[`element-${index}`].irs = Math.abs((inputParameters[`element-${index}`]?.["flex-basis"] || 0)) - Math.abs((inputParameters[`element-${index}`].nks * inputParameters.op));
 
 	}
 }
 
 function calcFinalSizeGrow() {
 
-	// dsm (доля свободного места) = op (оставшееся пространство) / (flex-grow-1 + flex-grow-2 + ... + flex-grow-n)
-	inputParameters.dsm = Math.abs(inputParameters.op)
-		/ ((+inputParameters[`element-0`]?.["flex-grow"] || 0) + (inputParameters[`element-1`]?.["flex-grow"] || 0)
-			+ (inputParameters[`element-2`]?.["flex-grow"] || 0) + (inputParameters[`element-5`]?.["flex-grow"] || 0)
-			+ (inputParameters[`element-6`]?.["flex-grow"] || 0) + (inputParameters[`element-7`]?.["flex-grow"] || 0)
-			+ (inputParameters[`element-8`]?.["flex-grow"] || 0) + (inputParameters[`element-9`]?.["flex-grow"] || 0));
+	inputParameters.dsm = 0;
+
+	for (let index = 0; index < idElement; index++) {
+
+		// dsm (доля свободного места) = op (оставшееся пространство) / (flex-grow-1 + flex-grow-2 + ... + flex-grow-n)
+		inputParameters.dsm += (inputParameters[`element-${index}`]?.["flex-grow"] || 0);
+
+	}
+
+	inputParameters.dsm = (inputParameters.dsm === 0) ? NaN : Math.abs(inputParameters.op) / inputParameters.dsm;
 
 	for (let k = 0; k < idElement; k++) {
 
@@ -174,74 +170,80 @@ function calcFinalSizeGrow() {
 
 	showIrsIrr();
 
-	// console.log("Отрицательное пространство: " + inputParameters.op);
-	// console.log("Сумма произведений базовых размеров: " + inputParameters.spbr);
-	// for (let index = 0; index < idElement; index++) {
-	// 	console.log(`Доля свободного места ${index + 1}: ${inputParameters.dsm}`);
-	// 	console.log(`Нормированный коэффициент сжатия ${index + 1}: ${inputParameters[`element-${index}`]?.nks}`);
-	// 	console.log(`Итоговый размер после растяжения ${index + 1}: ${inputParameters[`element-${index}`]?.irr}`);
-	// 	console.log(`Итоговый размер после сжатия ${index + 1}: ${inputParameters[`element-${index}`]?.irs}`);
-	// }
-	// console.log(inputParameters);
 }
 
 function showIrsIrr() {
 
+	if (isNaN(inputParameters.op) || inputParameters.op > 1000 || inputParameters.op < -1000 || inputParameters.op === +inputParameters.parent.width) {
+		op.style.color = "#CC0000";
+		if (inputParameters.op > 1000) {
+			op.textContent = "MAX";
+		} else if (inputParameters.op < -1000) {
+			op.textContent = "MIN";
+		} else if (inputParameters.op === +inputParameters.parent.width) {
+			op.textContent = "W=OP";
+		} else {
+			op.textContent = "NOT";
+		}
+	} else {
+		op.style.color = null;
+		op.textContent = `${inputParameters.op}px`;
+	}
 
-	dsm.textContent = inputParameters.dsm == Infinity ? "NaN" : `${Math.round(inputParameters.dsm)}px`;
-
-	if (dsm.textContent === "NaN" || dsm.textContent > 1000 || dsm.textContent < 0) {
+	if (isNaN(inputParameters.dsm) || inputParameters.dsm > 1000 || inputParameters.dsm < 0) {
 		dsm.style.color = "#CC0000";
-		if (inputParameters.dsm === Infinity) {
-			dsm.textContent = "NOT";
-		} else if (dsm.textContent > 1000) {
+		if (inputParameters.dsm > 1000) {
 			dsm.textContent = "MAX";
-		} else if (dsm.textContent < 0) {
+		} else if (inputParameters.dsm < 0) {
 			dsm.textContent = "MIN";
 		} else {
 			dsm.textContent = "NOT";
 		}
 	} else {
 		dsm.style.color = null;
+		dsm.textContent = `${Math.round(inputParameters.dsm)}px`;
 	}
 
 	for (let index = 0; index < idElement; index++) {
 
-		nks[index].textContent = Math.floor(inputParameters[`element-${index}`]?.nks * 10) / 10;
-		irs[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irs)}px`;
-		irr[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irr)}px`;
-
-		if (nks[index].textContent === "NaN") {
+		if (isNaN(inputParameters[`element-${index}`]?.nks) || inputParameters[`element-${index}`]?.nks < 0) {
 			nks[index].style.color = "#CC0000";
-			nks[index].textContent = "NOT";
+			if (inputParameters[`element-${index}`]?.nks < 0) {
+				nks[index].textContent = "MIN";
+			} else {
+				nks[index].textContent = "NOT";
+			}
 		} else {
 			nks[index].style.color = null;
+			nks[index].textContent = Math.floor(inputParameters[`element-${index}`]?.nks * 10) / 10;
 		}
 
-		if (irs[index].textContent === "NaNpx" || irs[index].textContent > 1000 || irs[index].textContent < 0) {
+		if (isNaN(inputParameters[`element-${index}`]?.irs) || inputParameters[`element-${index}`]?.irs > 1000 || inputParameters[`element-${index}`]?.irs < 0) {
 			irs[index].style.color = "#CC0000";
-			if (irs[index].textContent > 1000) {
+			if (inputParameters[`element-${index}`]?.irs > 1000) {
 				irs[index].textContent = "MAX";
-			} else if (irs[index].textContent < 0) {
+			} else if (inputParameters[`element-${index}`]?.irs < 0) {
 				irs[index].textContent = "MIN";
 			} else {
 				irs[index].textContent = "NOT";
 			}
 		} else {
 			irs[index].style.color = null;
+			irs[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irs)}px`;
 		}
 
-		if (irr[index].textContent === "NaNpx" || irr[index].textContent > 1000 || irr[index].textContent < 0) {
+		if (isNaN(inputParameters[`element-${index}`]?.irr) || inputParameters[`element-${index}`]?.irr > 1000 || inputParameters[`element-${index}`]?.irr < 0) {
 			irr[index].style.color = "#CC0000";
-			if (irr[index].textContent > 1000) {
+			if (inputParameters[`element-${index}`]?.irr > 1000) {
 				irr[index].textContent = "MAX";
-			} else if (irr[index].textContent < 0) {
+			} else if (inputParameters[`element-${index}`]?.irr < 0) {
 				irr[index].textContent = "MIN";
 			} else {
 				irr[index].textContent = "NOT";
 			}
 		} else {
 			irr[index].style.color = null;
+			irr[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irr)}px`;
 		}
 
 	}

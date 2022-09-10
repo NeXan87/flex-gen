@@ -21,7 +21,8 @@
 				<fieldset class="flex box-parent main-fieldset">
 					<legend>Параметры родителя</legend>
 					<label for="width-container" class="label-title element">Ширина</label>
-					<input type="number" class="number element oninput input-parent width" id="width" value="200" placeholder="300-1000px">
+					<input type="number" class="number element oninput input-parent width" id="width" value="200"
+						placeholder="300-1000px">
 					<label for="flex-direction" class="element label-title">flex-direction</label>
 					<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 						<option value="row" selected>row</option>
@@ -68,7 +69,13 @@
 					<div class="button-background">
 						<button type="button" class="button-element add" onclick="addElement()"></button>
 					</div>
-					<div class="result-item general">Доля свободного места: <output name="result" class="dsm">NaN</output>
+					<div class="result-box general">
+						<div class="result-item">ОП:
+							<output name="result" class="op">NaN</output>
+						</div>
+						<div class="result-item">ДСМ:
+							<output name="result" class="dsm">NaN</output>
+						</div>
 					</div>
 				</fieldset>
 			</div>

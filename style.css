@@ -250,16 +250,15 @@ section.parameters {
 	cursor: not-allowed;
 }
 
+.result-box.general {
+	margin: 4px 0 8px 0;
+}
+
 .result-box {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 	width: 100%;
-}
-
-.result-item.general {
-	display: block;
-	margin: 10px 0 13px 0;
 }
 
 .result-item {
