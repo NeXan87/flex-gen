@@ -187,11 +187,12 @@ function calcFinalSizeGrow() {
 
 function showIrsIrr() {
 
-	dsm.textContent = Math.floor(inputParameters.dsm * 10) / 1;
 
-	if (dsm.textContent === "NaN" || dsm.textContent === "Infinity" || dsm.textContent > 1000 || dsm.textContent < 0) {
+	dsm.textContent = inputParameters.dsm == Infinity ? "NaN" : `${Math.round(inputParameters.dsm)}px`;
+
+	if (dsm.textContent === "NaN" || dsm.textContent > 1000 || dsm.textContent < 0) {
 		dsm.style.color = "#CC0000";
-		if (inputParameters.dsm === "Infinity") {
+		if (inputParameters.dsm === Infinity) {
 			dsm.textContent = "NOT";
 		} else if (dsm.textContent > 1000) {
 			dsm.textContent = "MAX";
