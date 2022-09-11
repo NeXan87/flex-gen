@@ -23,8 +23,9 @@
 				<fieldset class="flex box-parent main-fieldset">
 					<legend>Параметры родителя</legend>
 					<label for="width-container" class="label-title element">Ширина</label>
-					<input type="number" class="number element oninput input-parent width" id="width" value="800"
-						placeholder="300-1000px">
+					<input type="number" class="number element oninput input-parent width" id="width" value="">
+					<label for="gap" class="label-title element">gap</label>
+					<input type="number" class="number element oninput input-parent gap" id="gap" value="" placeholder="0-500px">
 					<label for="flex-direction" class="element label-title">flex-direction</label>
 					<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 						<option value="row" selected>row</option>
@@ -34,8 +35,8 @@
 					</select>
 					<label for="flex-wrap" class="element label-title">flex-wrap</label>
 					<select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
-						<option value="nowrap" selected>nowrap</option>
-						<option value="wrap">wrap</option>
+						<option value="nowrap">nowrap</option>
+						<option value="wrap" selected>wrap</option>
 						<option value="wrap-reverse">wrap-reverse</option>
 					</select>
 					<label for="justify-content" class="element label-title">justify-content</label>
@@ -84,9 +85,9 @@
 		</section>
 
 		<section class="preview">
-			<ul class="preview-box">
-
-			</ul>
+			<div class="preview-border">
+				<ol class="preview-box"></ol>
+			</div>
 		</section>
 		<section class="legend"></section>
 		<section class="css-styles"></section>

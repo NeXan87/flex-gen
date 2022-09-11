@@ -2,12 +2,15 @@
 
 let elements = document.querySelector('.elements');
 const buttonAdd = document.querySelector('.add');
+let resizeBox = document.querySelector('.preview-border');
 let preview = document.querySelector('.preview-box');
-let boxParameters, op, nks, dsm, irr, irs, idElement = 0;
+let boxParameters = document.querySelectorAll('.oninput');
+let pageWidth, pageHeight, op, nks, dsm, irr, irs, idElement = 0;
 
 const inputParameters = {
 	parent: {
 		"width": document.querySelector("#width").value,
+		"gap": 0,
 		"flex-direction": document.querySelector("#flex-direction").value,
 		"flex-wrap": document.querySelector("#flex-wrap").value,
 		"justify-content": document.querySelector("#justify-content").value,
@@ -16,11 +19,24 @@ const inputParameters = {
 	},
 };
 
+function resizeWindow() {
+
+	pageWidth = window.innerWidth - 670;
+	pageHeight = window.innerHeight - 280;
+	boxParameters[0].value = pageWidth;
+	boxParameters[0].setAttribute("placeholder", `300-${pageWidth}px`);
+	inputParameters.parent.width = pageWidth;
+	resizeBox.style.cssText = `max-height: ${pageHeight}px`;
+	showWidthBox();
+
+}
+
+resizeWindow();
+window.addEventListener('resize', resizeWindow, false);
+
 for (let i = 0; i < 2; i++) {
 	addElement();
 }
-
-showPreview();
 
 function addElement() {
 
@@ -33,11 +49,11 @@ function addElement() {
 									 </div>
 									 <legend>Элемент ${idElement + 1}</legend>
 									 <label for="flex-grow-element-${idElement}" class="element label-title">flex-grow</label>
-									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-1000">
+									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-${pageWidth}">
 									 <label for="flex-shrink-element-${idElement}" class="label-title element">flex-shrink</label>
-									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-1000">
+									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-${pageWidth}">
 									 <label for="flex-basis-element-${idElement}" class="label-title element">flex-basis</label>
-									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}"placeholder="0-1000px">
+									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}"placeholder="0-${pageWidth}px">
 									 <div class="result-box">
 										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}"></output></div>
 										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}"></output></div>
@@ -45,9 +61,14 @@ function addElement() {
 										 <div class="result-item">ИРР<output name="result" class="irr result-${idElement}"></output></div>
 									 </div>`;
 		elements.appendChild(fieldset);
-		inputParameters[`element-${idElement}`] = {};
+		inputParameters[`element-${idElement}`] = {
+			"flex-grow": 0,
+			"flex-shrink": 0,
+			"flex-basis": 0,
+		};
 		idElement++;
 		updateItems();
+		showPreview();
 		calcFinalSizeSrink();
 		calcFinalSizeGrow();
 	}
@@ -62,6 +83,7 @@ function removeElement(input) {
 	elements.removeChild(input.parentNode);
 	buttonAdd.removeAttribute("disabled", "");
 	idElement--;
+	showPreview();
 	calcFinalSizeSrink();
 	calcFinalSizeGrow();
 	updateItems();
@@ -90,7 +112,7 @@ function addToInputParameters() {
 
 				if (+boxPatameter.getAttribute('id').slice(-1) === i) {
 
-					if (boxPatameter.value > 1000) {
+					if (boxPatameter.value > pageWidth) {
 						boxPatameter.value = boxPatameter.value.slice(0, -1);
 					} else if (boxPatameter.value < 0) {
 						boxPatameter.value = 0;
@@ -104,7 +126,7 @@ function addToInputParameters() {
 
 			if (boxPatameter.classList.contains("input-parent")) {
 
-				if (boxPatameter.value > 1000) {
+				if (boxPatameter.value > pageWidth) {
 					boxPatameter.value = boxPatameter.value.slice(0, -1);
 				} else if (boxPatameter.value < 0) {
 					boxPatameter.value = 0;
@@ -115,6 +137,7 @@ function addToInputParameters() {
 
 			calcFinalSizeSrink();
 			calcFinalSizeGrow();
+			showWidthBox();
 			showPreview();
 
 		}
@@ -129,7 +152,7 @@ function calcFinalSizeSrink() {
 	for (let index = 0; index < idElement; index++) {
 
 		// op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
-		inputParameters.op += (inputParameters[`element-${index}`]?.["flex-basis"] || 0);
+		inputParameters.op += (inputParameters[`element-${index}`]["flex-basis"] || 0);
 
 	}
 
@@ -138,17 +161,17 @@ function calcFinalSizeSrink() {
 	for (let index = 0; index < idElement; index++) {
 
 		// spbr (сумма произведений базовых размеров) = (flex-basis-1 * flex-shrink-1) + ... + (flex-basis-n * flex-shrink-n)
-		inputParameters.spbr += (inputParameters[`element-${index}`]?.["flex-basis"] || 0) * (inputParameters[`element-${index}`]?.["flex-shrink"] || 0)
+		inputParameters.spbr += ((inputParameters[`element-${index}`]["flex-basis"] || 0) + ((+inputParameters.parent.gap || 0) / idElement)) * (inputParameters[`element-${index}`]["flex-shrink"] || 0)
 
 	}
 
 	for (let index = 0; index < idElement; index++) {
 
 		// nks (нормированный коэффициент сжатия элемента) = flex-basis * flex-shrink / spbr (сумма произведений базовых размеров)
-		inputParameters[`element-${index}`].nks = (inputParameters[`element-${index}`]?.["flex-basis"] || 0) * (inputParameters[`element-${index}`]?.["flex-shrink"] || 0) / inputParameters.spbr;
+		inputParameters[`element-${index}`].nks = ((inputParameters[`element-${index}`]["flex-basis"] || 0) + ((+inputParameters.parent.gap || 0) / idElement)) * (inputParameters[`element-${index}`]["flex-shrink"] || 0) / inputParameters.spbr;
 
-		// irs (итоговый размер после сжатия элемента) = flex-basis - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство)
-		inputParameters[`element-${index}`].irs = Math.abs((inputParameters[`element-${index}`]?.["flex-basis"] || 0)) - Math.abs((inputParameters[`element-${index}`].nks * inputParameters.op));
+		// irs (итоговый размер после сжатия элемента) = flex-basis - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство) * op (оставшееся пространство)
+		inputParameters[`element-${index}`].irs = ((inputParameters[`element-${index}`]["flex-basis"] || 0) - Math.abs((inputParameters[`element-${index}`].nks * inputParameters.op))) - ((+inputParameters.parent.gap || 0) * (idElement - 1) / idElement);
 
 	}
 }
@@ -160,7 +183,7 @@ function calcFinalSizeGrow() {
 	for (let index = 0; index < idElement; index++) {
 
 		// dsm (доля свободного места) = op (оставшееся пространство) / (flex-grow-1 + flex-grow-2 + ... + flex-grow-n)
-		inputParameters.dsm += (inputParameters[`element-${index}`]?.["flex-grow"] || 0);
+		inputParameters.dsm += (inputParameters[`element-${index}`]["flex-grow"] || 0);
 
 	}
 
@@ -169,7 +192,7 @@ function calcFinalSizeGrow() {
 	for (let k = 0; k < idElement; k++) {
 
 		// irr (итоговый размер расширения элемента) = flex-basis + dsm (доля свободного места) * flex-grow
-		inputParameters[`element-${k}`].irr = (inputParameters[`element-${k}`]?.["flex-basis"] || 0) + inputParameters.dsm * (inputParameters[`element-${k}`]?.["flex-grow"] || 0);
+		inputParameters[`element-${k}`].irr = (inputParameters[`element-${k}`]["flex-basis"] || 0) + inputParameters.dsm * (inputParameters[`element-${k}`]["flex-grow"] || 0);
 	}
 
 	showIrsIrr();
@@ -178,11 +201,11 @@ function calcFinalSizeGrow() {
 
 function showIrsIrr() {
 
-	if (isNaN(inputParameters.op) || inputParameters.op > 1000 || inputParameters.op < -1000 || inputParameters.op === +inputParameters.parent.width) {
+	if (isNaN(inputParameters.op) || inputParameters.op > pageWidth || inputParameters.op < -pageWidth || inputParameters.op === +inputParameters.parent.width) {
 		op.style.color = "#CC0000";
-		if (inputParameters.op > 1000) {
+		if (inputParameters.op > pageWidth) {
 			op.textContent = "MAX";
-		} else if (inputParameters.op < -1000) {
+		} else if (inputParameters.op < -pageWidth) {
 			op.textContent = "MIN";
 		} else if (inputParameters.op === +inputParameters.parent.width) {
 			op.textContent = "W=OP";
@@ -194,9 +217,9 @@ function showIrsIrr() {
 		op.textContent = `${inputParameters.op}px`;
 	}
 
-	if (isNaN(inputParameters.dsm) || inputParameters.dsm > 1000 || inputParameters.dsm < 0) {
+	if (isNaN(inputParameters.dsm) || inputParameters.dsm > pageWidth || inputParameters.dsm < 0) {
 		dsm.style.color = "#CC0000";
-		if (inputParameters.dsm > 1000) {
+		if (inputParameters.dsm > pageWidth) {
 			dsm.textContent = "MAX";
 		} else if (inputParameters.dsm < 0) {
 			dsm.textContent = "MIN";
@@ -222,9 +245,9 @@ function showIrsIrr() {
 			nks[index].textContent = Math.floor(inputParameters[`element-${index}`]?.nks * 10) / 10;
 		}
 
-		if (isNaN(inputParameters[`element-${index}`]?.irs) || inputParameters[`element-${index}`]?.irs > 1000 || inputParameters[`element-${index}`]?.irs < 0) {
+		if (isNaN(inputParameters[`element-${index}`]?.irs) || inputParameters[`element-${index}`]?.irs > pageWidth || inputParameters[`element-${index}`]?.irs < 0) {
 			irs[index].style.color = "#CC0000";
-			if (inputParameters[`element-${index}`]?.irs > 1000) {
+			if (inputParameters[`element-${index}`]?.irs > pageWidth) {
 				irs[index].textContent = "MAX";
 			} else if (inputParameters[`element-${index}`]?.irs < 0) {
 				irs[index].textContent = "MIN";
@@ -236,9 +259,9 @@ function showIrsIrr() {
 			irs[index].textContent = `${Math.round(inputParameters[`element-${index}`]?.irs)}px`;
 		}
 
-		if (isNaN(inputParameters[`element-${index}`]?.irr) || inputParameters[`element-${index}`]?.irr > 1000 || inputParameters[`element-${index}`]?.irr < 0) {
+		if (isNaN(inputParameters[`element-${index}`]?.irr) || inputParameters[`element-${index}`]?.irr > pageWidth || inputParameters[`element-${index}`]?.irr < 0) {
 			irr[index].style.color = "#CC0000";
-			if (inputParameters[`element-${index}`]?.irr > 1000) {
+			if (inputParameters[`element-${index}`]?.irr > pageWidth) {
 				irr[index].textContent = "MAX";
 			} else if (inputParameters[`element-${index}`]?.irr < 0) {
 				irr[index].textContent = "MIN";
@@ -253,20 +276,40 @@ function showIrsIrr() {
 	}
 }
 
-function showPreview() {
+function showWidthBox() {
 
-	preview.style.cssText = `width: ${+inputParameters.parent.width}px;
+	let hasFlexWrap = () => {
+		if (inputParameters.parent["flex-wrap"] === "wrap" && inputParameters.parent["flex-direction"] === "column") {
+			return pageHeight - 10;
+		} else {
+			return "auto";
+		}
+	};
+
+	preview.style.cssText = `width: ${inputParameters.parent.width}px;
+									 height: ${hasFlexWrap()}px;
 									 display: flex;
+									 gap: ${inputParameters.parent.gap}px;
 									 flex-direction: ${inputParameters.parent["flex-direction"]};
 									 flex-wrap: ${inputParameters.parent["flex-wrap"]};
 									 justify-content: ${inputParameters.parent["justify-content"]};
 									 align-items: ${inputParameters.parent["align-items"]};
 									 align-content: ${inputParameters.parent["align-content"]};`;
 
+}
+
+function showPreview() {
+
+	preview.innerHTML = "";
 	for (let index = 0; index < idElement; index++) {
+
 		let flexElement = document.createElement('li');
-		// preview.append(flexElement);
-		console.log(flexElement);
+		flexElement.classList.add("flexbox-item");
+		flexElement.style.cssText = `flex-grow: ${inputParameters[`element-${index}`]["flex-grow"]};
+											  flex-shrink: ${inputParameters[`element-${index}`]["flex-shrink"]};
+											  flex-basis: ${inputParameters[`element-${index}`]["flex-basis"]}px;`;
+		preview.append(flexElement);
+
 	}
 
 }
