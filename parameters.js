@@ -161,14 +161,14 @@ function calcFinalSizeSrink() {
 	for (let index = 0; index < idElement; index++) {
 
 		// spbr (сумма произведений базовых размеров) = (flex-basis-1 * flex-shrink-1) + ... + (flex-basis-n * flex-shrink-n)
-		inputParameters.spbr += ((inputParameters[`element-${index}`]["flex-basis"] || 0) + ((+inputParameters.parent.gap || 0) / idElement)) * (inputParameters[`element-${index}`]["flex-shrink"] || 0)
+		inputParameters.spbr += ((inputParameters[`element-${index}`]["flex-basis"] || 0) - ((+inputParameters.parent.gap || 0) * (idElement - 1) / idElement)) * (inputParameters[`element-${index}`]["flex-shrink"] || 0)
 
 	}
 
 	for (let index = 0; index < idElement; index++) {
 
 		// nks (нормированный коэффициент сжатия элемента) = flex-basis * flex-shrink / spbr (сумма произведений базовых размеров)
-		inputParameters[`element-${index}`].nks = ((inputParameters[`element-${index}`]["flex-basis"] || 0) + ((+inputParameters.parent.gap || 0) / idElement)) * (inputParameters[`element-${index}`]["flex-shrink"] || 0) / inputParameters.spbr;
+		inputParameters[`element-${index}`].nks = ((inputParameters[`element-${index}`]["flex-basis"] || 0) - ((+inputParameters.parent.gap || 0) * (idElement - 1) / idElement)) * (inputParameters[`element-${index}`]["flex-shrink"] || 0) / inputParameters.spbr;
 
 		// irs (итоговый размер после сжатия элемента) = flex-basis - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство) * op (оставшееся пространство)
 		inputParameters[`element-${index}`].irs = ((inputParameters[`element-${index}`]["flex-basis"] || 0) - Math.abs((inputParameters[`element-${index}`].nks * inputParameters.op))) - ((+inputParameters.parent.gap || 0) * (idElement - 1) / idElement);
