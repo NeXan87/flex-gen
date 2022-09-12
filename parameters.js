@@ -345,7 +345,6 @@ function showCssCode() {
 
 	cssStyles.innerHTML = "";
 	let i = 0;
-	let propertyElements = [];
 	let hasWidthGap = key => {
 		if (key === "width" || key === "gap") {
 			return "px";
@@ -362,14 +361,12 @@ function showCssCode() {
 
 	}
 
-	for (let i = 0; i < idElement; i++) {
-		propertyElements.splice(-1, 0, []);
-		for (const key in inputParameters[`element-${i}`]) {
-			if (key === "nks" || key === "irs" || key === "irr") continue;
-			propertyElements[i] = Object.values(inputParameters[`element-${i}`]);
-			break;
+	for (let j = 0; j < idElement; j++) {
+		cssStyles.innerHTML += `.element-${j + 1} {<br/>`;
+		for (let key in inputParameters[`element-${j}`]) {
+			cssStyles.innerHTML += `  ${key}: ${inputParameters[`element-${j}`][key]};<br/>`;
 		}
-
+		cssStyles.innerHTML += "}<br/><br/>";
 	}
 
 
