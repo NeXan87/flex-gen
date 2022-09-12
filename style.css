@@ -128,12 +128,13 @@ section.parameters {
 	grid-row-start: 3;
 }
 
-.css-styles {
+.css-box {
 	grid-column-start: 3;
 	grid-row: 2 / 4;
 	justify-self: left;
 	width: 280px;
 	font-family: 'Courier New', Courier, monospace;
+	cursor: text;
 }
 
 .flex {
@@ -168,7 +169,8 @@ section.parameters {
 	flex-basis: 80px;
 }
 
-.elements .number {
+.elements .number,
+.elements .select {
 	flex-basis: 90px;
 	max-width: 90px;
 }
@@ -183,7 +185,7 @@ section.parameters {
 	margin-top: 15px;
 }
 
-.elements .item .element:nth-last-of-type(-n + 1) {
+.elements .select {
 	margin-bottom: 10px;
 }
 
@@ -303,7 +305,7 @@ section.parameters {
 }
 
 .flexbox-item {
-	min-width: 40px;
+	min-width: 120px;
 	min-height: 40px;
 	height: 50px;
 	list-style: none;
@@ -311,18 +313,24 @@ section.parameters {
 	border: 1px solid #028e4a;
 	position: relative;
 	box-sizing: border-box;
+	text-align: center;
 }
 
 .flexbox-item::before {
 	counter-increment: section;
-	content: "" counter(section) "";
+	content: "Элемент: " counter(section) "";
 	background-color: white;
 	color: #028e4a;
 	font-weight: bold;
-	top: 5px;
-	left: 5px;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	padding: 3px 5px 3px 5px;
-	border-radius: 50%;
+	border-radius: 5px;
 	line-height: 1;
 	position: absolute;
+	margin: auto;
+	width: 100px;
+	height: 15px;
 }

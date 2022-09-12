@@ -25,7 +25,7 @@
 					<label for="width-container" class="label-title element">Ширина</label>
 					<input type="number" class="number element oninput input-parent width" id="width" value="">
 					<label for="gap" class="label-title element">gap</label>
-					<input type="number" class="number element oninput input-parent gap" id="gap" value="" placeholder="0-500px">
+					<input type="number" class="number element oninput input-parent gap" id="gap" value="" placeholder="">
 					<label for="flex-direction" class="element label-title">flex-direction</label>
 					<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 						<option value="row" selected>row</option>
@@ -41,9 +41,9 @@
 					</select>
 					<label for="justify-content" class="element label-title">justify-content</label>
 					<select name="justify-content" id="justify-content" class="value element oninput input-parent">
-						<option value="flex-start" selected>flex-start</option>
+						<option value="flex-start">flex-start</option>
 						<option value="flex-end">flex-end</option>
-						<option value="center">center</option>
+						<option value="center" selected>center</option>
 						<option value="space-between">space-between</option>
 						<option value="space-around">space-around</option>
 						<option value="space-evenly">space-evenly</option>
@@ -58,10 +58,10 @@
 					</select>
 					<label for="align-content" class="element label-title">align-content</label>
 					<select name="align-content" id="align-content" class="value element oninput input-parent">
-						<option value="stretch" selected>stretch</option>
+						<option value="stretch">stretch</option>
 						<option value="flex-start">flex-start</option>
 						<option value="flex-end">flex-end</option>
-						<option value="center">center</option>
+						<option value="center" selected>center</option>
 						<option value="space-between">space-between</option>
 						<option value="space-around">space-around</option>
 						<option value="space-evenly">space-evenly</option>
@@ -90,7 +90,11 @@
 			</div>
 		</section>
 		<section class="legend"></section>
-		<section class="css-styles"></section>
+		<section class="css-box">
+			<code>
+				<pre class="css-styles"></pre>
+			</code>
+		</section>
 	</main>
 	<script src="parameters.js"></script>
 </body>
