@@ -35,6 +35,10 @@ body {
 	font-size: 14px;
 }
 
+code {
+	font-family: 'Courier New', Courier, monospace;
+}
+
 input,
 select {
 	height: 22px;
@@ -133,8 +137,9 @@ section.parameters {
 	grid-row: 2 / 4;
 	justify-self: left;
 	width: 280px;
-	font-family: 'Courier New', Courier, monospace;
 	cursor: text;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .flex {

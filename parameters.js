@@ -76,6 +76,7 @@ function addElement() {
 			"flex-grow": 0,
 			"flex-shrink": 0,
 			"flex-basis": 0,
+			"align-self": "auto",
 		};
 		idElement++;
 		updateItems();
@@ -345,8 +346,8 @@ function showCssCode() {
 
 	cssStyles.innerHTML = "";
 	let i = 0;
-	let hasWidthGap = key => {
-		if (key === "width" || key === "gap") {
+	let hasPx = key => {
+		if (key === "width" || key === "gap" || key === "flex-basis") {
 			return "px";
 		} else {
 			return "";
@@ -356,21 +357,28 @@ function showCssCode() {
 	for (let key in inputParameters.parent) {
 
 		if (i++ === 0) cssStyles.innerHTML = ".parent {<br/>";
-		cssStyles.innerHTML += `  ${key}: ${inputParameters.parent[key]}${hasWidthGap(key)};<br/>`;
+		if (inputParameters.parent[key] == 0) continue;
+		cssStyles.innerHTML += `  ${key}: ${inputParameters.parent[key]}${hasPx(key)};<br/>`;
 		if (i === Object.keys(inputParameters.parent).length) cssStyles.innerHTML += "}<br/><br/>";
 
 	}
 
 	for (let j = 0; j < idElement; j++) {
 
-		cssStyles.innerHTML += `.element-${j + 1} {<br/>`;
+		if (inputParameters[`element-${j}`]["flex-grow"] !== 0
+			|| inputParameters[`element-${j}`]["flex-shrink"] !== 0
+			|| inputParameters[`element-${j}`]["flex-basis"] !== 0
+			|| inputParameters[`element-${j}`]["align-self"] !== "auto") {
 
-		for (let key in inputParameters[`element-${j}`]) {
-			if (key === "nks" || key === "irs" || key === "irr") continue;
-			cssStyles.innerHTML += `  ${key}: ${inputParameters[`element-${j}`][key]};<br/>`;
+			cssStyles.innerHTML += `.element-${j + 1} {<br/>`;
+
+			for (let key in inputParameters[`element-${j}`]) {
+				if (key === "nks" || key === "irs" || key === "irr" || inputParameters[`element-${j}`][key] === 0 || inputParameters[`element-${j}`][key] === "auto") continue;
+				cssStyles.innerHTML += `  ${key}: ${inputParameters[`element-${j}`][key]}${hasPx(key)};<br/>`;
+			}
+
+			cssStyles.innerHTML += "}<br/><br/>";
 		}
-
-		cssStyles.innerHTML += "}<br/><br/>";
 
 	}
 
