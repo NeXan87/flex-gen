@@ -362,11 +362,16 @@ function showCssCode() {
 	}
 
 	for (let j = 0; j < idElement; j++) {
+
 		cssStyles.innerHTML += `.element-${j + 1} {<br/>`;
+
 		for (let key in inputParameters[`element-${j}`]) {
+			if (key === "nks" || key === "irs" || key === "irr") continue;
 			cssStyles.innerHTML += `  ${key}: ${inputParameters[`element-${j}`][key]};<br/>`;
 		}
+
 		cssStyles.innerHTML += "}<br/><br/>";
+
 	}
 
 
