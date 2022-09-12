@@ -24,7 +24,7 @@ const inputParameters = {
 function resizeWindow() {
 
 	pageWidth = window.innerWidth - 670;
-	pageHeight = window.innerHeight - 280;
+	pageHeight = window.innerHeight - 330;
 	boxParameters[0].value = pageWidth;
 	boxParameters[0].setAttribute("placeholder", `300-${pageWidth}px`);
 	boxParameters[1].setAttribute("placeholder", `0-${pageWidth}px`);
