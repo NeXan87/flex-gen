@@ -21,15 +21,29 @@ const inputParameters = {
 	parameters: {}
 };
 
+let hasMinWidth = key => {
+	if (key === "width" && inputParameters.parent[key] < 300) {
+		return 300;
+	} else {
+		return inputParameters.parent[key];
+	}
+};
+
+let hasPx = key => {
+	if (key === "width" || key === "height" || key === "gap" || key === "flex-basis") {
+		return "px";
+	} else {
+		return "";
+	}
+};
+
 function resizeWindow() {
 
-	pageWidth = window.innerWidth - 670;
-	pageHeight = window.innerHeight - 330;
+	pageWidth = window.innerWidth - 630;
 	boxParameters[0].value = pageWidth;
 	boxParameters[0].setAttribute("placeholder", `300-${pageWidth}px`);
 	boxParameters[1].setAttribute("placeholder", `0-${pageWidth}px`);
 	inputParameters.parent.width = pageWidth;
-	resizeBox.style.cssText = `max-height: ${pageHeight}px`;
 	showWidthBox();
 
 }
@@ -101,7 +115,7 @@ function removeElement(input) {
 	buttonAdd.removeAttribute("disabled", "");
 	idElement--;
 	showPreview();
-	showCssCode();
+	setTimeout(showCssCode, 1000);
 	calcFinalSizeSrink();
 	calcFinalSizeGrow();
 	updateItems();
@@ -157,7 +171,7 @@ function addToInputParameters() {
 			calcFinalSizeGrow();
 			showWidthBox();
 			showPreview();
-			showCssCode();
+			setTimeout(showCssCode, 1000);
 
 		}
 	}
@@ -309,27 +323,27 @@ function showIrsIrr() {
 
 function showWidthBox() {
 
-	// let hasFlexWrap = () => {
-	// 	if (inputParameters.parent["flex-wrap"] === "wrap" && inputParameters.parent["flex-direction"] === "column") {
-	// 		return pageHeight - 10;
-	// 	} else {
-	// 		return "auto";
-	// 	}
-	// };
+	preview.style.cssText = `display: flex; ${sortCssText()}`;
 
-	preview.style.cssText = `width: ${inputParameters.parent.width}px;
-									 height: ${pageHeight - 10}px;
-									 display: flex;
-									 gap: ${inputParameters.parent.gap}px;
-									 flex-direction: ${inputParameters.parent["flex-direction"]};
-									 flex-wrap: ${inputParameters.parent["flex-wrap"]};
-									 justify-content: ${inputParameters.parent["justify-content"]};
-									 align-items: ${inputParameters.parent["align-items"]};
-									 align-content: ${inputParameters.parent["align-content"]};`;
-
+	function sortCssText() {
+		let css = "";
+		for (const key in inputParameters.parent) {
+			css += `${key}: ${inputParameters.parent[key]}${hasPx(key)}; `;
+		}
+		return css;
+	}
 }
 
 function showPreview() {
+
+	let hasFlexBasis = index => {
+
+		if (inputParameters[`element-${index}`]["flex-basis"] !== 0) {
+
+			return `flex-basis: ${inputParameters[`element-${index}`]["flex-basis"]}px;`;
+
+		}
+	}
 
 	preview.innerHTML = "";
 
@@ -340,7 +354,7 @@ function showPreview() {
 		flexElement.style.cssText = `align-self: ${inputParameters[`element-${index}`]["align-self"]};
 											  flex-grow: ${inputParameters[`element-${index}`]["flex-grow"]};
 											  flex-shrink: ${inputParameters[`element-${index}`]["flex-shrink"]};
-											  flex-basis: ${inputParameters[`element-${index}`]["flex-basis"]}px;`;
+											  ${hasFlexBasis(index)}`;
 		preview.append(flexElement);
 
 	}
@@ -349,14 +363,6 @@ function showPreview() {
 function showCssCode() {
 
 	cssStyles.innerHTML = "";
-
-	let hasPx = key => {
-		if (key === "width" || key === "gap" || key === "flex-basis") {
-			return "px";
-		} else {
-			return "";
-		}
-	};
 
 	cssStyles.innerHTML = ".parent {<br/>";
 
@@ -369,7 +375,7 @@ function showCssCode() {
 			|| key === "align-items" && inputParameters.parent[key] === "stretch"
 			|| key === "align-content" && inputParameters.parent[key] === "stretch") continue;
 
-		cssStyles.innerHTML += `  ${key}: ${inputParameters.parent[key]}${hasPx(key)};<br/>`;
+		cssStyles.innerHTML += `  ${key}: ${hasMinWidth(key)}${hasPx(key)};<br/>`;
 
 	}
 

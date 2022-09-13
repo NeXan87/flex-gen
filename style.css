@@ -29,6 +29,10 @@ html {
 	overflow-y: hidden;
 }
 
+article{
+	font-size: 12px;
+}
+
 body {
 	background-color: #f8f8f8;
 	font-family: Verdana, Geneva, sans-serif;
@@ -60,10 +64,23 @@ fieldset:not(:last-child) {
 	margin-bottom: 10px;
 }
 
+h1,
+h2 {
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
 h1 {
 	font-size: 22px;
 	line-height: 28px;
-	font-family: Tahoma, Geneva, sans-serif;
+}
+
+h2 {
+	text-align: center;
+	font-size: 18px;
+	border-bottom: 1px dotted #c0c0c0;
+	color: #444;
+	padding: 2px 0 7px;
+	margin-bottom: 15px;
 }
 
 legend {
@@ -73,11 +90,16 @@ legend {
 
 main {
 	display: grid;
-	grid-template-columns: 290px minmax(300px, 1fr) 300px;
-	grid-template-rows: auto 1fr 200px;
+	grid-template-columns: 290px minmax(290px, 320px) minmax(300px, 1fr) 260px;
+	grid-template-rows: auto minmax(150px, 1fr) auto;
 	gap: 20px;
 	height: 100vh;
 	padding-bottom: 20px;
+}
+
+p {
+	padding: 0 5px 5px 5px;
+	text-indent: 10px;
 }
 
 section {
@@ -102,8 +124,8 @@ section.parameters {
 }
 
 .main-header {
-	grid-column: 1 / 4;
-	grid-row-start: 1;
+	grid-column: 1 / -1;
+	grid-row: 1;
 	background-color: #028e4a;
 	color: white;
 	padding: 10px;
@@ -117,29 +139,38 @@ section.parameters {
 	overflow-x: hidden;
 	box-sizing: content-box;
 	justify-self: end;
-	grid-row: 2 / 4;
-	grid-column-start: 1;
+	grid-row: 2 / -1;
+	grid-column: 1;
 }
 
 .preview {
-	grid-column-start: 2;
-	grid-row-start: 2;
+	grid-column: 2 / -2;
+	grid-row: 2;
 	padding-top: 10px;
 }
 
 .legend {
-	grid-column-start: 2;
-	grid-row-start: 3;
+	grid-column: 2;
+	grid-row: 3;
+}
+
+.description {
+	grid-column: 3;
+	grid-row: 3;
 }
 
 .css-box {
-	grid-column-start: 3;
-	grid-row: 2 / 4;
+	grid-column-end: -1;
+	grid-row: 2 / -1;
 	justify-self: left;
-	width: 280px;
+	width: 240px;
 	cursor: text;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+
+.css-styles {
+	padding: 0 5px;
 }
 
 .flex {
@@ -294,14 +325,13 @@ section.parameters {
 	border-style: dashed;
 	width: fit-content;
 	margin: auto;
-	overflow-x: hidden;
-	overflow-y: auto;
+	overflow: hidden;
 }
 
 .preview-box {
 	width: 100%;
-	max-width: 100%;
 	min-width: 300px;
+	height: calc(100% - 10px);
 	padding: 5px;
 	gap: 5px;
 	overflow: hidden;
@@ -338,4 +368,9 @@ section.parameters {
 	margin: auto;
 	width: 100px;
 	height: 15px;
+}
+
+.legend-list {
+	list-style: none;
+	padding: 0 10px 5px 10px;
 }
