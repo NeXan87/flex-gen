@@ -79,11 +79,15 @@ function addElement() {
 			"align-self": "auto",
 		};
 		idElement++;
-		updateItems();
-		showPreview();
-		showCssCode();
-		calcFinalSizeSrink();
-		calcFinalSizeGrow();
+
+		if (idElement > 1) {
+			updateItems();
+			showPreview();
+			showCssCode();
+			calcFinalSizeSrink();
+			calcFinalSizeGrow();
+		}
+
 	}
 	if (idElement === 10) {
 		buttonAdd.setAttribute("disabled", "");
@@ -328,6 +332,7 @@ function showWidthBox() {
 function showPreview() {
 
 	preview.innerHTML = "";
+
 	for (let index = 0; index < idElement; index++) {
 
 		let flexElement = document.createElement('li');
@@ -339,13 +344,12 @@ function showPreview() {
 		preview.append(flexElement);
 
 	}
-
 }
 
 function showCssCode() {
 
 	cssStyles.innerHTML = "";
-	let i = 0;
+
 	let hasPx = key => {
 		if (key === "width" || key === "gap" || key === "flex-basis") {
 			return "px";
@@ -354,34 +358,41 @@ function showCssCode() {
 		}
 	};
 
+	cssStyles.innerHTML = ".parent {<br/>";
+
 	for (let key in inputParameters.parent) {
 
-		if (i++ === 0) cssStyles.innerHTML = ".parent {<br/>";
-		if (inputParameters.parent[key] == 0) continue;
+		if (key === "gap" && inputParameters.parent[key] === 0
+			|| key === "flex-direction" && inputParameters.parent[key] === "row"
+			|| key === "flex-wrap" && inputParameters.parent[key] === "nowrap"
+			|| key === "justify-content" && inputParameters.parent[key] === "flex-start"
+			|| key === "align-items" && inputParameters.parent[key] === "stretch"
+			|| key === "align-content" && inputParameters.parent[key] === "stretch") continue;
+
 		cssStyles.innerHTML += `  ${key}: ${inputParameters.parent[key]}${hasPx(key)};<br/>`;
-		if (i === Object.keys(inputParameters.parent).length) cssStyles.innerHTML += "}<br/><br/>";
 
 	}
+
+	cssStyles.innerHTML += "}<br/><br/>";
 
 	for (let j = 0; j < idElement; j++) {
 
-		if (inputParameters[`element-${j}`]["flex-grow"] !== 0
-			|| inputParameters[`element-${j}`]["flex-shrink"] !== 0
-			|| inputParameters[`element-${j}`]["flex-basis"] !== 0
-			|| inputParameters[`element-${j}`]["align-self"] !== "auto") {
+		if (inputParameters[`element-${j}`]["flex-grow"] === 0
+			&& inputParameters[`element-${j}`]["flex-shrink"] === 0
+			&& inputParameters[`element-${j}`]["flex-basis"] === 0
+			&& inputParameters[`element-${j}`]["align-self"] === "auto") continue;
 
-			cssStyles.innerHTML += `.element-${j + 1} {<br/>`;
+		cssStyles.innerHTML += `.element-${j + 1} {<br/>`;
 
-			for (let key in inputParameters[`element-${j}`]) {
-				if (key === "nks" || key === "irs" || key === "irr" || inputParameters[`element-${j}`][key] === 0 || inputParameters[`element-${j}`][key] === "auto") continue;
-				cssStyles.innerHTML += `  ${key}: ${inputParameters[`element-${j}`][key]}${hasPx(key)};<br/>`;
-			}
+		for (let key in inputParameters[`element-${j}`]) {
+			if (key === "nks" || key === "irs" || key === "irr"
+				|| inputParameters[`element-${j}`][key] === 0
+				|| inputParameters[`element-${j}`][key] === "auto") continue;
 
-			cssStyles.innerHTML += "}<br/><br/>";
+			cssStyles.innerHTML += `  ${key}: ${inputParameters[`element-${j}`][key]}${hasPx(key)};<br/>`;
 		}
 
+		cssStyles.innerHTML += "}<br/><br/>";
+
 	}
-
-
-
 }
