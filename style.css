@@ -168,7 +168,7 @@ section, article {
 	height: 30px;
 }
 
-.contacts:not(:last-of-type) {
+.contacts:first-of-type {
 	margin-right: 20px;
 }
 
