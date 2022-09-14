@@ -3,7 +3,7 @@
 	margin: 0;
 	padding: 0;
 	scrollbar-width: thin;
-	scrollbar-color: #cce8db #028e4a;
+	scrollbar-color: #cce8db #00763d;
 }
 
 /* для Chrome/Edge/Safari */
@@ -13,20 +13,20 @@
 }
 
 *::-webkit-scrollbar-track {
-	background: #028e4a;
+	background: #00763d;
 	border-radius: 0 5px 5px 0;
 }
 
 *::-webkit-scrollbar-thumb {
 	background-color: #cce8db;
 	border-radius: 4px;
-	border: 2px solid #028e4a;
+	border: 2px solid #00763d;
 }
 
 html {
 	width: 100%;
 	height: 100vh;
-	overflow-y: hidden;
+	overflow-x: hidden;
 }
 
 article {
@@ -96,10 +96,9 @@ legend {
 main {
 	display: grid;
 	grid-template-columns: 290px minmax(290px, 0.6fr) minmax(300px, 1fr) 300px;
-	grid-template-rows: auto minmax(220px, 1fr) auto;
+	grid-template-rows: auto minmax(300px, 1fr) auto;
 	gap: 20px;
 	height: 100vh;
-	padding-bottom: 20px;
 }
 
 p {
@@ -115,7 +114,7 @@ section {
 	border: 1px solid #d5d5d5;
 }
 
-section.parameters {
+.parameters {
 	background: none;
 	border: 0;
 	padding: 0;
@@ -132,13 +131,14 @@ section.parameters {
 .main-header {
 	grid-column: 1 / -1;
 	grid-row: 1;
-	background-color: #028e4a;
+	background-color: #00763d;
 	color: white;
 	padding: 10px 15px 12px;
 	height: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	z-index: 30;
 }
 
 .main-title>span:first-child {
@@ -161,8 +161,13 @@ section.parameters {
 	color: #ffffffc9;
 }
 
+.top-menu {
+	display: none;
+}
+
 .contacts {
 	position: relative;
+	overflow: hidden;
 }
 
 .contacts a {
@@ -182,7 +187,7 @@ section.parameters {
 	width: 25px;
 	height: 25px;
 	top: 3px;
-	left: 5px;
+	left: 3px;
 	background-repeat: no-repeat;
 	background-size: contain;
 }
@@ -228,6 +233,7 @@ section.parameters {
 	justify-self: end;
 	grid-row: 2 / -1;
 	grid-column: 1;
+	margin-bottom: 20px;
 }
 
 .preview {
@@ -240,11 +246,13 @@ section.parameters {
 .legend {
 	grid-column: 2;
 	grid-row: 3;
+	margin-bottom: 20px;
 }
 
 .description {
 	grid-column: 3;
 	grid-row: 3;
+	margin-bottom: 20px;
 }
 
 .css-box {
@@ -255,6 +263,7 @@ section.parameters {
 	cursor: text;
 	overflow-y: auto;
 	overflow-x: hidden;
+	margin-bottom: 20px;
 }
 
 .css-styles {
@@ -270,7 +279,7 @@ section.parameters {
 	padding-bottom: 8px;
 }
 
-.item:nth-of-type(-n + 2) .button-background,
+.item:nth-of-type(-n + 3) .button-background,
 .item:not(:nth-last-of-type(1)) .button-background {
 	display: none;
 }
@@ -336,7 +345,7 @@ section.parameters {
 	right: 0;
 	top: 0;
 	left: 0;
-	background-color: #028e4a;
+	background-color: #00763d;
 	border: 0;
 	border-radius: 50%;
 	color: white;
@@ -613,12 +622,12 @@ section.parameters {
 }
 
 .flexbox-item {
-	min-width: 120px;
-	min-height: 40px;
+	min-width: 50px;
+	min-height: 50px;
 	height: 50px;
 	list-style: none;
-	background-color: #028e4a73;
-	border: 1px solid #028e4a;
+	background-color: #00763d73;
+	border: 1px solid #00763d;
 	position: relative;
 	box-sizing: border-box;
 	text-align: center;
@@ -627,24 +636,26 @@ section.parameters {
 
 .flexbox-item::before {
 	counter-increment: section;
-	content: "Элемент: " counter(section) "";
+	content: "" counter(section) "";
 	background-color: white;
-	color: #028e4a;
+	color: #00763d;
 	font-weight: bold;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	padding: 3px 5px 3px 5px;
-	border-radius: 5px;
-	line-height: 1;
+	top: 5px;
+	left: 5px;
+	border-radius: 50%;
+	line-height: 24px;
 	position: absolute;
 	margin: auto;
-	width: 100px;
-	height: 15px;
+	width: 25px;
+	height: 25px;
+	font-size: 14px;
 }
 
 .legend-list {
 	list-style: none;
 	padding: 0 10px 5px 10px;
+}
+
+.overlay {
+	visibility: hidden;
 }

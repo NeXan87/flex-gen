@@ -1,5 +1,8 @@
 "use script"
 
+let html = document.querySelector('html');
+let menuButton = document.querySelector('.top-menu');
+let paremetersBlok = document.querySelector('.parameters');
 let elements = document.querySelector('.elements');
 const buttonAdd = document.querySelector('.add');
 let resizeBox = document.querySelector('.preview-border');
@@ -8,12 +11,13 @@ let horizontalArrow = document.querySelectorAll('.horizontal-arrow');
 let verticalArrow = document.querySelectorAll('.vertical-arrow');
 let boxParameters = document.querySelectorAll('.oninput');
 let cssStyles = document.querySelector('.css-styles');
+let overlay = document.querySelector('.overlay');
 let pageWidth, pageHeight, op, nks, dsm, irr, irs, idElement = 0;
 
 const inputParameters = {
 	parent: {
 		"width": document.querySelector("#width").value,
-		"gap": 0,
+		"gap": document.querySelector("#gap").value,
 		"flex-direction": document.querySelector("#flex-direction").value,
 		"flex-wrap": document.querySelector("#flex-wrap").value,
 		"justify-content": document.querySelector("#justify-content").value,
@@ -41,7 +45,13 @@ let hasPx = key => {
 
 function resizeWindow() {
 
-	pageWidth = window.innerWidth - 710;
+	if (window.innerWidth > 1240) {
+		pageWidth = window.innerWidth - 710;
+	} else if ((window.innerWidth > 768)) {
+		pageWidth = window.innerWidth - 410;
+	} else {
+		pageWidth = window.innerWidth - 80;
+	}
 	boxParameters[0].value = pageWidth;
 	boxParameters[0].setAttribute("placeholder", `300-${pageWidth}px`);
 	inputParameters.parent.width = pageWidth;
@@ -52,13 +62,29 @@ function resizeWindow() {
 resizeWindow();
 window.addEventListener('resize', resizeWindow, false);
 
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 3; i++) {
 	addElement();
+}
+
+menuButton.onclick = function () {
+
+	menuButton.classList.toggle("open");
+	paremetersBlok.classList.toggle("open");
+	html.classList.toggle("overflow-hidden");
+	overlay.classList.toggle("open");
+
+}
+
+overlay.onclick = function () {
+	menuButton.classList.toggle("open");
+	paremetersBlok.classList.toggle("open");
+	html.classList.toggle("overflow-hidden");
+	overlay.classList.toggle("open");
 }
 
 function addElement() {
 
-	if (idElement < 11) {
+	if (idElement < 16) {
 
 		let fieldset = document.createElement('fieldset');
 		fieldset.classList.add('flex', 'item');
@@ -71,7 +97,9 @@ function addElement() {
 									 <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
 									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
 									 <label for="flex-basis-${idElement}" class="label-title element">flex-basis</label>
-									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}"placeholder="0-${pageWidth}px">
+									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" placeholder="0-${pageWidth}px" value="100">
+									 <label for="order-${idElement}" class="label-title element">order</label>
+									 <input type="number" class="number order element order-${idElement} oninput input-child" id="order-${idElement}" placeholder="+-100">
 									 <label for="align-self-${idElement}" class="label-title element">align-self</label>
 									 <select name="align-self" id="align-self-${idElement}" class="select element element-${idElement} oninput input-child">
 									 	 <option value="auto" selected>auto</option>
@@ -90,12 +118,12 @@ function addElement() {
 		inputParameters[`element-${idElement}`] = {
 			"flex-grow": 0,
 			"flex-shrink": 0,
-			"flex-basis": 0,
+			"flex-basis": 100,
 			"align-self": "auto",
 		};
 		idElement++;
 
-		if (idElement > 1) {
+		if (idElement > 2) {
 			updateItems();
 			showPreview();
 			showCssCode();
@@ -104,7 +132,7 @@ function addElement() {
 		}
 
 	}
-	if (idElement === 10) {
+	if (idElement === 15) {
 		buttonAdd.setAttribute("disabled", "");
 	}
 }
@@ -148,7 +176,7 @@ function addToInputParameters() {
 					if (boxPatameter.value > pageWidth ||
 						((boxPatameter.getAttribute('id').slice(0, -2) === "flex-grow" || boxPatameter.getAttribute('id').slice(0, -2) === "flex-shrink") && boxPatameter.value > 10)) {
 						boxPatameter.value = boxPatameter.value.slice(0, -1);
-					} else if (boxPatameter.value < 0) {
+					} else if (boxPatameter.value < 0 && boxPatameter.getAttribute('id').slice(0, -2) !== "order") {
 						boxPatameter.value = 0;
 					} else {
 						inputParameters[`element-${i}`][boxPatameter.getAttribute('id').slice(0, -2)] = (isNaN(+boxPatameter.value)) ? boxPatameter.value : +boxPatameter.value;
@@ -413,6 +441,7 @@ function showPreview() {
 		flexElement.style.cssText = `align-self: ${inputParameters[`element-${index}`]["align-self"]};
 											  flex-grow: ${inputParameters[`element-${index}`]["flex-grow"]};
 											  flex-shrink: ${inputParameters[`element-${index}`]["flex-shrink"]};
+											  order: ${inputParameters[`element-${index}`]["order"]};
 											  ${hasFlexBasis(index)}`;
 		preview.append(flexElement);
 
