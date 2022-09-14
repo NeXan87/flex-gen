@@ -114,13 +114,6 @@ section {
 	border: 1px solid #d5d5d5;
 }
 
-.parameters {
-	background: none;
-	border: 0;
-	padding: 0;
-	border-radius: 0;
-}
-
 .pad {
 	background-color: #fff;
 	padding: 5px 10px 10px 10px;
@@ -226,6 +219,10 @@ section {
 }
 
 .parameters {
+	background: none;
+	border: 0;
+	padding: 0;
+	border-radius: 0;
 	width: 272px;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -233,7 +230,6 @@ section {
 	justify-self: end;
 	grid-row: 2 / -1;
 	grid-column: 1;
-	margin-bottom: 20px;
 }
 
 .preview {
@@ -246,13 +242,11 @@ section {
 .legend {
 	grid-column: 2;
 	grid-row: 3;
-	margin-bottom: 20px;
 }
 
 .description {
 	grid-column: 3;
 	grid-row: 3;
-	margin-bottom: 20px;
 }
 
 .css-box {
@@ -263,7 +257,6 @@ section {
 	cursor: text;
 	overflow-y: auto;
 	overflow-x: hidden;
-	margin-bottom: 20px;
 }
 
 .css-styles {
