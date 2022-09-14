@@ -56,6 +56,7 @@ function resizeWindow() {
 	boxParameters[0].setAttribute("placeholder", `300-${pageWidth}px`);
 	inputParameters.parent.width = pageWidth;
 	showWidthBox();
+	setTimeout(showCssCode, 1000);
 
 }
 
