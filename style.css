@@ -68,14 +68,14 @@ fieldset:not(:last-child) {
 	margin-bottom: 10px;
 }
 
-h1,
-h2 {
-	font-family: Tahoma, Geneva, sans-serif;
-}
-
 h1 {
-	font-size: 18px;
 	line-height: 1;
+	margin-right: auto;
+	padding-top: 3px;
+	display: flex;
+	font-family: "Lucida Sans Unicode",
+		"Lucida Grande",
+		sans-serif;
 }
 
 h2 {
@@ -85,6 +85,7 @@ h2 {
 	color: #444;
 	padding: 2px 0 7px;
 	margin-bottom: 15px;
+	font-family: Tahoma, Geneva, sans-serif;
 }
 
 legend {
@@ -140,38 +141,83 @@ section.parameters {
 	justify-content: space-between;
 }
 
-.mailto {
+.main-title>span:first-child {
+	font-size: 34px;
+	font-weight: bold;
+	margin-right: 15px;
+	font-family: "Lucida Sans Unicode",
+		"Lucida Grande",
+		sans-serif;
+}
+
+.main-title>span:last-child {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	font-size: 9px;
+	font-weight: normal;
+	font-style: italic;
+	color: #ffffffc9;
+}
+
+.contacts {
 	position: relative;
 }
 
-.main-header a {
-	color: white;
-	width: 185px;
-	height: 30px;
+.contacts a {
 	padding-left: 35px;
 	display: block;
+	color: white;
+	height: 30px;
 }
 
-.mailto a::before {
+.contacts:not(:last-of-type) {
+	margin-right: 20px;
+}
+
+.contacts a::before {
 	content: "";
 	position: absolute;
-	top: 3px;
-	left: 5px;
 	width: 25px;
 	height: 25px;
-	background-image: url(email.svg);
+	top: 3px;
+	left: 5px;
 	background-repeat: no-repeat;
 	background-size: contain;
 }
 
-.mailto a::after {
-	content: "для предложений и замечаний";
+.contacts a::after {
 	position: absolute;
 	font-size: 9px;
 	color: #ffffffc9;
 	bottom: 3px;
-	right: 5px;
+	left: 35px;
 	line-height: 1;
+}
+
+.github a {
+	width: 125px;
+}
+
+.github a::before {
+	background-image: url(github.svg);
+}
+
+.github a::after {
+	content: "Страница проекта";
+}
+
+.mailto a {
+	width: 185px;
+}
+
+.mailto a::before {
+	background-image: url(email.svg);
+}
+
+.mailto a::after {
+	content: "для предложений и замечаний";
 }
 
 .parameters {
@@ -567,7 +613,7 @@ section.parameters {
 }
 
 .flexbox-item {
-	min-width: 30px;
+	min-width: 120px;
 	min-height: 40px;
 	height: 50px;
 	list-style: none;
