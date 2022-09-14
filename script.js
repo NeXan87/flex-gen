@@ -119,6 +119,7 @@ function addElement() {
 			"flex-grow": 0,
 			"flex-shrink": 0,
 			"flex-basis": 100,
+			"order": 0,
 			"align-self": "auto",
 		};
 		idElement++;
