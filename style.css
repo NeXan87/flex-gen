@@ -624,7 +624,6 @@ section {
 .flexbox-item {
 	min-width: 50px;
 	min-height: 50px;
-	height: 50px;
 	list-style: none;
 	background-color: #00763d73;
 	border: 1px solid #00763d;
