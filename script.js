@@ -24,7 +24,7 @@ const inputParameters = {
 		"align-items": document.querySelector("#align-items").value,
 		"align-content": document.querySelector("#align-content").value,
 	},
-	parameters: {}
+	parameters: {},
 };
 
 let hasMinWidth = key => {
