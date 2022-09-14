@@ -43,10 +43,6 @@ a {
 	text-decoration: none;
 }
 
-code {
-	font-family: 'Courier New', Courier, monospace;
-}
-
 input,
 select {
 	height: 22px;
@@ -107,7 +103,7 @@ p {
 	font-size: 14px;
 }
 
-section {
+section, article {
 	background-color: #fff;
 	padding: 5px 10px 10px 10px;
 	border-radius: 5px;
@@ -259,7 +255,12 @@ section {
 	overflow-x: hidden;
 }
 
+.css-box h2 {
+	margin-bottom: 5px;
+}
+
 .css-styles {
+	display: block;
 	padding: 0 5px;
 }
 
