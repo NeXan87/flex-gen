@@ -95,6 +95,8 @@ main {
 	grid-template-rows: auto minmax(300px, 1fr) auto;
 	gap: 20px;
 	height: 100vh;
+	max-width: 1920px;
+	margin: 0 auto;
 }
 
 p {
@@ -233,6 +235,7 @@ section, article {
 	grid-row: 2;
 	position: relative;
 	padding: 32px 33px;
+	overflow: hidden;
 }
 
 .legend {

@@ -45,7 +45,9 @@ let hasPx = key => {
 
 function resizeWindow() {
 
-	if (window.innerWidth > 1240) {
+	if (window.innerWidth > 1920) {
+		pageWidth = 1210;
+	} else if (window.innerWidth > 1240) {
 		pageWidth = window.innerWidth - 710;
 	} else if ((window.innerWidth > 768)) {
 		pageWidth = window.innerWidth - 410;
