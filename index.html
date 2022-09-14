@@ -17,6 +17,11 @@
 
 		<header class="main-header">
 			<h1>Онлайн конструктор FlexBox с калькулятором и предпросмотром</h1>
+			<div class="contacts">
+				<div class="mailto">
+					<a href="mailto:nexan87@gmail.com">Электронная почта</a>
+				</div>
+			</div>
 		</header>
 
 		<section class="parameters">
@@ -26,7 +31,8 @@
 					<label for="width-container" class="label-title element">Ширина</label>
 					<input type="number" class="number element oninput input-parent width" id="width" value="">
 					<label for="gap" class="label-title element">gap</label>
-					<input type="number" class="number element oninput input-parent gap" id="gap" value="" placeholder="">
+					<input type="number" class="number element oninput input-parent gap" id="gap" value=""
+						placeholder="0-100px">
 					<label for="flex-direction" class="element label-title">flex-direction</label>
 					<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
 						<option value="row" selected>row</option>
@@ -51,10 +57,10 @@
 					</select>
 					<label for="align-items" class="element label-title">align-items</label>
 					<select name="align-items" id="align-items" class="value element oninput input-parent">
-						<option value="stretch" selected>stretch</option>
+						<option value="stretch">stretch</option>
 						<option value="flex-start">flex-start</option>
 						<option value="flex-end">flex-end</option>
-						<option value="center">center</option>
+						<option value="center" selected>center</option>
 						<option value="baseline">baseline</option>
 					</select>
 					<label for="align-content" class="element label-title">align-content</label>
@@ -87,11 +93,17 @@
 
 		<section class="preview">
 			<div class="preview-border">
-				<div class="horizontal-arrow arrow-top main-coord">
+				<div class="arrow horizontal-arrow arrow-top main-coord">
 					<div class="arrow-title">главная ось</div>
 				</div>
-				<div class="horizontal-arrow arrow-bottom main-coord">
+				<div class="arrow horizontal-arrow arrow-bottom main-coord">
 					<div class="arrow-title">главная ось</div>
+				</div>
+				<div class="arrow vertical-arrow arrow-left cross-coord">
+					<div class="arrow-title">поперечная ось</div>
+				</div>
+				<div class="arrow vertical-arrow arrow-right cross-coord">
+					<div class="arrow-title">поперечная ось</div>
 				</div>
 				<ol class="preview-box"></ol>
 			</div>
