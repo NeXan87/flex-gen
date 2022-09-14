@@ -174,11 +174,6 @@ section.parameters {
 	line-height: 1;
 }
 
-.mailto span {
-	font-size: 9px;
-	color: #ffffffc9;
-}
-
 .parameters {
 	width: 272px;
 	overflow-y: auto;
