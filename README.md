@@ -1,1 +1,1 @@
-# Calc-flex-grow-shrink
+# FlexBox генератор и калькулятор с предпросмотром
