@@ -1,3 +1,9 @@
+@media screen and (min-width:1921px) {
+	.main-header {
+		border-radius: 0 0 20px 20px;
+	}
+}
+
 @media screen and (max-width:1440px) {
 	p {
 		font-size: 12px;
@@ -94,7 +100,8 @@
 		column-gap: 0;
 	}
 
-	section, article {
+	section,
+	article {
 		border-radius: 0;
 		border: 0;
 		border-top: 1px solid #d5d5d5;
