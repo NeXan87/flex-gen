@@ -92,7 +92,7 @@ overlay.onclick = function () {
 
 function addElement() {
 
-	if (idElement < 16) {
+	if (idElement < 11) {
 
 		let fieldset = document.createElement('fieldset');
 		fieldset.classList.add('flex', 'item');
@@ -141,7 +141,7 @@ function addElement() {
 		}
 
 	}
-	if (idElement === 15) {
+	if (idElement === 10) {
 		buttonAdd.setAttribute("disabled", "");
 	}
 }
