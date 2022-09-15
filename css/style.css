@@ -331,7 +331,7 @@ article {
 .button-background {
 	position: absolute;
 	right: 7px;
-	top: -19px;
+	top: -18px;
 	width: 30px;
 	height: 20px;
 	background-color: white;
@@ -342,11 +342,7 @@ article {
 	right: 0;
 	top: 0;
 	left: 0;
-	background-color: #00763d;
 	border: 0;
-	border-radius: 50%;
-	color: white;
-	transition: background-color .2s linear;
 	cursor: pointer;
 	width: 20px;
 	height: 20px;
@@ -357,30 +353,26 @@ article {
 	position: absolute;
 	right: 0;
 	top: 0;
-	font-weight: 700;
+	background-size: contain;
+	width: 20px;
+	height: 20px;
 }
 
 .button-element.add::before {
-	content: "+";
-	font-size: 20px;
-	line-height: 1;
+	content: "";
 	left: 0;
+	background: #fff url(../images/plus.svg) no-repeat;
 }
 
 .button-element.remove::before {
-	content: "-";
-	font-size: 30px;
-	line-height: 15px;
+	content: "";
 	left: -1px;
+	background: #fff url(../images/minus.svg) no-repeat;
 }
 
-.button-element:hover {
-	background-color: #02773e;
-}
-
-.button-element[disabled] {
-	background-color: #6c6c6c;
+.button-element[disabled]::before {
 	cursor: not-allowed;
+	background: #fff url(../images/plus_disabled.svg) no-repeat;
 }
 
 .result-box.general {
@@ -530,8 +522,8 @@ article {
 
 .vertical-arrow .arrow-title {
 	-webkit-writing-mode: vertical-lr;
-	    -ms-writing-mode: tb-lr;
-	        writing-mode: vertical-lr;
+	-ms-writing-mode: tb-lr;
+	writing-mode: vertical-lr;
 	width: 14px;
 }
 
@@ -612,7 +604,7 @@ article {
 
 .preview-box {
 	width: 100%;
-	min-width: 300px;
+	min-width: 240px;
 	height: calc(100% - 10px);
 	padding: 5px;
 	overflow: hidden;

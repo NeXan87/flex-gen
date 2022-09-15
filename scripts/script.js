@@ -4,7 +4,7 @@ let html = document.querySelector('html');
 let menuButton = document.querySelector('.top-menu');
 let paremetersBlok = document.querySelector('.parameters');
 let elements = document.querySelector('.elements');
-const buttonAdd = document.querySelector('.add');
+const buttonAdd = document.querySelector('.button-element.add');
 let resizeBox = document.querySelector('.preview-border');
 let preview = document.querySelector('.preview-box');
 let horizontalArrow = document.querySelectorAll('.horizontal-arrow');
@@ -28,8 +28,8 @@ const inputParameters = {
 };
 
 let hasMinWidth = key => {
-	if (key === "width" && inputParameters.parent[key] < 300) {
-		return 300;
+	if (key === "width" && inputParameters.parent[key] < 250) {
+		return 250;
 	} else {
 		return inputParameters.parent[key];
 	}
@@ -49,13 +49,18 @@ function resizeWindow() {
 		pageWidth = 1210;
 	} else if (window.innerWidth > 1240) {
 		pageWidth = window.innerWidth - 718;
-	} else if ((window.innerWidth > 768)) {
+	} else if (window.innerWidth > 768) {
 		pageWidth = window.innerWidth - 410;
+		menuButton.classList.remove("open");
+		paremetersBlok.classList.remove("open");
+		html.classList.remove("overflow-hidden");
+		overlay.classList.remove("open");
 	} else {
 		pageWidth = window.innerWidth - 80;
 	}
+
 	boxParameters[0].value = pageWidth;
-	boxParameters[0].setAttribute("placeholder", `300-${pageWidth}px`);
+	boxParameters[0].setAttribute("placeholder", `240-${pageWidth}px`);
 	inputParameters.parent.width = pageWidth;
 	showWidthBox();
 	setTimeout(showCssCode, 1000);
@@ -65,7 +70,7 @@ function resizeWindow() {
 resizeWindow();
 window.addEventListener('resize', resizeWindow, false);
 
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 4; i++) {
 	addElement();
 }
 
@@ -100,7 +105,7 @@ function addElement() {
 									 <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
 									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
 									 <label for="flex-basis-${idElement}" class="label-title element">flex-basis</label>
-									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" placeholder="0-${pageWidth}px" value="100">
+									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" placeholder="0-${pageWidth}px">
 									 <label for="order-${idElement}" class="label-title element">order</label>
 									 <input type="number" class="number order element order-${idElement} oninput input-child" id="order-${idElement}" placeholder="+-100">
 									 <label for="align-self-${idElement}" class="label-title element">align-self</label>
@@ -121,13 +126,13 @@ function addElement() {
 		inputParameters[`element-${idElement}`] = {
 			"flex-grow": 0,
 			"flex-shrink": 0,
-			"flex-basis": 100,
+			"flex-basis": 0,
 			"order": 0,
 			"align-self": "auto",
 		};
 		idElement++;
 
-		if (idElement > 2) {
+		if (idElement > 3) {
 			updateItems();
 			showPreview();
 			showCssCode();
