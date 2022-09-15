@@ -97,7 +97,8 @@
 
 	main {
 		grid-template-columns: auto;
-		column-gap: 0;
+		-moz-column-gap: 0;
+		     column-gap: 0;
 	}
 
 	section,
