@@ -197,7 +197,7 @@ section, article {
 }
 
 .github a::before {
-	background-image: url(github.svg);
+	background-image: url(../images/github.svg);
 }
 
 .github a::after {
@@ -209,7 +209,7 @@ section, article {
 }
 
 .mailto a::before {
-	background-image: url(email.svg);
+	background-image: url(../images/email.svg);
 }
 
 .mailto a::after {
@@ -285,8 +285,7 @@ section, article {
 	width: 250px;
 }
 
-.box-parent .number {
-	flex-basis: 116px;
+.box-parent .element {
 	max-width: 116px;
 }
 

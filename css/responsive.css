@@ -82,12 +82,19 @@
 		overflow-y: hidden;
 	}
 
+	input,
+	select {
+		height: 30px;
+		font-size: 16px;
+		padding-right: 5px;
+	}
+
 	main {
 		grid-template-columns: auto;
 		column-gap: 0;
 	}
 
-	section {
+	section, article {
 		border-radius: 0;
 		border: 0;
 		border-top: 1px solid #d5d5d5;
@@ -154,7 +161,7 @@
 	}
 
 	.contacts {
-		margin-right: 0 !important;
+		margin-right: 3px !important;
 	}
 
 	.contacts.github {
@@ -192,11 +199,35 @@
 		position: absolute;
 		background-color: #fff;
 		border: 1px solid #d5d5d5;
-		transition: right .3s ease-in-out;
+		transition: right .3s ease-in-out, visibility 0s ease-in-out .3s;
+		visibility: hidden;
 	}
 
 	.parameters.open {
 		right: 0;
+		visibility: visible;
+		transition: right .3s ease-in-out, visibility 0s ease-in-out 0s;
+	}
+
+	.element {
+		align-self: center;
+	}
+
+	.button-background.add {
+		right: 7px;
+		top: -24px;
+		width: 33px;
+		height: 30px;
+	}
+
+	.button-element.add {
+		top: 3px;
+		width: 25px;
+		height: 25px;
+	}
+
+	.button-element.add::before {
+		font-size: 26px;
 	}
 
 	.pad {
