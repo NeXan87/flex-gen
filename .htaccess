@@ -23,6 +23,6 @@ RewriteCond %{THE_REQUEST} ([^\s]*)\.html(\?[^\s]*)?
 RewriteRule (.*) %1 [R=301,L]
 
 
-<filesMatch ".(css|js|ico|svg)$">
+<filesMatch ".(css|js|svg)$">
 Header set Cache-Control "max-age=31536000"
 </filesMatch>
