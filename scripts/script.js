@@ -12,7 +12,7 @@ let verticalArrow = document.querySelectorAll('.vertical-arrow');
 let boxParameters = document.querySelectorAll('.oninput');
 let cssStyles = document.querySelector('.css-styles');
 let overlay = document.querySelector('.overlay');
-let pageWidth, pageHeight, op, nks, dsm, irr, irs, idElement = 0;
+let primaryLoad, pageWidth, pageHeight, op, nks, dsm, irr, irs, idElement = 0;
 
 const inputParameters = {
 	parent: {
@@ -72,6 +72,7 @@ window.addEventListener('resize', resizeWindow, false);
 
 for (let i = 0; i < 4; i++) {
 	addElement();
+	if (idElement == 3) primaryLoad = true;
 }
 
 menuButton.onclick = function () {
@@ -132,7 +133,7 @@ function addElement() {
 		};
 		idElement++;
 
-		if (idElement > 3) {
+		if (primaryLoad) {
 			updateItems();
 			showPreview();
 			showCssCode();
@@ -483,6 +484,7 @@ function showCssCode() {
 		if (inputParameters[`element-${j}`]["flex-grow"] === 0
 			&& inputParameters[`element-${j}`]["flex-shrink"] === 0
 			&& inputParameters[`element-${j}`]["flex-basis"] === 0
+			&& inputParameters[`element-${j}`]["order"] === 0
 			&& inputParameters[`element-${j}`]["align-self"] === "auto") continue;
 
 		cssStyles.innerHTML += `.element-${j + 1} {<br/>`;

@@ -277,7 +277,7 @@ article {
 	padding-bottom: 8px;
 }
 
-.item:nth-of-type(-n + 3) .button-background,
+.item:nth-of-type(-n + 2) .button-background,
 .item:not(:nth-last-of-type(1)) .button-background {
 	display: none;
 }
