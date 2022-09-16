@@ -14,7 +14,6 @@
 
 *::-webkit-scrollbar-track {
 	background: #00763d;
-	border-radius: 0 5px 5px 0;
 }
 
 *::-webkit-scrollbar-thumb {
@@ -111,6 +110,10 @@ article {
 	padding: 5px 10px 10px 10px;
 	border-radius: 5px;
 	border: 1px solid #d5d5d5;
+}
+
+section::-webkit-scrollbar-track {
+	border-radius: 0 5px 5px 0;
 }
 
 .pad {
