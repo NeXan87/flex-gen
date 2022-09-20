@@ -109,6 +109,19 @@
 		border-bottom: 1px solid #d5d5d5;
 	}
 
+	article {
+		padding-bottom: 20px;
+	}
+
+	article h2 {
+		margin-bottom: 20px;
+	}
+
+	article li,
+	article p {
+		font-size: 14px;
+	}
+
 	.main-header {
 		padding: 0 0 0 15px;
 		position: fixed;
