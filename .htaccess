@@ -22,7 +22,7 @@ RewriteRule ^.*$ $0.html [L,QSA]
 RewriteCond %{THE_REQUEST} ([^\s]*)\.html(\?[^\s]*)?
 RewriteRule (.*) %1 [R=301,L]
 
-
-<filesMatch ".(css|js|svg)$">
+# Кэшируем файлы
+<filesMatch ".(css|js|svg|png|ico)$">
 Header set Cache-Control "max-age=31536000"
 </filesMatch>
