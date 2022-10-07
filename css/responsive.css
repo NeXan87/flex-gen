@@ -21,15 +21,17 @@
 	}
 
 	.preview {
+		margin-right: 20px;
+
 		grid-column: 2 / -1;
 		grid-row: 2;
-		margin-right: 20px;
 	}
 
 	.legend {
+		margin-bottom: 0;
+
 		grid-column: 2 / 4;
 		grid-row: 3;
-		margin-bottom: 0;
 	}
 
 	.description {
@@ -45,32 +47,36 @@
 
 @media screen and (max-width:1024px) {
 	main {
+		height: auto;
+
 		grid-template-columns: 290px minmax(400px, 1fr);
 		grid-template-rows: auto 510px auto auto auto;
-		height: auto;
 	}
 
 	.legend {
+		margin-right: 20px;
+		margin-bottom: 0;
+
 		grid-column: 2 / -1;
 		grid-row: 3;
-		margin-bottom: 0;
-		margin-right: 20px;
 	}
 
 	.description {
+		margin-right: 20px;
+		margin-bottom: 0;
+
 		grid-column: 2 / -1;
 		grid-row: 4;
-		margin-bottom: 0;
-		margin-right: 20px;
 	}
 
 	.css-box {
-		grid-column: 2 /-1;
-		grid-row: 5;
 		width: 100%;
+		width: auto;
 		max-height: 600px;
 		margin-right: 20px;
-		width: auto;
+
+		grid-column: 2 /-1;
+		grid-row: 5;
 		justify-self: stretch;
 	}
 }
@@ -91,22 +97,24 @@
 	input,
 	select {
 		height: 30px;
-		font-size: 16px;
 		padding-right: 5px;
+
+		font-size: 16px;
 	}
 
 	main {
-		grid-template-columns: auto;
 		-moz-column-gap: 0;
 		column-gap: 0;
+
+		grid-template-columns: auto;
 	}
 
 	section,
 	article {
-		border-radius: 0;
 		border: 0;
 		border-top: 1px solid #d5d5d5;
 		border-bottom: 1px solid #d5d5d5;
+		border-radius: 0;
 	}
 
 	article {
@@ -123,39 +131,46 @@
 	}
 
 	.main-header {
-		padding: 0 0 0 15px;
 		position: fixed;
-		width: 100%;
-		box-shadow: 0px -1px 7px 0px #000000b8;
 		z-index: 300;
+
+		width: 100%;
+		padding: 0 0 0 15px;
+
+		box-shadow: 0 -1px 7px 0 #000000b8;
 	}
 
 	.top-menu {
+		display: block;
 		width: 65px;
 		height: 50px;
 		padding: 0 !important;
+
 		cursor: pointer;
-		display: block;
 	}
 
 	.menu {
 		top: 23px;
-		bottom: 0;
 		right: 13px;
+		bottom: 0;
+
 		width: 35px;
 	}
 
 	.menu,
 	.menu::after,
 	.menu::before {
-		content: ' ';
+		content: " ";
 		position: absolute;
 		right: 17px;
-		border-radius: 2px;
+
 		width: 35px;
 		height: 5px;
-		background-color: #fff;
-		transition: all .2s ease-in-out;
+
+		background-color: #ffffff;
+		border-radius: 2px;
+
+		transition: all 0.2s ease-in-out;
 	}
 
 	.menu::before {
@@ -164,24 +179,27 @@
 	}
 
 	.menu::after {
-		bottom: -10px;
 		right: 0;
+		bottom: -10px;
 	}
 
 	.top-menu.open .menu {
-		width: 0%;
 		right: 28px;
+
+		width: 0;
 	}
 
 	.top-menu.open .menu::before {
-		top: 0px;
+		top: 0;
 		right: -12px;
+
 		transform: rotate(45deg);
 	}
 
 	.top-menu.open .menu::after {
-		bottom: 0px;
 		right: -12px;
+		bottom: 0;
+
 		transform: rotate(-45deg);
 	}
 
@@ -200,12 +218,13 @@
 	}
 
 	.contacts a::before {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+
 		width: 32px;
 		height: 32px;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
 		margin: auto;
 	}
 
@@ -214,24 +233,30 @@
 	}
 
 	.parameters {
-		grid-column: none;
-		grid-row: none;
-		border: 0;
+		position: fixed;
 		top: 50px;
 		right: -280px;
 		z-index: 100;
-		max-height: none;
+
 		height: calc(100% - 50px);
-		position: fixed;
-		background-color: #fff;
-		transition: right .3s ease-in-out, visibility 0s ease-in-out .3s;
+		max-height: none;
+
+		background-color: #ffffff;
+		border: 0;
 		visibility: hidden;
+
+		transition: right 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
+
+		grid-column: none;
+		grid-row: none;
 	}
 
 	.parameters.open {
 		right: 0;
+
 		visibility: visible;
-		transition: right .3s ease-in-out, visibility 0s ease-in-out 0s;
+
+		transition: right 0.3s ease-in-out, visibility 0s ease-in-out 0s;
 	}
 
 	.element {
@@ -239,14 +264,16 @@
 	}
 
 	.button-background.add {
-		right: 7px;
 		top: -24px;
+		right: 7px;
+
 		width: 33px;
 		height: 30px;
 	}
 
 	.button-element.add {
 		top: 3px;
+
 		width: 25px;
 		height: 25px;
 	}
@@ -257,8 +284,8 @@
 	}
 
 	.pad {
-		border-radius: 0;
 		border: 0;
+		border-radius: 0;
 	}
 
 	.preview,
@@ -268,9 +295,10 @@
 	}
 
 	.preview {
+		margin-top: 50px;
+
 		grid-column: 1;
 		grid-row: 2;
-		margin-top: 50px;
 	}
 
 	.legend {
@@ -279,40 +307,47 @@
 	}
 
 	.description {
+		margin-right: 0;
+
 		grid-column: 1;
 		grid-row: 4;
-		margin-right: 0;
 	}
 
 	.css-box {
+		max-height: none;
+
 		grid-column: 1;
 		grid-row: 5;
-		max-height: none;
 	}
 
 	.overlay {
 		position: fixed;
 		top: 0;
 		left: 0;
+		z-index: 10;
+
 		width: 100%;
 		height: 150%;
+
 		background-color: #000000a6;
-		z-index: 10;
-		opacity: 0;
 		visibility: hidden;
-		transition: opacity .3s ease-in-out, visibility 0s ease-in-out .3s;
+		opacity: 0;
+
+		transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
 	}
 
 	.overlay.open {
-		opacity: 1;
 		visibility: visible;
-		transition: opacity .3s ease-in-out, visibility 0s ease-in-out 0s;
+		opacity: 1;
+
+		transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0s;
 	}
 }
 
 @media screen and (max-width:425px) {
 	.main-title>span:last-child {
+		width: 0;
+
 		visibility: hidden;
-		width: 0px;
 	}
 }
