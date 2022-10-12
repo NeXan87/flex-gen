@@ -2,190 +2,190 @@
 <html lang="ru">
 
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-	<link rel="apple-touch-icon" sizes="180x180" href="../images/favicons/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicons/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="../images/favicons/favicon-16x16.png">
-	<link rel="manifest" href="../images/favicons/site.webmanifest">
-	<link rel="stylesheet" href="../css/style.css">
-	<link rel="stylesheet" href="../css/responsive.css">
-	<link rel="canonical" href="https://flex-gen.ru">
-	<title>Онлайн конструктор FlexBox с калькулятором и предпросмотром</title>
-	<meta name="description" content="С помощью онлайн калькулятора FlexBox вы можете гибко рассчитать количество flex-элементов и посмотреть, как они будут выглядеть на практике">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicons/favicon-16x16.png">
+  <link rel="manifest" href="../images/favicons/site.webmanifest">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <link rel="canonical" href="https://flex-gen.ru">
+  <title>Онлайн конструктор FlexBox с калькулятором и предпросмотром</title>
+  <meta name="description" content="С помощью онлайн калькулятора FlexBox вы можете гибко рассчитать количество flex-элементов и посмотреть, как они будут выглядеть на практике">
 </head>
 
 <body>
-	<main>
+  <main>
 
-		<header class="main-header">
-			<h1 class="main-title">
-				<span>FlexBox</span>
-				<span>
-					<span> конструктор</span>
-					<span> калькулятор</span>
-					<span> предпросмотр</span>
-				</span>
-			</h1>
-			<div class="contacts github">
-				<a href="https://github.com/NeXan87/Calc-flex-grow-shrink" target="_blank" rel="nofollow noopener noreferrer">GitHub.com</a>
-			</div>
-			<div class="contacts mailto">
-				<a href="mailto:nexan87@gmail.com">Электронная почта</a>
-			</div>
-			<div class="top-menu">
-				<span class="menu"></span>
-			</div>
-		</header>
+    <header class="main-header">
+      <h1 class="main-title">
+        <span>FlexBox</span>
+        <span>
+          <span> конструктор</span>
+          <span> калькулятор</span>
+          <span> предпросмотр</span>
+        </span>
+      </h1>
+      <div class="contacts github">
+        <a href="https://github.com/NeXan87/Calc-flex-grow-shrink" target="_blank" rel="nofollow noopener noreferrer">GitHub.com</a>
+      </div>
+      <div class="contacts mailto">
+        <a href="mailto:nexan87@gmail.com">Электронная почта</a>
+      </div>
+      <div class="top-menu">
+        <span class="menu"></span>
+      </div>
+    </header>
 
-		<section class="parameters">
-			<h2 class="visually-hidden">Параметры.</h2>
-			<div class="pad">
-				<fieldset class="flex box-parent main-fieldset">
-					<legend>Параметры родителя</legend>
-					<label for="width" class="label-title element">Ширина</label>
-					<input type="number" class="number element oninput input-parent width" id="width" value="">
-					<label for="gap" class="label-title element">gap</label>
-					<input type="number" class="number element oninput input-parent gap" id="gap" value="5" placeholder="0-100px">
-					<label for="flex-direction" class="element label-title">flex-direction</label>
-					<select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
-						<option value="row" selected>row</option>
-						<option value="row-reverse">row-reverse</option>
-						<option value="column">column</option>
-						<option value="column-reverse">column-reverse</option>
-					</select>
-					<label for="flex-wrap" class="element label-title">flex-wrap</label>
-					<select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
-						<option value="nowrap">nowrap</option>
-						<option value="wrap" selected>wrap</option>
-						<option value="wrap-reverse">wrap-reverse</option>
-					</select>
-					<label for="justify-content" class="element label-title">justify-content</label>
-					<select name="justify-content" id="justify-content" class="value element oninput input-parent">
-						<option value="flex-start">flex-start</option>
-						<option value="flex-end">flex-end</option>
-						<option value="center" selected>center</option>
-						<option value="space-between">space-between</option>
-						<option value="space-around">space-around</option>
-						<option value="space-evenly">space-evenly</option>
-					</select>
-					<label for="align-items" class="element label-title">align-items</label>
-					<select name="align-items" id="align-items" class="value element oninput input-parent">
-						<option value="stretch">stretch</option>
-						<option value="flex-start">flex-start</option>
-						<option value="flex-end">flex-end</option>
-						<option value="center" selected>center</option>
-						<option value="baseline">baseline</option>
-					</select>
-					<label for="align-content" class="element label-title">align-content</label>
-					<select name="align-content" id="align-content" class="value element oninput input-parent">
-						<option value="stretch">stretch</option>
-						<option value="flex-start">flex-start</option>
-						<option value="flex-end">flex-end</option>
-						<option value="center" selected>center</option>
-						<option value="space-between">space-between</option>
-						<option value="space-around">space-around</option>
-						<option value="space-evenly">space-evenly</option>
-					</select>
-				</fieldset>
-				<fieldset class="elements main-fieldset">
-					<legend>Параметры элементов</legend>
-					<div class="button-background add">
-						<button type="button" class="button-element add" onclick="addElement()"></button>
-					</div>
-					<div class="result-box general">
-						<div class="result-item">ОП:
-							<output name="result" class="op">NaN</output>
-						</div>
-						<div class="result-item">ДСМ:
-							<output name="result" class="dsm">NaN</output>
-						</div>
-					</div>
-				</fieldset>
-			</div>
-		</section>
+    <section class="parameters">
+      <h2 class="visually-hidden">Параметры.</h2>
+      <div class="pad">
+        <fieldset class="flex box-parent main-fieldset">
+          <legend>Параметры родителя</legend>
+          <label for="width" class="label-title element">Ширина</label>
+          <input type="number" class="number element oninput input-parent width" id="width" value="">
+          <label for="gap" class="label-title element">gap</label>
+          <input type="number" class="number element oninput input-parent gap" id="gap" value="5" placeholder="0-100px">
+          <label for="flex-direction" class="element label-title">flex-direction</label>
+          <select name="flex-direction" id="flex-direction" class="value element oninput input-parent">
+            <option value="row" selected>row</option>
+            <option value="row-reverse">row-reverse</option>
+            <option value="column">column</option>
+            <option value="column-reverse">column-reverse</option>
+          </select>
+          <label for="flex-wrap" class="element label-title">flex-wrap</label>
+          <select name="flex-wrap" id="flex-wrap" class="value element oninput input-parent">
+            <option value="nowrap">nowrap</option>
+            <option value="wrap" selected>wrap</option>
+            <option value="wrap-reverse">wrap-reverse</option>
+          </select>
+          <label for="justify-content" class="element label-title">justify-content</label>
+          <select name="justify-content" id="justify-content" class="value element oninput input-parent">
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center" selected>center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+          <label for="align-items" class="element label-title">align-items</label>
+          <select name="align-items" id="align-items" class="value element oninput input-parent">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center" selected>center</option>
+            <option value="baseline">baseline</option>
+          </select>
+          <label for="align-content" class="element label-title">align-content</label>
+          <select name="align-content" id="align-content" class="value element oninput input-parent">
+            <option value="stretch">stretch</option>
+            <option value="flex-start">flex-start</option>
+            <option value="flex-end">flex-end</option>
+            <option value="center" selected>center</option>
+            <option value="space-between">space-between</option>
+            <option value="space-around">space-around</option>
+            <option value="space-evenly">space-evenly</option>
+          </select>
+        </fieldset>
+        <fieldset class="elements main-fieldset">
+          <legend>Параметры элементов</legend>
+          <div class="button-background add">
+            <button type="button" class="button-element add" onclick="addElement()"></button>
+          </div>
+          <div class="result-box general">
+            <div class="result-item">ОП:
+              <output name="result" class="op">NaN</output>
+            </div>
+            <div class="result-item">ДСМ:
+              <output name="result" class="dsm">NaN</output>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </section>
 
-		<section class="preview">
-			<h2 class="visually-hidden">Предпросмотр.</h2>
-			<div class="preview-border">
-				<div class="arrow horizontal-arrow arrow-top main-coord">
-					<div class="arrow-title">главная ось</div>
-				</div>
-				<div class="arrow horizontal-arrow arrow-bottom main-coord">
-					<div class="arrow-title">главная ось</div>
-				</div>
-				<div class="arrow vertical-arrow arrow-left cross-coord">
-					<div class="arrow-title">поперечная ось</div>
-				</div>
-				<div class="arrow vertical-arrow arrow-right cross-coord">
-					<div class="arrow-title">поперечная ось</div>
-				</div>
-				<ol class="preview-box"></ol>
-			</div>
-		</section>
+    <section class="preview">
+      <h2 class="visually-hidden">Предпросмотр.</h2>
+      <div class="preview-border">
+        <div class="arrow horizontal-arrow arrow-top main-coord">
+          <div class="arrow-title">главная ось</div>
+        </div>
+        <div class="arrow horizontal-arrow arrow-bottom main-coord">
+          <div class="arrow-title">главная ось</div>
+        </div>
+        <div class="arrow vertical-arrow arrow-left cross-coord">
+          <div class="arrow-title">поперечная ось</div>
+        </div>
+        <div class="arrow vertical-arrow arrow-right cross-coord">
+          <div class="arrow-title">поперечная ось</div>
+        </div>
+        <ol class="preview-box"></ol>
+      </div>
+    </section>
 
-		<article class="legend">
-			<h2>Легенда</h2>
-			<ul class="legend-list">
-				<li><b>ОП</b> - остаточное пространство</li>
-				<li><b>ДСМ</b> - доля свободного места</li>
-				<li><b>НКС</b> - номинальный коэфициент сжатия</li>
-				<li><b>ИРС</b> - итоговый размер сжатия</li>
-				<li><b>ИРР</b> - итоговый размер расширения</li>
-				<li><b style="color: #C00;">NOT</b> - необходимо ввести данные</li>
-				<li><b style="color: #C00;">W=OP</b> - нет остаточного пространства</li>
-				<li><b style="color: #C00;">MIN</b> - минимально допустимые значения</li>
-				<li><b style="color: #C00;">MAX</b> - максимально допустимые значения</li>
-			</ul>
-		</article>
+    <article class="legend">
+      <h2>Легенда</h2>
+      <ul class="legend-list">
+        <li><b>ОП</b> - остаточное пространство</li>
+        <li><b>ДСМ</b> - доля свободного места</li>
+        <li><b>НКС</b> - номинальный коэфициент сжатия</li>
+        <li><b>ИРС</b> - итоговый размер сжатия</li>
+        <li><b>ИРР</b> - итоговый размер расширения</li>
+        <li><b style="color: #C00;">NOT</b> - необходимо ввести данные</li>
+        <li><b style="color: #C00;">W=OP</b> - нет остаточного пространства</li>
+        <li><b style="color: #C00;">MIN</b> - минимально допустимые значения</li>
+        <li><b style="color: #C00;">MAX</b> - максимально допустимые значения</li>
+      </ul>
+    </article>
 
-		<article class="description">
-			<h2>Особенности конструктора</h2>
-			<p>Онлайн конструктор FlexBox - это интерактивная шпаргалка для обучения азам вёрстки.</p>
-			<p>Встроенный предпросмотр позволяет моментально увидеть, как будут располагаться flex элементы, и за что
-				отвечает каждое свойство.</p>
-			<p>Калькулятор рассчитывает итоговые размеры элементов, но у него есть ограничения. ИРС, ИРР верно
-				рассчитываются только в том случае, если элементы расположены в один ряд и имеют <em>order</em> по
-				умолчанию. Также при разных значениях
-				<em>flex-grow</em> или <em>flex-shink</em> может давать погрешность 1-5px.
-			</p>
-			<p>Можно добавить до 10 элементов, и по отдельности настроить.</p>
-		</article>
+    <article class="description">
+      <h2>Особенности конструктора</h2>
+      <p>Онлайн конструктор FlexBox - это интерактивная шпаргалка для обучения азам вёрстки.</p>
+      <p>Встроенный предпросмотр позволяет моментально увидеть, как будут располагаться flex элементы, и за что
+        отвечает каждое свойство.</p>
+      <p>Калькулятор рассчитывает итоговые размеры элементов, но у него есть ограничения. ИРС, ИРР верно
+        рассчитываются только в том случае, если элементы расположены в один ряд и имеют <em>order</em> по
+        умолчанию. Также при разных значениях
+        <em>flex-grow</em> или <em>flex-shink</em> может давать погрешность 1-5px.
+      </p>
+      <p>Можно добавить до 10 элементов, и по отдельности настроить.</p>
+    </article>
 
-		<section class="css-box">
-			<h2>CSS стили</h2>
-			<pre>
+    <section class="css-box">
+      <h2>CSS стили</h2>
+      <pre>
 				<code class="css-styles"></code>
 			</pre>
-		</section>
+    </section>
 
-		<div class="overlay"></div>
+    <div class="overlay"></div>
 
-	</main>
-	<script src="../scripts/script.js"></script>
+  </main>
+  <script src="../scripts/script.js"></script>
 
-	<!-- Yandex.Metrika counter -->
-	<script>
-		(function (m, e, t, r, i, k, a) {
-			m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-			m[i].l = 1 * new Date();
-			for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-			k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-		})
-			(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  <!-- Yandex.Metrika counter -->
+  <script>
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+      m[i].l = 1 * new Date();
+      for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+      k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-		ym(90369412, "init", {
-			clickmap: true,
-			trackLinks: true,
-			accurateTrackBounce: true,
-			webvisor: true
-		});
-	</script>
-	<noscript>
-		<div><img src="https://mc.yandex.ru/watch/90369412" style="position:absolute; left:-9999px;" alt=""></div>
-	</noscript>
-	<!-- /Yandex.Metrika counter -->
+    ym(90369412, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+  <noscript>
+    <div><img src="https://mc.yandex.ru/watch/90369412" style="position:absolute; left:-9999px;" alt=""></div>
+  </noscript>
+  <!-- /Yandex.Metrika counter -->
 
 </body>
 
