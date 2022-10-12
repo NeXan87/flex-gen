@@ -222,7 +222,7 @@ section::-webkit-scrollbar-track {
 }
 
 .github-link::before {
-  background-image: url(../images/github.svg);
+  background-image: url("../images/github.svg");
 }
 
 .github-link::after {
@@ -234,7 +234,7 @@ section::-webkit-scrollbar-track {
 }
 
 .mailto-link::before {
-  background-image: url(../images/email.svg);
+  background-image: url("../images/email.svg");
 }
 
 .mailto-link::after {
@@ -415,18 +415,18 @@ section::-webkit-scrollbar-track {
   content: "";
   left: 0;
 
-  background: #ffffff url(../images/plus.svg) no-repeat;
+  background: #ffffff url("../images/plus.svg") no-repeat;
 }
 
 .button-element.remove::before {
   content: "";
   left: -1px;
 
-  background: #ffffff url(../images/minus.svg) no-repeat;
+  background: #ffffff url("../images/minus.svg") no-repeat;
 }
 
 .button-element[disabled]::before {
-  background: #ffffff url(../images/plus_disabled.svg) no-repeat;
+  background: #ffffff url("../images/plus_disabled.svg") no-repeat;
   cursor: not-allowed;
 }
 
