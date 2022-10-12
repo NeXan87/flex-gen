@@ -28,10 +28,6 @@ html {
   overflow-x: hidden;
 }
 
-article {
-  font-size: 12px;
-}
-
 body {
   font-size: 14px;
   font-family: Verdana, Geneva, sans-serif;
@@ -48,12 +44,6 @@ select {
   height: 22px;
 }
 
-input:focus,
-button:focus,
-select:focus {
-  outline: none;
-}
-
 fieldset {
   position: relative;
 
@@ -66,17 +56,6 @@ fieldset:not(:last-child) {
   margin-bottom: 10px;
 }
 
-h1 {
-  display: flex;
-  margin-right: auto;
-  padding-top: 3px;
-
-  line-height: 1;
-  font-family: "Lucida Sans Unicode",
-    "Lucida Grande",
-    sans-serif;
-}
-
 h2 {
   margin-bottom: 15px;
   padding: 2px 0 7px;
@@ -87,23 +66,6 @@ h2 {
   color: #444444;
 
   border-bottom: 1px dotted #c0c0c0;
-}
-
-legend {
-  padding: 0 5px;
-
-  font-weight: bold;
-}
-
-main {
-  display: grid;
-  max-width: 1920px;
-  height: 100vh;
-  margin: 0 auto;
-
-  gap: 20px;
-  grid-template-columns: 290px minmax(290px, 0.6fr) minmax(300px, 1fr) 300px;
-  grid-template-rows: auto minmax(300px, 1fr) auto;
 }
 
 p {
@@ -143,6 +105,17 @@ section::-webkit-scrollbar-track {
   clip-path: inset(100%);
 }
 
+.main-container {
+  display: grid;
+  max-width: 1920px;
+  height: 100vh;
+  margin: 0 auto;
+
+  gap: 20px;
+  grid-template-columns: 290px minmax(290px, 0.6fr) minmax(300px, 1fr) 300px;
+  grid-template-rows: auto minmax(300px, 1fr) auto;
+}
+
 .pad {
   padding: 5px 10px 10px 10px;
 
@@ -164,6 +137,17 @@ section::-webkit-scrollbar-track {
 
   grid-column: 1 / -1;
   grid-row: 1;
+}
+
+.main-title {
+  display: flex;
+  margin-right: auto;
+  padding-top: 3px;
+
+  line-height: 1;
+  font-family: "Lucida Sans Unicode",
+    "Lucida Grande",
+    sans-serif;
 }
 
 .main-title > span:first-child {
@@ -233,27 +217,27 @@ section::-webkit-scrollbar-track {
   color: #ffffffc9;
 }
 
-.github a {
+.github-link {
   width: 130px;
 }
 
-.github a::before {
+.github-link::before {
   background-image: url(../images/github.svg);
 }
 
-.github a::after {
+.github-link::after {
   content: "Страница проекта";
 }
 
-.mailto a {
+.mailto-link {
   width: 190px;
 }
 
-.mailto a::before {
+.mailto-link::before {
   background-image: url(../images/email.svg);
 }
 
-.mailto a::after {
+.mailto-link::after {
   content: "для предложений и замечаний";
 }
 
@@ -273,6 +257,16 @@ section::-webkit-scrollbar-track {
   justify-self: end;
 }
 
+.elements-title {
+  padding: 0 5px;
+
+  font-weight: bold;
+}
+
+.element:focus {
+  outline: none;
+}
+
 .preview {
   position: relative;
 
@@ -281,6 +275,10 @@ section::-webkit-scrollbar-track {
 
   grid-column: 2 / -2;
   grid-row: 2;
+}
+
+.article {
+  font-size: 12px;
 }
 
 .legend {
@@ -305,7 +303,7 @@ section::-webkit-scrollbar-track {
   justify-self: left;
 }
 
-.css-box h2 {
+.css-box-title {
   margin-bottom: 5px;
 }
 

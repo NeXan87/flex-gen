@@ -108,7 +108,7 @@ function addElement() {
   fieldset.innerHTML = `<div class="button-background" onclick="removeElement(this)">
 									 	 <button type="button" class="button-element remove"></button>
 									 </div>
-									 <legend>Элемент ${idElement + 1}</legend>
+									 <legend class="elements-title">Элемент ${idElement + 1}</legend>
 									 <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
 									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
 									 <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
