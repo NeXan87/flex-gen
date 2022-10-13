@@ -104,7 +104,7 @@ overlay.onclick = function () {
 function addElement() {
  if (idElement < 11) {
   let fieldset = document.createElement("fieldset");
-  fieldset.classList.add("flex", "item");
+  fieldset.classList.add("flex", "item", "wrapper-parameters");
   fieldset.innerHTML = `<div class="button-background" onclick="removeElement(this)">
 									 	 <button type="button" class="button-element remove"></button>
 									 </div>

@@ -21,28 +21,27 @@
 
     <header class="main-header">
       <h1 class="main-title">
-        <span>FlexBox</span>
-        <span>
-          <span> конструктор</span>
-          <span> калькулятор</span>
-          <span> предпросмотр</span>
+        FlexBox
+        <span class="site-advantage"> конструктор
+          калькулятор
+          предпросмотр
         </span>
       </h1>
       <div class="contacts github">
-        <a class="github-link" href="https://github.com/NeXan87/Calc-flex-grow-shrink" target="_blank" rel="nofollow noopener noreferrer">GitHub.com</a>
+        <a class="contacts-link github-link" href="https://github.com/NeXan87/Calc-flex-grow-shrink" target="_blank" rel="nofollow noopener noreferrer">GitHub.com</a>
       </div>
       <div class="contacts mailto">
-        <a class="mailto-link" href="mailto:nexan87@gmail.com">Электронная почта</a>
+        <a class="contacts-link mailto-link" href="mailto:nexan87@gmail.com">Электронная почта</a>
       </div>
       <div class="top-menu">
         <span class="menu"></span>
       </div>
     </header>
 
-    <section class="parameters">
+    <section class="wrapper-container parameters">
       <h2 class="visually-hidden">Параметры.</h2>
       <div class="pad">
-        <fieldset class="flex box-parent main-fieldset">
+        <fieldset class="flex box-parent main-fieldset wrapper-parameters">
           <legend class="elements-title">Параметры родителя</legend>
           <label for="width" class="label-title element">Ширина</label>
           <input type="number" class="number element oninput input-parent width" id="width" value="">
@@ -89,7 +88,7 @@
             <option value="space-evenly">space-evenly</option>
           </select>
         </fieldset>
-        <fieldset class="elements main-fieldset">
+        <fieldset class="elements main-fieldset wrapper-parameters">
           <legend class="elements-title">Параметры элементов</legend>
           <div class="button-background add">
             <button type="button" class="button-element add" onclick="addElement()"></button>
@@ -106,7 +105,7 @@
       </div>
     </section>
 
-    <section class="preview">
+    <section class="wrapper-container preview">
       <h2 class="visually-hidden">Предпросмотр.</h2>
       <div class="preview-border">
         <div class="arrow horizontal-arrow arrow-top main-coord">
@@ -125,36 +124,36 @@
       </div>
     </section>
 
-    <article class="legend article">
-      <h2>Легенда</h2>
+    <article class="wrapper-container legend article">
+      <h2 class="title-h2">Легенда</h2>
       <ul class="legend-list">
-        <li><b>ОП</b> - остаточное пространство</li>
-        <li><b>ДСМ</b> - доля свободного места</li>
-        <li><b>НКС</b> - номинальный коэфициент сжатия</li>
-        <li><b>ИРС</b> - итоговый размер сжатия</li>
-        <li><b>ИРР</b> - итоговый размер расширения</li>
-        <li><b style="color: #C00;">NOT</b> - необходимо ввести данные</li>
-        <li><b style="color: #C00;">W=OP</b> - нет остаточного пространства</li>
-        <li><b style="color: #C00;">MIN</b> - минимально допустимые значения</li>
-        <li><b style="color: #C00;">MAX</b> - максимально допустимые значения</li>
+        <li class="legend-item"><b>ОП</b> - остаточное пространство</li>
+        <li class="legend-item"><b>ДСМ</b> - доля свободного места</li>
+        <li class="legend-item"><b>НКС</b> - номинальный коэфициент сжатия</li>
+        <li class="legend-item"><b>ИРС</b> - итоговый размер сжатия</li>
+        <li class="legend-item"><b>ИРР</b> - итоговый размер расширения</li>
+        <li class="legend-item"><b style="color: #C00;">NOT</b> - необходимо ввести данные</li>
+        <li class="legend-item"><b style="color: #C00;">W=OP</b> - нет остаточного пространства</li>
+        <li class="legend-item"><b style="color: #C00;">MIN</b> - минимально допустимые значения</li>
+        <li class="legend-item"><b style="color: #C00;">MAX</b> - максимально допустимые значения</li>
       </ul>
     </article>
 
-    <article class="description article">
-      <h2>Особенности конструктора</h2>
-      <p>Онлайн конструктор FlexBox - это интерактивная шпаргалка для обучения азам вёрстки.</p>
-      <p>Встроенный предпросмотр позволяет моментально увидеть, как будут располагаться flex элементы, и за что
+    <article class="wrapper-container description article">
+      <h2 class="title-h2">Особенности конструктора</h2>
+      <p class="article-text">Онлайн конструктор FlexBox - это интерактивная шпаргалка для обучения азам вёрстки.</p>
+      <p class="article-text">Встроенный предпросмотр позволяет моментально увидеть, как будут располагаться flex элементы, и за что
         отвечает каждое свойство.</p>
-      <p>Калькулятор рассчитывает итоговые размеры элементов, но у него есть ограничения. ИРС, ИРР верно
+      <p class="article-text">Калькулятор рассчитывает итоговые размеры элементов, но у него есть ограничения. ИРС, ИРР верно
         рассчитываются только в том случае, если элементы расположены в один ряд и имеют <em>order</em> по
         умолчанию. Также при разных значениях
         <em>flex-grow</em> или <em>flex-shink</em> может давать погрешность 1-5px.
       </p>
-      <p>Можно добавить до 10 элементов, и по отдельности настроить.</p>
+      <p class="article-text">Можно добавить до 10 элементов, и по отдельности настроить.</p>
     </article>
 
-    <section class="css-box">
-      <h2 class="css-box-title">CSS стили</h2>
+    <section class="wrapper-container css-box">
+      <h2 class="title-h2 css-box-title">CSS стили</h2>
       <pre>
 				<code class="css-styles"></code>
 			</pre>
