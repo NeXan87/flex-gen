@@ -105,32 +105,33 @@ function addElement() {
  if (idElement < 11) {
   let fieldset = document.createElement("fieldset");
   fieldset.classList.add("flex", "item", "wrapper-parameters");
-  fieldset.innerHTML = `<div class="button-background" onclick="removeElement(this)">
-									 	 <button type="button" class="button-element remove"></button>
-									 </div>
-									 <legend class="elements-title">Элемент ${idElement + 1}</legend>
-									 <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
-									 <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
-									 <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
-									 <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
-									 <label for="flex-basis-${idElement}" class="label-title element">flex-basis</label>
-									 <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" placeholder="0-${pageWidth}px">
-									 <label for="order-${idElement}" class="label-title element">order</label>
-									 <input type="number" class="number order element order-${idElement} oninput input-child" id="order-${idElement}" placeholder="+-100">
-									 <label for="align-self-${idElement}" class="label-title element">align-self</label>
-									 <select name="align-self" id="align-self-${idElement}" class="select element element-${idElement} oninput input-child">
-									 	 <option value="auto" selected>auto</option>
-									 	 <option value="flex-start">flex-start</option>
-									 	 <option value="flex-end">flex-end</option>
-									 	 <option value="center">center</option>
-										 <option value="baseline">baseline</option>
-										 <option value="stretch">stretch</option>
-								 	 </select>
-									 <div class="result-box">
-										 <div class="result-item">НКС<output name="result" class="nks result-${idElement}"></output></div>
-										 <div class="result-item">ИРС<output name="result" class="irs result-${idElement}"></output></div>
-										 <div class="result-item">ИРР<output name="result" class="irr result-${idElement}"></output></div>
-									 </div>`;
+  fieldset.innerHTML = `
+  <div class="button-background" onclick="removeElement(this)">
+  <button type="button" class="button-element remove"></button>
+  </div>
+  <legend class="elements-title">Элемент ${idElement + 1}</legend>
+  <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
+  <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
+  <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
+  <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
+  <label for="flex-basis-${idElement}" class="label-title element">flex-basis</label>
+  <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" placeholder="0-${pageWidth}px">
+  <label for="order-${idElement}" class="label-title element">order</label>
+  <input type="number" class="number order element order-${idElement} oninput input-child" id="order-${idElement}" placeholder="+-100">
+  <label for="align-self-${idElement}" class="label-title element">align-self</label>
+  <select name="align-self" id="align-self-${idElement}" class="select element element-${idElement} oninput input-child">
+  <option value="auto" selected>auto</option>
+  <option value="flex-start">flex-start</option>
+  <option value="flex-end">flex-end</option>
+  <option value="center">center</option>
+  <option value="baseline">baseline</option>
+  <option value="stretch">stretch</option>
+  </select>
+  <div class="result-box">
+  <div class="result-item">НКС<output name="result" class="nks result-${idElement}"></output></div>
+  <div class="result-item">ИРС<output name="result" class="irs result-${idElement}"></output></div>
+  <div class="result-item">ИРР<output name="result" class="irr result-${idElement}"></output></div>
+  </div>`;
   elements.appendChild(fieldset);
   inputParameters[`element-${idElement}`] = {
    "flex-grow": 0,
