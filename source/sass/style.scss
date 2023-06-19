@@ -799,7 +799,7 @@ select {
     border-radius: 0 !important;
   }
 
-  .overflow-hidden {
+  html.is-open {
     overflow-y: hidden;
   }
 
@@ -878,20 +878,20 @@ select {
     bottom: -10px;
   }
 
-  .top-menu.open .menu {
+  .is-open .menu {
     right: 28px;
 
     width: 0;
   }
 
-  .top-menu.open .menu::before {
+  .is-open .menu::before {
     top: 0;
     right: -12px;
 
     transform: rotate(45deg);
   }
 
-  .top-menu.open .menu::after {
+  .is-open .menu::after {
     right: -12px;
     bottom: 0;
 
@@ -946,7 +946,7 @@ select {
     grid-row: none;
   }
 
-  .parameters.open {
+  .is-open .parameters {
     right: 0;
 
     visibility: visible;
@@ -1041,7 +1041,7 @@ select {
     transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
   }
 
-  .overlay.open {
+  .is-open .overlay {
     visibility: visible;
     opacity: 1;
 

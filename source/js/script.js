@@ -1,17 +1,15 @@
 import './prototypes.js';
+import { initMenuButtonActions } from './mobile-menu.js';
 import { renderCss } from './render-css.js';
 import { hasPx, debounce } from './utils.js';
 
-const html = document.querySelector('html');
-const menuButton = document.querySelector('.top-menu');
-const paremetersBlok = document.querySelector('.parameters');
+const htmlElement = document.querySelector('html');
 const elements = document.querySelector('.elements');
 const buttonAdd = document.querySelector('.button-element.add');
 const preview = document.querySelector('.preview-box');
 const horizontalArrow = document.querySelectorAll('.horizontal-arrow');
 const verticalArrow = document.querySelectorAll('.vertical-arrow');
 let boxParameters = document.querySelectorAll('.oninput');
-const overlay = document.querySelector('.overlay');
 const addElementButton = document.querySelector('.add');
 let primaryLoad,
   pageWidth,
@@ -21,6 +19,8 @@ let primaryLoad,
   irr,
   irs,
   idElement = 0;
+
+initMenuButtonActions();
 
 const rerenderTimeout = debounce((data) => renderCss(data), 1000);
 
@@ -46,10 +46,7 @@ function resizeWindow() {
     pageWidth = window.innerWidth - 718;
   } else if (window.innerWidth > 768) {
     pageWidth = window.innerWidth - 410;
-    menuButton.classList.remove('open');
-    paremetersBlok.classList.remove('open');
-    html.classList.remove('overflow-hidden');
-    overlay.classList.remove('open');
+    htmlElement.classList.remove('is-open');
   } else {
     pageWidth = window.innerWidth - 80;
   }
@@ -71,19 +68,7 @@ for (let i = 0; i < 4; i++) {
   }
 }
 
-menuButton.onclick = function () {
-  menuButton.classList.toggle('open');
-  paremetersBlok.classList.toggle('open');
-  html.classList.toggle('overflow-hidden');
-  overlay.classList.toggle('open');
-};
 
-overlay.onclick = function () {
-  menuButton.classList.toggle('open');
-  paremetersBlok.classList.toggle('open');
-  html.classList.toggle('overflow-hidden');
-  overlay.classList.toggle('open');
-};
 
 function addElement() {
   if (idElement < 11) {
