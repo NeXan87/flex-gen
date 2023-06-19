@@ -7,11 +7,12 @@ import { debounce } from './utils.js';
 
 initMenuButtonActions();
 const rerenderTime = 1000;
-const renderElements = (data) => {
-  renderFlexBox(data);
-  renderCss(data);
+const renderElements = (data1, data2) => {
+  renderAxes(data2);
+  renderFlexBox(data1);
+  renderCss(data1);
 };
-const rerenderTimeout = debounce((data) => renderElements(data), rerenderTime);
+const rerenderTimeout = debounce((data1, data2) => renderElements(data1, data2), rerenderTime);
 
 
 const htmlElement = document.querySelector('html');
@@ -193,13 +194,11 @@ function addToInputParameters() {
             ? boxPatameter.value
             : +boxPatameter.value;
         }
-
-        renderAxes(boxPatameter.value);
       }
 
       calcFinalSizeSrink();
       calcFinalSizeGrow();
-      rerenderTimeout(inputParameters);
+      rerenderTimeout(inputParameters, boxPatameter.value);
     };
   }
 }
@@ -389,5 +388,3 @@ function showIrsIrr() {
     }
   }
 }
-
-export { inputParameters, idElement };
