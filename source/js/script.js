@@ -1,3 +1,4 @@
+import './prototypes.js';
 import { renderCss } from './renderCss.js';
 import { hasPx, debounce } from './utils.js';
 
@@ -22,14 +23,6 @@ let primaryLoad,
   idElement = 0;
 
 const rerenderTimeout = debounce((data) => renderCss(data), 1000);
-
-if (!Object.prototype.length) {
-  Object.defineProperty(Object.prototype, 'length', {
-    get: function () {
-      return Object.keys(this).length;
-    }
-  });
-}
 
 const inputParameters = {
   parent: {
