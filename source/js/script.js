@@ -1,6 +1,6 @@
 import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
-import { renderArrows } from './render-arrows.js';
+import { renderAxes } from './render-axes.js';
 import { renderFlexBox } from './render-flex-box.js';
 import { renderCss } from './render-css.js';
 import { debounce } from './utils.js';
@@ -194,7 +194,7 @@ function addToInputParameters() {
             : +boxPatameter.value;
         }
 
-        renderArrows(boxPatameter.value);
+        renderAxes(boxPatameter.value);
       }
 
       calcFinalSizeSrink();
