@@ -1,7 +1,8 @@
 import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
-import { renderCss } from './render-css.js';
+import { renderArrows } from './render-arrows.js';
 import { renderFlexBox } from './render-flex-box.js';
+import { renderCss } from './render-css.js';
 import { debounce } from './utils.js';
 
 initMenuButtonActions();
@@ -16,8 +17,6 @@ const rerenderTimeout = debounce((data) => renderElements(data), rerenderTime);
 const htmlElement = document.querySelector('html');
 const elements = document.querySelector('.elements');
 const buttonAdd = document.querySelector('.button-element.add');
-const horizontalArrow = document.querySelectorAll('.horizontal-arrow');
-const verticalArrow = document.querySelectorAll('.vertical-arrow');
 let boxParameters = document.querySelectorAll('.oninput');
 const addElementButton = document.querySelector('.add');
 let primaryLoad,
@@ -195,70 +194,13 @@ function addToInputParameters() {
             : +boxPatameter.value;
         }
 
-        showArrows(boxPatameter);
+        renderArrows(boxPatameter.value);
       }
 
       calcFinalSizeSrink();
       calcFinalSizeGrow();
       rerenderTimeout(inputParameters);
     };
-  }
-}
-
-function showArrows(boxPatameter) {
-  switch (boxPatameter.value) {
-    case 'row':
-      for (let i = 0; i < 2; i++) {
-        horizontalArrow[i].classList.remove('row-reverse');
-        verticalArrow[i].classList.remove('column-reverse');
-        horizontalArrow[i].classList.add('main-coord');
-        horizontalArrow[i].classList.remove('cross-coord');
-        verticalArrow[i].classList.remove('main-coord');
-        verticalArrow[i].classList.add('cross-coord');
-        horizontalArrow[i].innerHTML = '<div class=\'arrow-title\'>главная ось</div>';
-        verticalArrow[i].innerHTML =
-          '<div class=\'arrow-title\'>поперечная ось</div>';
-      }
-      break;
-    case 'row-reverse':
-      for (let i = 0; i < 2; i++) {
-        horizontalArrow[i].classList.add('row-reverse');
-        verticalArrow[i].classList.remove('column-reverse');
-        horizontalArrow[i].classList.remove('cross-coord');
-        horizontalArrow[i].classList.add('main-coord');
-        verticalArrow[i].classList.remove('main-coord');
-        verticalArrow[i].classList.add('cross-coord');
-        horizontalArrow[i].innerHTML = '<div class=\'arrow-title\'>главная ось</div>';
-        verticalArrow[i].innerHTML =
-          '<div class=\'arrow-title\'>поперечная ось</div>';
-      }
-      break;
-    case 'column':
-      for (let i = 0; i < 2; i++) {
-        horizontalArrow[i].classList.remove('row-reverse');
-        verticalArrow[i].classList.remove('column-reverse');
-        horizontalArrow[i].classList.remove('main-coord');
-        horizontalArrow[i].classList.add('cross-coord');
-        verticalArrow[i].classList.remove('cross-coord');
-        verticalArrow[i].classList.add('main-coord');
-        horizontalArrow[i].innerHTML =
-          '<div class=\'arrow-title\'>поперечная ось</div>';
-        verticalArrow[i].innerHTML = '<div class=\'arrow-title\'>главная ось</div>';
-      }
-      break;
-    case 'column-reverse':
-      for (let i = 0; i < 2; i++) {
-        horizontalArrow[i].classList.remove('column-reverse');
-        verticalArrow[i].classList.add('column-reverse');
-        horizontalArrow[i].classList.remove('main-coord');
-        horizontalArrow[i].classList.add('cross-coord');
-        verticalArrow[i].classList.remove('cross-coord');
-        verticalArrow[i].classList.add('main-coord');
-        horizontalArrow[i].innerHTML =
-          '<div class=\'arrow-title\'>поперечная ось</div>';
-        verticalArrow[i].innerHTML = '<div class=\'arrow-title\'>главная ось</div>';
-      }
-      break;
   }
 }
 
