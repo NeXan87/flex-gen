@@ -1,12 +1,21 @@
 import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
 import { renderCss } from './render-css.js';
-import { hasPx, debounce } from './utils.js';
+import { renderFlexBox } from './render-flex-box.js';
+import { debounce } from './utils.js';
+
+initMenuButtonActions();
+const rerenderTime = 1000;
+const renderElements = (data) => {
+  renderFlexBox(data);
+  renderCss(data);
+};
+const rerenderTimeout = debounce((data) => renderElements(data), rerenderTime);
+
 
 const htmlElement = document.querySelector('html');
 const elements = document.querySelector('.elements');
 const buttonAdd = document.querySelector('.button-element.add');
-const preview = document.querySelector('.preview-box');
 const horizontalArrow = document.querySelectorAll('.horizontal-arrow');
 const verticalArrow = document.querySelectorAll('.vertical-arrow');
 let boxParameters = document.querySelectorAll('.oninput');
@@ -19,10 +28,6 @@ let primaryLoad,
   irr,
   irs,
   idElement = 0;
-
-initMenuButtonActions();
-
-const rerenderTimeout = debounce((data) => renderCss(data), 1000);
 
 const inputParameters = {
   parent: {
@@ -54,7 +59,6 @@ function resizeWindow() {
   boxParameters[0].value = pageWidth;
   boxParameters[0].setAttribute('placeholder', `240-${pageWidth}px`);
   inputParameters.parent.width = pageWidth;
-  showWidthBox();
   rerenderTimeout(inputParameters);
 }
 
@@ -67,8 +71,6 @@ for (let i = 0; i < 4; i++) {
     primaryLoad = true;
   }
 }
-
-
 
 function addElement() {
   if (idElement < 11) {
@@ -113,7 +115,7 @@ function addElement() {
 
     if (primaryLoad) {
       updateItems();
-      showPreview();
+      renderFlexBox(inputParameters);
       renderCss(inputParameters);
       calcFinalSizeSrink();
       calcFinalSizeGrow();
@@ -135,7 +137,6 @@ function removeElement(input) {
   elements.removeChild(input.parentNode);
   buttonAdd.removeAttribute('disabled', '');
   idElement--;
-  showPreview();
   rerenderTimeout(inputParameters);
   calcFinalSizeSrink();
   calcFinalSizeGrow();
@@ -199,8 +200,6 @@ function addToInputParameters() {
 
       calcFinalSizeSrink();
       calcFinalSizeGrow();
-      showWidthBox();
-      showPreview();
       rerenderTimeout(inputParameters);
     };
   }
@@ -446,39 +445,6 @@ function showIrsIrr() {
         inputParameters.elements[`element-${index}`]?.irr
       )}px`;
     }
-  }
-}
-
-function showWidthBox() {
-  preview.style.cssText = `display: flex; ${sortCssText()}`;
-
-  function sortCssText() {
-    let css = '';
-    for (const key in inputParameters.parent) {
-      css += `${key}: ${inputParameters.parent[key]}${hasPx(key)}; `;
-    }
-    return css;
-  }
-}
-
-function showPreview() {
-  const hasFlexBasis = (index) => {
-    if (inputParameters.elements[`element-${index}`]['flex-basis'] !== 0) {
-      return `flex-basis: ${inputParameters.elements[`element-${index}`]['flex-basis']}px;`;
-    }
-  };
-
-  preview.innerHTML = '';
-
-  for (let index = 0; index < idElement; index++) {
-    const flexElement = document.createElement('li');
-    flexElement.classList.add('flexbox-item');
-    flexElement.style.cssText = `align-self: ${inputParameters.elements[`element-${index}`]['align-self']};
-											  flex-grow: ${inputParameters.elements[`element-${index}`]['flex-grow']};
-											  flex-shrink: ${inputParameters.elements[`element-${index}`]['flex-shrink']};
-											  order: ${inputParameters.elements[`element-${index}`]['order']};
-											  ${hasFlexBasis(index)}`;
-    preview.append(flexElement);
   }
 }
 
