@@ -1,5 +1,5 @@
 
-import { minWidth } from './renderCss.js';
+import { minWidth } from './render-css.js';
 
 const hasMinWidth = (property, value) => property === 'width' && value < minWidth ? minWidth : value;
 

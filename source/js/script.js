@@ -1,5 +1,5 @@
 import './prototypes.js';
-import { renderCss } from './renderCss.js';
+import { renderCss } from './render-css.js';
 import { hasPx, debounce } from './utils.js';
 
 const html = document.querySelector('html');
