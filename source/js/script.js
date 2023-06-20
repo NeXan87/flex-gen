@@ -1,5 +1,6 @@
 import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
+import { calcFinalSizeShrink } from './calc-final-size-shrink.js';
 import { renderAxes } from './render-axes.js';
 import { renderFlexBox } from './render-flex-box.js';
 import { renderCss } from './render-css.js';
@@ -13,6 +14,7 @@ const renderElements = (data1, data2) => {
   renderCss(data1);
 };
 const rerenderTimeout = debounce((data1, data2) => renderElements(data1, data2), rerenderTime);
+const calcTimeout = debounce((flexBox, calculations) => calcFinalSizeShrink(flexBox, calculations), 300);
 
 
 const htmlElement = document.querySelector('html');
@@ -41,7 +43,11 @@ const inputParameters = {
     'align-content': document.querySelector('#align-content').value,
   },
   elements: {},
-  parameters: {},
+  calculations: {
+    op: 0, // op (оставшееся пространство)
+    gsfs: 0, // gsfs (cумма всех flex-shrink, деленная на gap)
+    spbr: 0, // spbr (сумма произведений базовых размеров)
+  },
 };
 
 function resizeWindow() {
@@ -106,7 +112,7 @@ function addElement() {
     elements.appendChild(fieldset);
     inputParameters.elements[`element-${idElement}`] = {
       'flex-grow': 0,
-      'flex-shrink': 0,
+      'flex-shrink': 1,
       'flex-basis': 0,
       order: 0,
       'align-self': 'auto',
@@ -117,8 +123,8 @@ function addElement() {
       updateItems();
       renderFlexBox(inputParameters);
       renderCss(inputParameters);
-      calcFinalSizeSrink();
-      calcFinalSizeGrow();
+      calcTimeout(inputParameters, inputParameters.calculations);
+      // calcFinalSizeGrow();
     }
   }
   if (idElement === 10) {
@@ -138,8 +144,8 @@ function removeElement(input) {
   buttonAdd.removeAttribute('disabled', '');
   idElement--;
   rerenderTimeout(inputParameters);
-  calcFinalSizeSrink();
-  calcFinalSizeGrow();
+  calcTimeout(inputParameters, inputParameters.calculations);
+  // calcFinalSizeGrow();
   updateItems();
 }
 
@@ -196,94 +202,42 @@ function addToInputParameters() {
         }
       }
 
-      calcFinalSizeSrink();
-      calcFinalSizeGrow();
+      calcTimeout(inputParameters, inputParameters.calculations);
+      // calcFinalSizeGrow();
       rerenderTimeout(inputParameters, boxPatameter.value);
     };
   }
 }
 
-function calcFinalSizeSrink() {
-  inputParameters.parameters.op = 0; // op (оставшееся пространство)
-  inputParameters.parameters.gsfs = 0; // gsfs (cумма всех flex-shrink, деленная на gap)
-  inputParameters.parameters.spbr = 0; // spbr (сумма произведений базовых размеров)
-
-  for (let index = 0; index < idElement; index++) {
-    // op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
-    inputParameters.parameters.op +=
-      inputParameters.elements[`element-${index}`]['flex-basis'] || 0;
-
-    // gsfs (cумма всех flex-shrink, деленная на gap) = gap / (flex-shrink-1 + ... flex-shrink-n)
-    inputParameters.parameters.gsfs +=
-      inputParameters.elements[`element-${index}`]['flex-shrink'] || 0;
-  }
-
-  // gsfs (cумма всех flex-shrink, деленная на gap) = gap * (кол-во элементов - 1) / sum(flex-shrink-n)
-  inputParameters.parameters.gsfs =
-    (inputParameters.parent.gap * (idElement - 1)) /
-    inputParameters.parameters.gsfs;
-
-  // op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
-  inputParameters.parameters.op =
-    +inputParameters.parent.width - inputParameters.parameters.op;
-
-  for (let index = 0; index < idElement; index++) {
-    // spbr (сумма произведений базовых размеров) = ((flex-basis-1 + gsfs) * flex-shrink-1) + ... + ((flex-basis-n + gsfs) * flex-shrink-n)
-    inputParameters.parameters.spbr +=
-      ((inputParameters.elements[`element-${index}`]['flex-basis'] || 0) +
-        inputParameters.parameters.gsfs) *
-      (inputParameters.elements[`element-${index}`]['flex-shrink'] || 0);
-  }
-
-  for (let index = 0; index < idElement; index++) {
-    // nks (нормированный коэффициент сжатия элемента) = (flex-basis + gsfs * flex-shrink) * flex-shrink / spbr (сумма произведений базовых размеров)
-    inputParameters.elements[`element-${index}`].nks =
-      (((inputParameters.elements[`element-${index}`]['flex-basis'] || 0) +
-        inputParameters.parameters.gsfs *
-        (inputParameters.elements[`element-${index}`]['flex-shrink'] || 0)) *
-        (inputParameters.elements[`element-${index}`]['flex-shrink'] || 0)) /
-      inputParameters.parameters.spbr;
-
-    // irs (итоговый размер после сжатия элемента) = (flex-basis - gsfs * flex-shrink) / кол-во элементов) - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство)
-    inputParameters.elements[`element-${index}`].irs =
-      (inputParameters.elements[`element-${index}`]['flex-basis'] || 0) -
-      inputParameters.parameters.gsfs *
-      (inputParameters.elements[`element-${index}`]['flex-shrink'] || 0) -
-      Math.abs(
-        inputParameters.elements[`element-${index}`].nks * inputParameters.parameters.op
-      );
-  }
-}
-
 function calcFinalSizeGrow() {
-  inputParameters.parameters.dsm = 0; // dsm (доля свободного места)
-  inputParameters.parameters.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
+  inputParameters.calculations.dsm = 0; // dsm (доля свободного места)
+  inputParameters.calculations.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
 
   for (let index = 0; index < idElement; index++) {
     // dsm (доля свободного места) = op (оставшееся пространство) / (flex-grow-1 + flex-grow-2 + ... + flex-grow-n)
-    inputParameters.parameters.dsm +=
+    inputParameters.calculations.dsm +=
       inputParameters.elements[`element-${index}`]['flex-grow'] || 0;
   }
 
   // gsfg (cумма всех flex-grow, деленная на gap) = gap / sum(flex-grow-n)
-  inputParameters.parameters.gsfg =
-    inputParameters.parameters.dsm === 0
+  inputParameters.calculations.gsfg =
+    inputParameters.calculations.dsm === 0
       ? NaN
       : (+inputParameters.parent.gap * (idElement - 1)) /
-      inputParameters.parameters.dsm;
+      inputParameters.calculations.dsm;
 
-  inputParameters.parameters.dsm =
-    inputParameters.parameters.dsm === 0
+  inputParameters.calculations.dsm =
+    inputParameters.calculations.dsm === 0
       ? NaN
-      : Math.abs(inputParameters.parameters.op) / inputParameters.parameters.dsm;
+      : Math.abs(inputParameters.calculations.op) / inputParameters.calculations.dsm;
 
   for (let k = 0; k < idElement; k++) {
     // irr (итоговый размер расширения элемента) = (flex-basis - gsfs * flex-grow) + dsm (доля свободного места) * flex-grow
     inputParameters.elements[`element-${k}`].irr =
       (inputParameters.elements[`element-${k}`]['flex-basis'] || 0) -
-      inputParameters.parameters.gsfg *
+      inputParameters.calculations.gsfg *
       (inputParameters.elements[`element-${k}`]['flex-grow'] || 0) +
-      inputParameters.parameters.dsm *
+      inputParameters.calculations.dsm *
       (inputParameters.elements[`element-${k}`]['flex-grow'] || 0);
   }
 
@@ -292,42 +246,42 @@ function calcFinalSizeGrow() {
 
 function showIrsIrr() {
   if (
-    isNaN(inputParameters.parameters.op) ||
-    inputParameters.parameters.op > pageWidth ||
-    inputParameters.parameters.op < -pageWidth ||
-    inputParameters.parameters.op === +inputParameters.parent.width
+    isNaN(inputParameters.calculations.op) ||
+    inputParameters.calculations.op > pageWidth ||
+    inputParameters.calculations.op < -pageWidth ||
+    inputParameters.calculations.op === +inputParameters.parent.width
   ) {
     op.style.color = '#CC0000';
-    if (inputParameters.parameters.op > pageWidth) {
+    if (inputParameters.calculations.op > pageWidth) {
       op.textContent = 'MAX';
-    } else if (inputParameters.parameters.op < -pageWidth) {
+    } else if (inputParameters.calculations.op < -pageWidth) {
       op.textContent = 'MIN';
-    } else if (inputParameters.parameters.op === +inputParameters.parent.width) {
+    } else if (inputParameters.calculations.op === +inputParameters.parent.width) {
       op.textContent = 'W=OP';
     } else {
       op.textContent = 'NOT';
     }
   } else {
     op.style.color = null;
-    op.textContent = `${inputParameters.parameters.op}px`;
+    op.textContent = `${inputParameters.calculations.op}px`;
   }
 
   if (
-    isNaN(inputParameters.parameters.dsm) ||
-    inputParameters.parameters.dsm > pageWidth ||
-    inputParameters.parameters.dsm < 0
+    isNaN(inputParameters.calculations.dsm) ||
+    inputParameters.calculations.dsm > pageWidth ||
+    inputParameters.calculations.dsm < 0
   ) {
     dsm.style.color = '#CC0000';
-    if (inputParameters.parameters.dsm > pageWidth) {
+    if (inputParameters.calculations.dsm > pageWidth) {
       dsm.textContent = 'MAX';
-    } else if (inputParameters.parameters.dsm < 0) {
+    } else if (inputParameters.calculations.dsm < 0) {
       dsm.textContent = 'MIN';
     } else {
       dsm.textContent = 'NOT';
     }
   } else {
     dsm.style.color = null;
-    dsm.textContent = `${Math.round(inputParameters.parameters.dsm)}px`;
+    dsm.textContent = `${Math.round(inputParameters.calculations.dsm)}px`;
   }
 
   for (let index = 0; index < idElement; index++) {
@@ -388,3 +342,5 @@ function showIrsIrr() {
     }
   }
 }
+
+export { inputParameters };
