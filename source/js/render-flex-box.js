@@ -20,27 +20,28 @@ const renderFlexContainer = (parent) => {
   preview.style.cssText = `display: flex; ${addStyles(parent)}`;
 };
 
-function renderFlexElements(elements) {
-  const flexElements = Object.keys(elements);
+const renderFlexItems = (items) => {
+  const flexItems = Object.keys(items);
 
   preview.innerHTML = '';
 
-  flexElements.forEach((element) => {
-    const flexElement = elements[element];
+  flexItems.forEach((item) => {
+    const flexItem = items[item];
     const li = document.createElement('li');
+
     li.classList.add('flexbox-item');
-    li.style.cssText = `align-self: ${flexElement['align-self']};
-											  flex-grow: ${flexElement['flex-grow']};
-											  flex-shrink: ${flexElement['flex-shrink']};
-											  order: ${flexElement['order']};
-											  ${hasFlexBasis(flexElement['flex-basis'])}`;
+    li.style.cssText = `align-self: ${flexItem['align-self']};
+											  flex-grow: ${flexItem['flex-grow']};
+											  flex-shrink: ${flexItem['flex-shrink']};
+											  order: ${flexItem['order']};
+											  ${hasFlexBasis(flexItem['flex-basis'])}`;
     preview.append(li);
   });
-}
+};
 
 const renderFlexBox = ({ parent, elements }) => {
   renderFlexContainer(parent);
-  renderFlexElements(elements);
+  renderFlexItems(elements);
 };
 
 export { renderFlexBox };

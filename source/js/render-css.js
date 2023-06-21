@@ -29,13 +29,13 @@ const renderCssParent = (parent) => {
 };
 
 
-const renderCssElements = (elements) => {
+const renderCssElements = (items) => {
 
-  const flexElements = Object.keys(elements);
+  const flexElements = Object.keys(items);
 
-  flexElements.forEach((element, index) => {
-    const propertiesElements = Object.keys(elements[element]);
-    const flexElement = elements[element];
+  flexElements.forEach((item, index) => {
+    const propertiesElements = Object.keys(items[item]);
+    const flexElement = items[item];
 
     if (
       flexElement['flex-grow'] !== 0 ||
@@ -44,7 +44,7 @@ const renderCssElements = (elements) => {
       flexElement['order'] !== 0 ||
       flexElement['align-self'] !== 'auto'
     ) {
-      stylesElement.innerHTML += `.element-${index + 1} {<br/>`;
+      stylesElement.innerHTML += `.item-${index + 1} {<br/>`;
 
       propertiesElements.forEach((property) => {
 
