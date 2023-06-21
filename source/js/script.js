@@ -71,9 +71,9 @@ function resizeWindow() {
 resizeWindow();
 window.addEventListener('resize', resizeWindow, false);
 
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 2; i++) {
   addElement();
-  if (idElement === 3) {
+  if (idElement === 1) {
     primaryLoad = true;
   }
 }
