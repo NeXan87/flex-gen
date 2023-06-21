@@ -322,4 +322,4 @@ function showIrsIrr() {
   }
 }
 
-export { inputParameters, resetCalc };
+export { inputParameters };
