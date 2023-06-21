@@ -1,35 +1,11 @@
 import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
 import { calcFinalSizeShrink } from './calc-final-size-shrink.js';
+import { calcFinalSizeGrow } from './calc-final-size-grow.js';
 import { renderAxes } from './render-axes.js';
 import { renderFlexBox } from './render-flex-box.js';
 import { renderCss } from './render-css.js';
 import { debounce } from './utils.js';
-
-initMenuButtonActions();
-const rerenderTime = 1000;
-const renderElements = (data1, data2) => {
-  renderAxes(data2);
-  renderFlexBox(data1);
-  renderCss(data1);
-};
-const rerenderTimeout = debounce((data1, data2) => renderElements(data1, data2), rerenderTime);
-const calcTimeout = debounce((flexBox, calculations) => calcFinalSizeShrink(flexBox, calculations), 300);
-
-
-const htmlElement = document.querySelector('html');
-const elements = document.querySelector('.elements');
-const buttonAdd = document.querySelector('.button-element.add');
-let boxParameters = document.querySelectorAll('.oninput');
-const addElementButton = document.querySelector('.add');
-let primaryLoad,
-  pageWidth,
-  op,
-  nks,
-  dsm,
-  irr,
-  irs,
-  idElement = 0;
 
 const inputParameters = {
   parent: {
@@ -49,6 +25,44 @@ const inputParameters = {
     spbr: 0, // spbr (сумма произведений базовых размеров)
   },
 };
+
+initMenuButtonActions();
+const resetCalc = () => {
+  inputParameters.calculations.op = 0; // op (оставшееся пространство)
+  inputParameters.calculations.gsfs = 0; // gsfs (cумма всех flex-shrink, деленная на gap)
+  inputParameters.calculations.spbr = 0; // spbr (сумма произведений базовых размеров)
+  inputParameters.calculations.dsm = 0; // dsm (доля свободного места)
+  inputParameters.calculations.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
+};
+const calcTime = 300;
+const rerenderTime = 500;
+const calcFinalSize = (object) => {
+  resetCalc();
+  calcFinalSizeShrink(object);
+  calcFinalSizeGrow(object);
+};
+const renderElements = (data1, data2) => {
+  renderAxes(data2);
+  renderFlexBox(data1);
+  renderCss(data1);
+};
+
+const calcTimeout = debounce((object) => calcFinalSize(object), calcTime);
+const rerenderTimeout = debounce((data1, data2) => renderElements(data1, data2), rerenderTime);
+
+const htmlElement = document.querySelector('html');
+const elements = document.querySelector('.elements');
+const buttonAdd = document.querySelector('.button-element.add');
+let boxParameters = document.querySelectorAll('.oninput');
+const addElementButton = document.querySelector('.add');
+let primaryLoad,
+  pageWidth,
+  op,
+  nks,
+  dsm,
+  irr,
+  irs,
+  idElement = 0;
 
 function resizeWindow() {
   if (window.innerWidth > 1920) {
@@ -123,8 +137,8 @@ function addElement() {
       updateItems();
       renderFlexBox(inputParameters);
       renderCss(inputParameters);
-      calcTimeout(inputParameters, inputParameters.calculations);
-      // calcFinalSizeGrow();
+      calcFinalSizeShrink(inputParameters);
+      calcFinalSizeGrow(inputParameters);
     }
   }
   if (idElement === 10) {
@@ -143,9 +157,8 @@ function removeElement(input) {
   elements.removeChild(input.parentNode);
   buttonAdd.removeAttribute('disabled', '');
   idElement--;
+  calcTimeout(inputParameters);
   rerenderTimeout(inputParameters);
-  calcTimeout(inputParameters, inputParameters.calculations);
-  // calcFinalSizeGrow();
   updateItems();
 }
 
@@ -202,47 +215,13 @@ function addToInputParameters() {
         }
       }
 
-      calcTimeout(inputParameters, inputParameters.calculations);
-      // calcFinalSizeGrow();
+      calcTimeout(inputParameters);
       rerenderTimeout(inputParameters, boxPatameter.value);
     };
   }
 }
 
-function calcFinalSizeGrow() {
-  inputParameters.calculations.dsm = 0; // dsm (доля свободного места)
-  inputParameters.calculations.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
 
-  for (let index = 0; index < idElement; index++) {
-    // dsm (доля свободного места) = op (оставшееся пространство) / (flex-grow-1 + flex-grow-2 + ... + flex-grow-n)
-    inputParameters.calculations.dsm +=
-      inputParameters.elements[`element-${index}`]['flex-grow'] || 0;
-  }
-
-  // gsfg (cумма всех flex-grow, деленная на gap) = gap / sum(flex-grow-n)
-  inputParameters.calculations.gsfg =
-    inputParameters.calculations.dsm === 0
-      ? NaN
-      : (+inputParameters.parent.gap * (idElement - 1)) /
-      inputParameters.calculations.dsm;
-
-  inputParameters.calculations.dsm =
-    inputParameters.calculations.dsm === 0
-      ? NaN
-      : Math.abs(inputParameters.calculations.op) / inputParameters.calculations.dsm;
-
-  for (let k = 0; k < idElement; k++) {
-    // irr (итоговый размер расширения элемента) = (flex-basis - gsfs * flex-grow) + dsm (доля свободного места) * flex-grow
-    inputParameters.elements[`element-${k}`].irr =
-      (inputParameters.elements[`element-${k}`]['flex-basis'] || 0) -
-      inputParameters.calculations.gsfg *
-      (inputParameters.elements[`element-${k}`]['flex-grow'] || 0) +
-      inputParameters.calculations.dsm *
-      (inputParameters.elements[`element-${k}`]['flex-grow'] || 0);
-  }
-
-  showIrsIrr();
-}
 
 function showIrsIrr() {
   if (
@@ -343,4 +322,4 @@ function showIrsIrr() {
   }
 }
 
-export { inputParameters };
+export { inputParameters, resetCalc };

@@ -39,7 +39,7 @@ const renderCssElements = (elements) => {
 
     if (
       flexElement['flex-grow'] !== 0 ||
-      flexElement['flex-shrink'] !== 0 ||
+      flexElement['flex-shrink'] !== 1 ||
       flexElement['flex-basis'] !== 0 ||
       flexElement['order'] !== 0 ||
       flexElement['align-self'] !== 'auto'

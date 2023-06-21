@@ -1,34 +1,11 @@
 import { inputParameters } from './script.js';
-
-const resetCalc = () => {
-  inputParameters.calculations.op = 0; // op (оставшееся пространство)
-  inputParameters.calculations.gsfs = 0; // gsfs (cумма всех flex-shrink, деленная на gap)
-  inputParameters.calculations.spbr = 0; // spbr (сумма произведений базовых размеров)
-};
+import { sumFlexValues } from './utils.js';
 
 // op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
-const calcOp = ({ width }, items) => {
-  let sumFlexBasis = 0;
-
-  for (const item in items) {
-    sumFlexBasis += items[item]['flex-basis'];
-  }
-
-  return width - sumFlexBasis;
-};
+const calcOp = ({ width }, sumFlexBasis) => width - sumFlexBasis;
 
 // gsfs (cумма всех flex-shrink, деленная на gap) = (gap * (кол-во элементов - 1)) / (flex-shrink-1 + ... flex-shrink-n)
-const calcGsfs = ({ gap }, items) => {
-  let sumFlexShrink = 0;
-
-  for (const item in items) {
-    sumFlexShrink += items[item]['flex-shrink'];
-  }
-
-  const gsfs = gap * (items.length - 1) / sumFlexShrink;
-
-  return isFinite(gsfs) ? gsfs : 0;
-};
+const calcGsfs = ({ gap }, length, sumFlexShrink) => gap * (length - 1) / sumFlexShrink;
 
 // spbr (сумма произведений базовых размеров) = ((flex-basis-1 + gsfs) * flex-shrink-1) + ... + ((flex-basis-n + gsfs) * flex-shrink-n)
 const calcSpbr = (items, { gsfs, spbr }) => {
@@ -46,9 +23,11 @@ const calcNks = (items, item, { gsfs, spbr }) => (((items[item]['flex-basis'] ||
 const calcIrs = (items, item, { gsfs, op }) => (items[item]['flex-basis']) - gsfs * (items[item]['flex-shrink']) - Math.abs(items[item].nks * op);
 
 const calcFinalSizeShrink = ({ parent, elements, calculations }) => {
-  resetCalc();
-  inputParameters.calculations.op = calcOp(parent, elements);
-  inputParameters.calculations.gsfs = calcGsfs(parent, elements);
+  const sumFlexShrink = sumFlexValues(elements, 'flex-shrink');
+  const sumFlexBasis = sumFlexValues(elements, 'flex-basis');
+
+  inputParameters.calculations.op = calcOp(parent, sumFlexBasis);
+  inputParameters.calculations.gsfs = calcGsfs(parent, elements.length, sumFlexShrink);
   inputParameters.calculations.spbr = calcSpbr(elements, calculations);
 
   for (const item in elements) {
