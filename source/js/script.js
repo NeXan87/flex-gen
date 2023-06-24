@@ -170,6 +170,7 @@ function updateItems() {
   irr = document.querySelectorAll('.irr'); // irr (итоговый размер расширения элемента)
   irs = document.querySelectorAll('.irs'); // irs (итоговый размер после сжатия элемента)
   addToInputParameters();
+  showIrsIrr();
 }
 
 function addToInputParameters() {

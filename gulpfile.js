@@ -7,6 +7,7 @@ import csso from 'postcss-csso';
 import rename from 'gulp-rename';
 import htmlmin from 'gulp-htmlmin';
 import terser from 'gulp-terser';
+import sourcemaps from 'gulp-sourcemaps';
 import squoosh from 'gulp-libsquoosh';
 import svgo from 'gulp-svgmin';
 import { deleteAsync } from 'del';
@@ -36,7 +37,9 @@ const html = () => gulp
 
 const script = () => gulp
   .src('source/js/*.js')
+  .pipe(sourcemaps.init())
   .pipe(terser())
+  .pipe(sourcemaps.write('./'))
   .pipe(gulp.dest('build/js'))
   .pipe(browser.stream());
 
