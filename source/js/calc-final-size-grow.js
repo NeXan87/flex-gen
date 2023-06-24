@@ -2,7 +2,7 @@ import { inputParameters } from './script.js';
 import { sumFlexValues } from './utils.js';
 
 // dsm (доля свободного места) = op (оставшееся пространство) / sum(flex-grow-n)
-const calcDsm = ({ op }, sumFlexGrow) => Math.abs(op / sumFlexGrow);
+const calcDsm = ({ op }, sumFlexGrow) => op / sumFlexGrow;
 
 // gsfg (cумма всех flex-grow, деленная на gap) = gap / sum(flex-grow-n)
 const calcGsfg = ({ gap }, length, sumFlexGrow) => gap * (length - 1) / sumFlexGrow;

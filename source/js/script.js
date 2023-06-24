@@ -2,6 +2,7 @@ import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
 import { calcFinalSizeShrink } from './calc-final-size-shrink.js';
 import { calcFinalSizeGrow } from './calc-final-size-grow.js';
+import { showData } from './show-data.js';
 import { renderAxes } from './render-axes.js';
 import { renderFlexBox } from './render-flex-box.js';
 import { renderCss } from './render-css.js';
@@ -45,6 +46,7 @@ const renderElements = (data1, data2) => {
   renderAxes(data2);
   renderFlexBox(data1);
   renderCss(data1);
+  showData(data1);
 };
 
 const calcTimeout = debounce((object) => calcFinalSize(object), calcTime);
@@ -52,16 +54,12 @@ const rerenderTimeout = debounce((data1, data2) => renderElements(data1, data2),
 
 const htmlElement = document.querySelector('html');
 const elements = document.querySelector('.elements');
+const flexContainer = document.querySelector('.flex-items');
 const buttonAdd = document.querySelector('.button-element.add');
 let boxParameters = document.querySelectorAll('.oninput');
 const addElementButton = document.querySelector('.add');
 let primaryLoad,
   pageWidth,
-  op,
-  nks,
-  dsm,
-  irr,
-  irs,
   idElement = 0;
 
 function resizeWindow() {
@@ -96,6 +94,7 @@ function addElement() {
   if (idElement < 11) {
     const fieldset = document.createElement('fieldset');
     fieldset.classList.add('flex', 'item', 'wrapper-parameters');
+    fieldset.setAttribute('id', `element-${idElement}`);
     fieldset.innerHTML = `
   <div class="button-background" onclick="removeElement(this)">
   <button type="button" class="button-element remove"></button>
@@ -123,7 +122,7 @@ function addElement() {
   <div class="result-item">ИРС<output name="result" class="irs result-${idElement}"></output></div>
   <div class="result-item">ИРР<output name="result" class="irr result-${idElement}"></output></div>
   </div>`;
-    elements.appendChild(fieldset);
+    flexContainer.appendChild(fieldset);
     inputParameters.elements[`element-${idElement}`] = {
       'flex-grow': 0,
       'flex-shrink': 1,
@@ -139,6 +138,7 @@ function addElement() {
       renderCss(inputParameters);
       calcFinalSizeShrink(inputParameters);
       calcFinalSizeGrow(inputParameters);
+      showData(inputParameters);
     }
   }
   if (idElement === 10) {
@@ -164,13 +164,7 @@ function removeElement(input) {
 
 function updateItems() {
   boxParameters = document.querySelectorAll('.oninput');
-  op = document.querySelector('.op'); // op (оставшееся пространство)
-  nks = document.querySelectorAll('.nks'); // nks (нормированный коэффициент сжатия элемента)
-  dsm = document.querySelector('.dsm'); // dsm (доля свободного места)
-  irr = document.querySelectorAll('.irr'); // irr (итоговый размер расширения элемента)
-  irs = document.querySelectorAll('.irs'); // irs (итоговый размер после сжатия элемента)
   addToInputParameters();
-  showIrsIrr();
 }
 
 function addToInputParameters() {
@@ -219,107 +213,6 @@ function addToInputParameters() {
       calcTimeout(inputParameters);
       rerenderTimeout(inputParameters, boxPatameter.value);
     };
-  }
-}
-
-
-
-function showIrsIrr() {
-  if (
-    isNaN(inputParameters.calculations.op) ||
-    inputParameters.calculations.op > pageWidth ||
-    inputParameters.calculations.op < -pageWidth ||
-    inputParameters.calculations.op === +inputParameters.parent.width
-  ) {
-    op.style.color = '#CC0000';
-    if (inputParameters.calculations.op > pageWidth) {
-      op.textContent = 'MAX';
-    } else if (inputParameters.calculations.op < -pageWidth) {
-      op.textContent = 'MIN';
-    } else if (inputParameters.calculations.op === +inputParameters.parent.width) {
-      op.textContent = 'W=OP';
-    } else {
-      op.textContent = 'NOT';
-    }
-  } else {
-    op.style.color = null;
-    op.textContent = `${inputParameters.calculations.op}px`;
-  }
-
-  if (
-    isNaN(inputParameters.calculations.dsm) ||
-    inputParameters.calculations.dsm > pageWidth ||
-    inputParameters.calculations.dsm < 0
-  ) {
-    dsm.style.color = '#CC0000';
-    if (inputParameters.calculations.dsm > pageWidth) {
-      dsm.textContent = 'MAX';
-    } else if (inputParameters.calculations.dsm < 0) {
-      dsm.textContent = 'MIN';
-    } else {
-      dsm.textContent = 'NOT';
-    }
-  } else {
-    dsm.style.color = null;
-    dsm.textContent = `${Math.round(inputParameters.calculations.dsm)}px`;
-  }
-
-  for (let index = 0; index < idElement; index++) {
-    if (
-      isNaN(inputParameters.elements[`element-${index}`]?.nks) ||
-      inputParameters.elements[`element-${index}`]?.nks < 0
-    ) {
-      nks[index].style.color = '#CC0000';
-      if (inputParameters.elements[`element-${index}`]?.nks < 0) {
-        nks[index].textContent = 'MIN';
-      } else {
-        nks[index].textContent = 'NOT';
-      }
-    } else {
-      nks[index].style.color = null;
-      nks[index].textContent =
-        Math.floor(inputParameters.elements[`element-${index}`]?.nks * 10) / 10;
-    }
-
-    if (
-      isNaN(inputParameters.elements[`element-${index}`]?.irs) ||
-      inputParameters.elements[`element-${index}`]?.irs > pageWidth ||
-      inputParameters.elements[`element-${index}`]?.irs < 0
-    ) {
-      irs[index].style.color = '#CC0000';
-      if (inputParameters.elements[`element-${index}`]?.irs > pageWidth) {
-        irs[index].textContent = 'MAX';
-      } else if (inputParameters.elements[`element-${index}`]?.irs < 0) {
-        irs[index].textContent = 'MIN';
-      } else {
-        irs[index].textContent = 'NOT';
-      }
-    } else {
-      irs[index].style.color = null;
-      irs[index].textContent = `${Math.round(
-        inputParameters.elements[`element-${index}`]?.irs
-      )}px`;
-    }
-
-    if (
-      isNaN(inputParameters.elements[`element-${index}`]?.irr) ||
-      inputParameters.elements[`element-${index}`]?.irr > pageWidth ||
-      inputParameters.elements[`element-${index}`]?.irr < 0
-    ) {
-      irr[index].style.color = '#CC0000';
-      if (inputParameters.elements[`element-${index}`]?.irr > pageWidth) {
-        irr[index].textContent = 'MAX';
-      } else if (inputParameters.elements[`element-${index}`]?.irr < 0) {
-        irr[index].textContent = 'MIN';
-      } else {
-        irr[index].textContent = 'NOT';
-      }
-    } else {
-      irr[index].style.color = null;
-      irr[index].textContent = `${Math.round(
-        inputParameters.elements[`element-${index}`]?.irr
-      )}px`;
-    }
   }
 }
 
