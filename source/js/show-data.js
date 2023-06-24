@@ -2,8 +2,6 @@ const opElement = document.querySelector('.op'); // op (оставшееся п�
 const dsmElement = document.querySelector('.dsm'); // dsm (доля свободного места)
 const elementsCollection = document.querySelector('.flex-items').children;
 
-const removeZeros = (number) => String(number).replace(/[,.]?0+$/, '');
-
 const showOp = ({ width }, { op }) => {
   if (op === width) {
     opElement.style.color = '#CC0000';
@@ -30,13 +28,11 @@ const showDsm = ({ width }, { dsm }) => {
   }
 };
 
-const showNks = (element, idElement, elements) => {
-  const nksElement = element.querySelector('.nks');
-
-  if (elements[idElement].nks < 0) {
+const showNks = (nksElement, id, elements) => {
+  if (elements[id].nks < 0) {
     nksElement.style.color = '#CC0000';
 
-    if (elements[idElement].nks < 0) {
+    if (elements[id].nks < 0) {
       nksElement.textContent = 'MIN';
     } else {
       nksElement.textContent = 'NOT';
@@ -44,48 +40,26 @@ const showNks = (element, idElement, elements) => {
 
   } else {
     nksElement.style.color = null;
-    nksElement.textContent = removeZeros(elements[idElement].nks);
+    nksElement.textContent = elements[id].nks;
   }
 };
 
-const showIrs = ({ width }, element, idElement, elements) => {
-  const irsElement = element.querySelector('.irs');
-
-  if (elements[idElement].irs > width || elements[idElement].irs < 0) {
+const showIrs = (irsElement, id, elements) => {
+  if (elements[id].irs < 0) {
     irsElement.style.color = '#CC0000';
-
-    if (elements[idElement].irs > width) {
-      irsElement.textContent = 'MAX';
-    } else if (elements[idElement].irs < 0) {
-      irsElement.textContent = 'MIN';
-    } else {
-      irsElement.textContent = 'NOT';
-    }
-
   } else {
     irsElement.style.color = null;
-    irsElement.textContent = `${removeZeros(elements[idElement].irs)}px`;
   }
+  irsElement.textContent = `${elements[id].irs}px`;
 };
 
-const showIrr = ({ width }, element, idElement, elements) => {
-  const irrElement = element.querySelector('.irr');
-
-  if (elements[idElement].irr > width || elements[idElement].irr < 0) {
+const showIrr = (irrElement, id, elements) => {
+  if (elements[id].irr < 0) {
     irrElement.style.color = '#CC0000';
-
-    if (elements[idElement].irr > width) {
-      irrElement.textContent = 'MAX';
-    } else if (elements[idElement].irr < 0) {
-      irrElement.textContent = 'MIN';
-    } else {
-      irrElement.textContent = 'NOT';
-    }
-
   } else {
     irrElement.style.color = null;
-    irrElement.textContent = `${removeZeros(elements[idElement].irr)}px`;
   }
+  irrElement.textContent = `${elements[id].irr}px`;
 };
 
 
@@ -94,11 +68,14 @@ const showData = ({ parent, elements, calculations }) => {
   showDsm(parent, calculations);
 
   for (const element of elementsCollection) {
-    const idElement = element.getAttribute('id');
+    const id = element.getAttribute('id');
+    const nksElement = element.querySelector('.nks');
+    const irsElement = element.querySelector('.irs');
+    const irrElement = element.querySelector('.irr');
 
-    showNks(element, idElement, elements);
-    showIrs(parent, element, idElement, elements);
-    showIrr(parent, element, idElement, elements);
+    showNks(nksElement, id, elements);
+    showIrs(irsElement, id, elements);
+    showIrr(irrElement, id, elements);
   }
 };
 

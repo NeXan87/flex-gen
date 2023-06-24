@@ -17,7 +17,7 @@ const calcFinalSizeGrow = ({ parent, elements, calculations }) => {
   inputParameters.calculations.gsfg = calcGsfg(parent, elements.length, sumFlexGrow);
 
   for (const item in elements) {
-    inputParameters.elements[item].irr = calcIrr(elements, item, calculations);
+    inputParameters.elements[item].irr = parseFloat(calcIrr(elements, item, calculations).toFixed(1));
   }
 };
 

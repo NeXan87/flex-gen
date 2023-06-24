@@ -31,8 +31,8 @@ const calcFinalSizeShrink = ({ parent, elements, calculations }) => {
   inputParameters.calculations.spbr = calcSpbr(elements, calculations);
 
   for (const item in elements) {
-    inputParameters.elements[item].nks = calcNks(elements, item, calculations).toFixed(2);
-    inputParameters.elements[item].irs = calcIrs(elements, item, calculations).toFixed(1);
+    inputParameters.elements[item].nks = parseFloat(calcNks(elements, item, calculations).toFixed(2));
+    inputParameters.elements[item].irs = parseFloat(calcIrs(elements, item, calculations).toFixed(1));
   }
 };
 
