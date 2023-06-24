@@ -2,7 +2,10 @@ import { minWidth } from './render-css.js';
 
 const hasMinWidth = (property, value) => property === 'width' && value < minWidth ? minWidth : value;
 
-const hasPx = (property) => property === 'width' || property === 'height' || property === 'gap' || property === 'flex-basis' ? 'px' : '';
+const hasPx = (property1) => {
+  const properties = ['width', 'height', 'gap', 'flex-basis'];
+  return properties.some((property2) => property1 === property2) ? 'px' : '';
+};
 
 const sumFlexValues = (items, property) => {
   let sum = 0;

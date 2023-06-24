@@ -1,71 +1,37 @@
+const textColor = '#CC0000';
+const notText = 'NOT';
+const maxText = 'MAX';
+const minText = 'MIN';
+const wopText = 'W=OP';
+
 const opElement = document.querySelector('.op'); // op (оставшееся пространство)
 const dsmElement = document.querySelector('.dsm'); // dsm (доля свободного места)
 const elementsCollection = document.querySelector('.flex-items').children;
 
-const showOp = ({ width }, { op }) => {
-  if (op === width) {
-    opElement.style.color = '#CC0000';
-    opElement.textContent = 'W=OP';
-  } else {
-    opElement.style.color = null;
-    opElement.textContent = `${op}px`;
-  }
-};
+const showItemsData = (htmlElement, { width }, number, unit = '') => {
+  if (number <= 0 || number >= width) {
+    htmlElement.style.color = textColor;
 
-const showDsm = ({ width }, { dsm }) => {
-  if (dsm < 0 || dsm === width) {
-    dsmElement.style.color = '#CC0000';
-
-    if (dsm < 0) {
-      dsmElement.textContent = 'MIN';
-    } else if (dsm === width) {
-      dsmElement.textContent = 'NOT';
+    if (number < 0) {
+      return minText;
+    } else if (number > width) {
+      return maxText;
+    } else if (number === 0) {
+      return notText;
+    } else if (number === width) {
+      return wopText;
     }
 
   } else {
-    dsmElement.style.color = null;
-    dsmElement.textContent = `${Math.round(dsm)}px`;
+    htmlElement.style.color = null;
   }
+
+  return number + unit;
 };
-
-const showNks = (nksElement, items, item) => {
-  if (items[item].nks < 0) {
-    nksElement.style.color = '#CC0000';
-
-    if (items[item].nks < 0) {
-      nksElement.textContent = 'MIN';
-    } else {
-      nksElement.textContent = 'NOT';
-    }
-
-  } else {
-    nksElement.style.color = null;
-    nksElement.textContent = items[item].nks;
-  }
-};
-
-const showIrs = (irsElement, items, item) => {
-  if (items[item].irs < 0) {
-    irsElement.style.color = '#CC0000';
-  } else {
-    irsElement.style.color = null;
-  }
-  irsElement.textContent = `${items[item].irs}px`;
-};
-
-const showIrr = (irrElement, items, item) => {
-  if (items[item].irr < 0) {
-    irrElement.style.color = '#CC0000';
-  } else {
-    irrElement.style.color = null;
-  }
-  irrElement.textContent = `${items[item].irr}px`;
-};
-
 
 const showData = ({ parent, elements, calculations }) => {
-  showOp(parent, calculations);
-  showDsm(parent, calculations);
+  opElement.textContent = showItemsData(opElement, parent, calculations.op, 'px');
+  dsmElement.textContent = showItemsData(dsmElement, parent, calculations.dsm, 'px');
 
   for (const element of elementsCollection) {
     const item = element.getAttribute('id');
@@ -73,9 +39,9 @@ const showData = ({ parent, elements, calculations }) => {
     const irsElement = element.querySelector('.irs');
     const irrElement = element.querySelector('.irr');
 
-    showNks(nksElement, elements, item);
-    showIrs(irsElement, elements, item);
-    showIrr(irrElement, elements, item);
+    nksElement.textContent = showItemsData(nksElement, parent, elements[item]['nks']);
+    irsElement.textContent = showItemsData(irsElement, parent, elements[item]['irs'], 'px');
+    irrElement.textContent = showItemsData(irrElement, parent, elements[item]['irr'], 'px');
   }
 };
 

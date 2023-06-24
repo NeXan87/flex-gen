@@ -17,10 +17,10 @@ const calcSpbr = (items, { gsfs, spbr }) => {
 };
 
 // nks (нормированный коэффициент сжатия элемента) = (flex-basis + gsfs * flex-shrink) * flex-shrink / spbr (сумма произведений базовых размеров)
-const calcNks = (items, item, { gsfs, spbr }) => (((items[item]['flex-basis'] || 0) + gsfs * (items[item]['flex-shrink'])) * (items[item]['flex-shrink'])) / (spbr ? spbr : 1);
+const calcNks = (item, { gsfs, spbr }) => (((item['flex-basis'] || 0) + gsfs * (item['flex-shrink'])) * (item['flex-shrink'])) / (spbr ? spbr : 1);
 
 // irs (итоговый размер после сжатия элемента) = (flex-basis - gsfs * flex-shrink) / кол-во элементов) - nks (нормированный коэффициент сжатия элемента) * op (оставшееся пространство)
-const calcIrs = (items, item, { gsfs, op }) => (items[item]['flex-basis']) - gsfs * (items[item]['flex-shrink']) - Math.abs(items[item].nks * op);
+const calcIrs = (item, { gsfs, op }) => (item['flex-basis']) - gsfs * (item['flex-shrink']) - Math.abs(item.nks * op);
 
 const calcFinalSizeShrink = ({ parent, elements, calculations }) => {
   const sumFlexShrink = sumFlexValues(elements, 'flex-shrink');
@@ -31,8 +31,8 @@ const calcFinalSizeShrink = ({ parent, elements, calculations }) => {
   inputParameters.calculations.spbr = calcSpbr(elements, calculations);
 
   for (const item in elements) {
-    inputParameters.elements[item].nks = parseFloat(calcNks(elements, item, calculations).toFixed(2));
-    inputParameters.elements[item].irs = parseFloat(calcIrs(elements, item, calculations).toFixed(1));
+    inputParameters.elements[item].nks = parseFloat(calcNks(elements[item], calculations).toFixed(2));
+    inputParameters.elements[item].irs = parseFloat(calcIrs(elements[item], calculations).toFixed(1));
   }
 };
 

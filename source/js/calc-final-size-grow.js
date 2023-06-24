@@ -8,16 +8,16 @@ const calcDsm = ({ op }, sumFlexGrow) => op / sumFlexGrow;
 const calcGsfg = ({ gap }, length, sumFlexGrow) => gap * (length - 1) / sumFlexGrow;
 
 // irr (итоговый размер расширения элемента) = (flex-basis - gsfg * flex-grow) + dsm (доля свободного места) * flex-grow
-const calcIrr = (items, item, { gsfg, dsm }) => items[item]['flex-basis'] - gsfg * items[item]['flex-grow'] + dsm * items[item]['flex-grow'];
+const calcIrr = (item, { gsfg, dsm }) => item['flex-basis'] - gsfg * item['flex-grow'] + dsm * item['flex-grow'];
 
 const calcFinalSizeGrow = ({ parent, elements, calculations }) => {
   const sumFlexGrow = sumFlexValues(elements, 'flex-grow');
 
-  inputParameters.calculations.dsm = calcDsm(calculations, sumFlexGrow);
+  inputParameters.calculations.dsm = parseFloat(calcDsm(calculations, sumFlexGrow).toFixed(1));
   inputParameters.calculations.gsfg = calcGsfg(parent, elements.length, sumFlexGrow);
 
   for (const item in elements) {
-    inputParameters.elements[item].irr = parseFloat(calcIrr(elements, item, calculations).toFixed(1));
+    inputParameters.elements[item].irr = parseFloat(calcIrr(elements[item], calculations).toFixed(1));
   }
 };
 
