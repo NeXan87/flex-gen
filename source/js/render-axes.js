@@ -6,8 +6,6 @@ const rowReverseClass = 'row-reverse';
 const columnReverseClass = 'column-reverse';
 
 const axesElements = document.querySelectorAll('.arrow');
-const horizontalAxis = document.querySelectorAll('.horizontal-arrow');
-const verticalAxis = document.querySelectorAll('.vertical-arrow');
 
 const renameAxes = () => {
   axesElements.forEach((axis) => {
@@ -22,41 +20,47 @@ const renameAxes = () => {
   });
 };
 
-const axesCssAdd = (axes, classNames) => {
-  classNames.forEach((className) => axes.forEach((axis) => axis.classList.add(className)));
+const addCssAxes = (cssHorizontal, cssVertical) => {
+  axesElements.forEach((axis) => {
+    if (axis.classList.contains('horizontal-arrow')) {
+      axis.classList.add(...cssHorizontal);
+    } else {
+      axis.classList.add(...cssVertical);
+    }
+  });
+
   renameAxes();
 };
 
-const axesCssRemove = (axes, classNames) => {
-  classNames.forEach((className) => axes.forEach((axis) => axis.classList.remove(className)));
+const removeCssAxes = (cssHorizontal, cssVertical) => {
+  axesElements.forEach((axis) => {
+    if (axis.classList.contains('horizontal-arrow')) {
+      axis.classList.remove(...cssHorizontal);
+    } else {
+      axis.classList.remove(...cssVertical);
+    }
+  });
+
   renameAxes();
 };
 
 const renderAxes = (value) => {
   switch (value) {
     case 'row':
-      axesCssAdd(horizontalAxis, [mainAxisClass]);
-      axesCssRemove(horizontalAxis, [rowReverseClass, crossAxisClass]);
-      axesCssAdd(verticalAxis, [crossAxisClass]);
-      axesCssRemove(verticalAxis, [columnReverseClass, mainAxisClass]);
+      addCssAxes([mainAxisClass], [crossAxisClass]);
+      removeCssAxes([rowReverseClass, crossAxisClass], [columnReverseClass, mainAxisClass]);
       break;
     case 'row-reverse':
-      axesCssAdd(horizontalAxis, [rowReverseClass, mainAxisClass]);
-      axesCssRemove(horizontalAxis, [crossAxisClass]);
-      axesCssAdd(verticalAxis, [crossAxisClass]);
-      axesCssRemove(verticalAxis, [columnReverseClass, mainAxisClass]);
+      addCssAxes([rowReverseClass, mainAxisClass], [crossAxisClass]);
+      removeCssAxes([crossAxisClass], [columnReverseClass, mainAxisClass]);
       break;
     case 'column':
-      axesCssAdd(horizontalAxis, [crossAxisClass]);
-      axesCssRemove(horizontalAxis, [rowReverseClass, mainAxisClass]);
-      axesCssAdd(verticalAxis, [mainAxisClass]);
-      axesCssRemove(verticalAxis, [columnReverseClass, crossAxisClass]);
+      addCssAxes([crossAxisClass], [mainAxisClass]);
+      removeCssAxes([rowReverseClass, mainAxisClass], [columnReverseClass, crossAxisClass]);
       break;
     case 'column-reverse':
-      axesCssAdd(horizontalAxis, [crossAxisClass]);
-      axesCssRemove(horizontalAxis, [columnReverseClass, mainAxisClass]);
-      axesCssAdd(verticalAxis, [columnReverseClass, mainAxisClass]);
-      axesCssRemove(verticalAxis, [crossAxisClass]);
+      addCssAxes([crossAxisClass], [columnReverseClass, mainAxisClass]);
+      removeCssAxes([columnReverseClass, mainAxisClass], [crossAxisClass]);
       break;
   }
 };
