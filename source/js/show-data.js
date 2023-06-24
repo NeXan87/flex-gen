@@ -28,11 +28,11 @@ const showDsm = ({ width }, { dsm }) => {
   }
 };
 
-const showNks = (nksElement, id, elements) => {
-  if (elements[id].nks < 0) {
+const showNks = (nksElement, items, item) => {
+  if (items[item].nks < 0) {
     nksElement.style.color = '#CC0000';
 
-    if (elements[id].nks < 0) {
+    if (items[item].nks < 0) {
       nksElement.textContent = 'MIN';
     } else {
       nksElement.textContent = 'NOT';
@@ -40,26 +40,26 @@ const showNks = (nksElement, id, elements) => {
 
   } else {
     nksElement.style.color = null;
-    nksElement.textContent = elements[id].nks;
+    nksElement.textContent = items[item].nks;
   }
 };
 
-const showIrs = (irsElement, id, elements) => {
-  if (elements[id].irs < 0) {
+const showIrs = (irsElement, items, item) => {
+  if (items[item].irs < 0) {
     irsElement.style.color = '#CC0000';
   } else {
     irsElement.style.color = null;
   }
-  irsElement.textContent = `${elements[id].irs}px`;
+  irsElement.textContent = `${items[item].irs}px`;
 };
 
-const showIrr = (irrElement, id, elements) => {
-  if (elements[id].irr < 0) {
+const showIrr = (irrElement, items, item) => {
+  if (items[item].irr < 0) {
     irrElement.style.color = '#CC0000';
   } else {
     irrElement.style.color = null;
   }
-  irrElement.textContent = `${elements[id].irr}px`;
+  irrElement.textContent = `${items[item].irr}px`;
 };
 
 
@@ -68,14 +68,14 @@ const showData = ({ parent, elements, calculations }) => {
   showDsm(parent, calculations);
 
   for (const element of elementsCollection) {
-    const id = element.getAttribute('id');
+    const item = element.getAttribute('id');
     const nksElement = element.querySelector('.nks');
     const irsElement = element.querySelector('.irs');
     const irrElement = element.querySelector('.irr');
 
-    showNks(nksElement, id, elements);
-    showIrs(irsElement, id, elements);
-    showIrr(irrElement, id, elements);
+    showNks(nksElement, elements, item);
+    showIrs(irsElement, elements, item);
+    showIrr(irrElement, elements, item);
   }
 };
 
