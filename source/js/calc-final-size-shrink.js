@@ -1,4 +1,4 @@
-import { inputParameters } from './script.js';
+import { flexBox } from './flex-objects.js';
 import { sumFlexValues } from './utils.js';
 
 // op (оставшееся пространство) = ширина контейнера - (flex-basis-1 + flex-basis-2 + ... + flex-basis-n))
@@ -26,13 +26,13 @@ const calcFinalSizeShrink = ({ parent, elements, calculations }) => {
   const sumFlexShrink = sumFlexValues(elements, 'flex-shrink');
   const sumFlexBasis = sumFlexValues(elements, 'flex-basis');
 
-  inputParameters.calculations.op = calcOp(parent, sumFlexBasis);
-  inputParameters.calculations.gsfs = calcGsfs(parent, elements.length, sumFlexShrink);
-  inputParameters.calculations.spbr = calcSpbr(elements, calculations);
+  flexBox.calculations.op = calcOp(parent, sumFlexBasis);
+  flexBox.calculations.gsfs = calcGsfs(parent, elements.length, sumFlexShrink);
+  flexBox.calculations.spbr = calcSpbr(elements, calculations);
 
   for (const item in elements) {
-    inputParameters.elements[item].nks = parseFloat(calcNks(elements[item], calculations).toFixed(2));
-    inputParameters.elements[item].irs = parseFloat(calcIrs(elements[item], calculations).toFixed(1));
+    flexBox.elements[item].nks = parseFloat(calcNks(elements[item], calculations).toFixed(2));
+    flexBox.elements[item].irs = parseFloat(calcIrs(elements[item], calculations).toFixed(1));
   }
 };
 

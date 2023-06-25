@@ -1,5 +1,6 @@
 import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
+import { flexBox, flexItem } from './flex-objects.js';
 import { calcFinalSizeShrink } from './calc-final-size-shrink.js';
 import { calcFinalSizeGrow } from './calc-final-size-grow.js';
 import { showData } from './show-data.js';
@@ -8,32 +9,13 @@ import { renderFlexBox } from './render-flex-box.js';
 import { renderCss } from './render-css.js';
 import { debounce } from './utils.js';
 
-const inputParameters = {
-  parent: {
-    display: 'flex',
-    width: document.querySelector('#width').value,
-    gap: document.querySelector('#gap').value,
-    'flex-direction': document.querySelector('#flex-direction').value,
-    'flex-wrap': document.querySelector('#flex-wrap').value,
-    'justify-content': document.querySelector('#justify-content').value,
-    'align-items': document.querySelector('#align-items').value,
-    'align-content': document.querySelector('#align-content').value,
-  },
-  elements: {},
-  calculations: {
-    op: 0, // op (оставшееся пространство)
-    gsfs: 0, // gsfs (cумма всех flex-shrink, деленная на gap)
-    spbr: 0, // spbr (сумма произведений базовых размеров)
-  },
-};
-
 initMenuButtonActions();
 const resetCalc = () => {
-  inputParameters.calculations.op = 0; // op (оставшееся пространство)
-  inputParameters.calculations.gsfs = 0; // gsfs (cумма всех flex-shrink, деленная на gap)
-  inputParameters.calculations.spbr = 0; // spbr (сумма произведений базовых размеров)
-  inputParameters.calculations.dsm = 0; // dsm (доля свободного места)
-  inputParameters.calculations.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
+  flexBox.calculations.op = 0; // op (оставшееся пространство)
+  flexBox.calculations.gsfs = 0; // gsfs (cумма всех flex-shrink, деленная на gap)
+  flexBox.calculations.spbr = 0; // spbr (сумма произведений базовых размеров)
+  flexBox.calculations.dsm = 0; // dsm (доля свободного места)
+  flexBox.calculations.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
 };
 const calcTime = 300;
 const rerenderTime = 500;
@@ -76,8 +58,8 @@ function resizeWindow() {
 
   boxParameters[0].value = pageWidth;
   boxParameters[0].setAttribute('placeholder', `240-${pageWidth}px`);
-  inputParameters.parent.width = pageWidth;
-  rerenderTimeout(inputParameters);
+  flexBox.parent.width = pageWidth;
+  rerenderTimeout(flexBox);
 }
 
 resizeWindow();
@@ -118,27 +100,21 @@ function addElement() {
   <option value="stretch">stretch</option>
   </select>
   <div class="result-box">
-  <div class="result-item">НКС<output name="result" class="nks result-${idElement}"></output></div>
-  <div class="result-item">ИРС<output name="result" class="irs result-${idElement}"></output></div>
-  <div class="result-item">ИРР<output name="result" class="irr result-${idElement}"></output></div>
+  <div class="result-item">НКС<output name="result" class="nks"></output></div>
+  <div class="result-item">ИРС<output name="result" class="irs"></output></div>
+  <div class="result-item">ИРР<output name="result" class="irr"></output></div>
   </div>`;
     flexContainer.appendChild(fieldset);
-    inputParameters.elements[`element-${idElement}`] = {
-      'flex-grow': 0,
-      'flex-shrink': 1,
-      'flex-basis': 0,
-      order: 0,
-      'align-self': 'auto',
-    };
+    flexBox.elements[`element-${idElement}`] = flexItem;
     idElement++;
 
     if (primaryLoad) {
       updateItems();
-      renderFlexBox(inputParameters);
-      renderCss(inputParameters);
-      calcFinalSizeShrink(inputParameters);
-      calcFinalSizeGrow(inputParameters);
-      showData(inputParameters);
+      renderFlexBox(flexBox);
+      renderCss(flexBox);
+      calcFinalSizeShrink(flexBox);
+      calcFinalSizeGrow(flexBox);
+      showData(flexBox);
     }
   }
   if (idElement === 10) {
@@ -153,21 +129,21 @@ function onAddElementButtonClick() {
 addElementButton.addEventListener('click', onAddElementButtonClick);
 
 function removeElement(input) {
-  delete inputParameters.elements[`element-${idElement - 1}`];
+  delete flexBox.elements[`element-${idElement - 1}`];
   elements.removeChild(input.parentNode);
   buttonAdd.removeAttribute('disabled', '');
   idElement--;
-  calcTimeout(inputParameters);
-  rerenderTimeout(inputParameters);
+  calcTimeout(flexBox);
+  rerenderTimeout(flexBox);
   updateItems();
 }
 
 function updateItems() {
   boxParameters = document.querySelectorAll('.oninput');
-  addToInputParameters();
+  addToflexBox();
 }
 
-function addToInputParameters() {
+function addToflexBox() {
   for (const boxPatameter of boxParameters) {
     boxPatameter.oninput = function () {
       for (let i = 0; i <= idElement; i++) {
@@ -185,7 +161,7 @@ function addToInputParameters() {
           ) {
             boxPatameter.value = 0;
           } else {
-            inputParameters.elements[`element-${i}`][
+            flexBox.elements[`element-${i}`][
               boxPatameter.getAttribute('id').slice(0, -2)
             ] = isNaN(+boxPatameter.value) ? boxPatameter.value : +boxPatameter.value;
           }
@@ -202,7 +178,7 @@ function addToInputParameters() {
         } else if (boxPatameter.value < 0) {
           boxPatameter.value = 0;
         } else {
-          inputParameters.parent[boxPatameter.getAttribute('id')] = isNaN(
+          flexBox.parent[boxPatameter.getAttribute('id')] = isNaN(
             +boxPatameter.value
           )
             ? boxPatameter.value
@@ -210,10 +186,10 @@ function addToInputParameters() {
         }
       }
 
-      calcTimeout(inputParameters);
-      rerenderTimeout(inputParameters, boxPatameter.value);
+      calcTimeout(flexBox);
+      rerenderTimeout(flexBox, boxPatameter.value);
     };
   }
 }
 
-export { inputParameters };
+export { flexBox };

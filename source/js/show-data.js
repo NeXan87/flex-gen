@@ -34,14 +34,13 @@ const showData = ({ parent, elements, calculations }) => {
   dsmElement.textContent = showItemsData(dsmElement, parent, calculations.dsm, 'px');
 
   for (const element of elementsCollection) {
-    const item = element.getAttribute('id');
     const nksElement = element.querySelector('.nks');
     const irsElement = element.querySelector('.irs');
     const irrElement = element.querySelector('.irr');
 
-    nksElement.textContent = showItemsData(nksElement, parent, elements[item]['nks']);
-    irsElement.textContent = showItemsData(irsElement, parent, elements[item]['irs'], 'px');
-    irrElement.textContent = showItemsData(irrElement, parent, elements[item]['irr'], 'px');
+    nksElement.textContent = showItemsData(nksElement, parent, elements[element.id]['nks']);
+    irsElement.textContent = showItemsData(irsElement, parent, elements[element.id]['irs'], 'px');
+    irrElement.textContent = showItemsData(irrElement, parent, elements[element.id]['irr'], 'px');
   }
 };
 
