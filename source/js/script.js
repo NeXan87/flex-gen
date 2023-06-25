@@ -74,6 +74,7 @@ for (let i = 0; i < 2; i++) {
   }
 }
 
+
 function addElement() {
   if (idElement < 11) {
     const itemClone = itemTemplate.cloneNode(true);
