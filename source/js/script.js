@@ -9,6 +9,8 @@ import { renderFlexBox } from './render-flex-box.js';
 import { renderCss } from './render-css.js';
 import { debounce } from './utils.js';
 
+const itemTemplate = document.querySelector('#item').content.querySelector('.item');
+
 initMenuButtonActions();
 const resetCalc = () => {
   flexBox.calculations.op = 0; // op (оставшееся пространство)
@@ -74,37 +76,16 @@ for (let i = 0; i < 2; i++) {
 
 function addElement() {
   if (idElement < 11) {
-    const fieldset = document.createElement('fieldset');
-    fieldset.classList.add('flex', 'item', 'wrapper-parameters');
-    fieldset.setAttribute('id', `item-${idElement}`);
-    fieldset.innerHTML = `
-  <div class="button-background" onclick="removeElement(this)">
-  <button type="button" class="button-element remove"></button>
-  </div>
-  <legend class="elements-title">Элемент ${idElement}</legend>
-  <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
-  <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
-  <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
-  <input type="number" class="number flex-shrink element element-${idElement} oninput input-child" id="flex-shrink-${idElement}" placeholder="0-10">
-  <label for="flex-basis-${idElement}" class="label-title element">flex-basis</label>
-  <input type="number" class="number flex-basis element element-${idElement} oninput input-child" id="flex-basis-${idElement}" placeholder="0-${pageWidth}px">
-  <label for="order-${idElement}" class="label-title element">order</label>
-  <input type="number" class="number order element order-${idElement} oninput input-child" id="order-${idElement}" placeholder="+-100">
-  <label for="align-self-${idElement}" class="label-title element">align-self</label>
-  <select name="align-self" id="align-self-${idElement}" class="select element element-${idElement} oninput input-child">
-  <option value="auto" selected>auto</option>
-  <option value="flex-start">flex-start</option>
-  <option value="flex-end">flex-end</option>
-  <option value="center">center</option>
-  <option value="baseline">baseline</option>
-  <option value="stretch">stretch</option>
-  </select>
-  <div class="result-box">
-  <div class="result-item">НКС<output name="result" class="nks"></output></div>
-  <div class="result-item">ИРС<output name="result" class="irs"></output></div>
-  <div class="result-item">ИРР<output name="result" class="irr"></output></div>
-  </div>`;
-    flexContainer.appendChild(fieldset);
+    const itemClone = itemTemplate.cloneNode(true);
+    const itemLegend = itemClone.querySelector('.elements-title');
+    const flexBasis = itemClone.querySelector('.flex-basis');
+
+    itemClone.id = `item-${idElement}`;
+    itemLegend.textContent = `Элемент ${idElement}`;
+    flexBasis.placeholder = `0-${pageWidth}px`;
+
+    flexContainer.appendChild(itemClone);
+
     flexBox.items[`item-${idElement}`] = {
       'flex-grow': 0,
       'flex-shrink': 1,
@@ -152,23 +133,24 @@ function updateItems() {
 function addToFlexBox() {
   for (const boxPatameter of boxParameters) {
     boxPatameter.oninput = function () {
-      for (let i = 1; i <= idElement; i++) {
+      for (let i = 1; i < idElement; i++) {
         if (+boxPatameter.getAttribute('id').slice(-1) === i) {
+
           if (
             boxPatameter.value > pageWidth ||
-            ((boxPatameter.getAttribute('id').slice(0, -2) === 'flex-grow' ||
-              boxPatameter.getAttribute('id').slice(0, -2) === 'flex-shrink') &&
+            ((boxPatameter.name === 'flex-grow' ||
+              boxPatameter.name === 'flex-shrink') &&
               boxPatameter.value > 10)
           ) {
             boxPatameter.value = boxPatameter.value.slice(0, -1);
           } else if (
             boxPatameter.value < 0 &&
-            boxPatameter.getAttribute('id').slice(0, -2) !== 'order'
+            boxPatameter.name !== 'order'
           ) {
             boxPatameter.value = 0;
           } else {
             flexBox.items[`item-${i}`][
-              boxPatameter.getAttribute('id').slice(0, -2)
+              boxPatameter.name
             ] = isNaN(+boxPatameter.value) ? boxPatameter.value : +boxPatameter.value;
           }
           break;
