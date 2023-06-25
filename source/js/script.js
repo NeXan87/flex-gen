@@ -59,7 +59,7 @@ function resizeWindow() {
 
 resizeWindow();
 initMenuButtonActions();
-initAddItemActions();
+initAddItemActions(flexBox);
 
 window.addEventListener('resize', resizeWindow, false);
 
