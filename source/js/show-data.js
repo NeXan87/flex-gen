@@ -29,7 +29,7 @@ const showItemsData = (htmlElement, { width }, number, unit = '') => {
   return number + unit;
 };
 
-const showData = ({ parent, elements, calculations }) => {
+const showData = ({ parent, items, calculations }) => {
   opElement.textContent = showItemsData(opElement, parent, calculations.op, 'px');
   dsmElement.textContent = showItemsData(dsmElement, parent, calculations.dsm, 'px');
 
@@ -38,9 +38,9 @@ const showData = ({ parent, elements, calculations }) => {
     const irsElement = element.querySelector('.irs');
     const irrElement = element.querySelector('.irr');
 
-    nksElement.textContent = showItemsData(nksElement, parent, elements[element.id]['nks']);
-    irsElement.textContent = showItemsData(irsElement, parent, elements[element.id]['irs'], 'px');
-    irrElement.textContent = showItemsData(irrElement, parent, elements[element.id]['irr'], 'px');
+    nksElement.textContent = showItemsData(nksElement, parent, items[element.id]['nks']);
+    irsElement.textContent = showItemsData(irsElement, parent, items[element.id]['irs'], 'px');
+    irrElement.textContent = showItemsData(irrElement, parent, items[element.id]['irr'], 'px');
   }
 };
 

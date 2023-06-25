@@ -39,9 +39,9 @@ const renderFlexItems = (items) => {
   });
 };
 
-const renderFlexBox = ({ parent, elements }) => {
+const renderFlexBox = ({ parent, items }) => {
   renderFlexContainer(parent);
-  renderFlexItems(elements);
+  renderFlexItems(items);
 };
 
 export { renderFlexBox };

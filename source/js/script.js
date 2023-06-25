@@ -76,7 +76,7 @@ function addElement() {
   if (idElement < 11) {
     const fieldset = document.createElement('fieldset');
     fieldset.classList.add('flex', 'item', 'wrapper-parameters');
-    fieldset.setAttribute('id', `element-${idElement}`);
+    fieldset.setAttribute('id', `item-${idElement}`);
     fieldset.innerHTML = `
   <div class="button-background" onclick="removeElement(this)">
   <button type="button" class="button-element remove"></button>
@@ -105,7 +105,7 @@ function addElement() {
   <div class="result-item">ИРР<output name="result" class="irr"></output></div>
   </div>`;
     flexContainer.appendChild(fieldset);
-    flexBox.elements[`element-${idElement}`] = flexItem;
+    flexBox.items[`item-${idElement}`] = flexItem;
     idElement++;
 
     if (primaryLoad) {
@@ -129,7 +129,7 @@ function onAddElementButtonClick() {
 addElementButton.addEventListener('click', onAddElementButtonClick);
 
 function removeElement(input) {
-  delete flexBox.elements[`element-${idElement - 1}`];
+  delete flexBox.items[`item-${idElement - 1}`];
   elements.removeChild(input.parentNode);
   buttonAdd.removeAttribute('disabled', '');
   idElement--;
@@ -140,10 +140,10 @@ function removeElement(input) {
 
 function updateItems() {
   boxParameters = document.querySelectorAll('.oninput');
-  addToflexBox();
+  addToFlexBox();
 }
 
-function addToflexBox() {
+function addToFlexBox() {
   for (const boxPatameter of boxParameters) {
     boxPatameter.oninput = function () {
       for (let i = 0; i <= idElement; i++) {
@@ -161,7 +161,7 @@ function addToflexBox() {
           ) {
             boxPatameter.value = 0;
           } else {
-            flexBox.elements[`element-${i}`][
+            flexBox.items[`item-${i}`][
               boxPatameter.getAttribute('id').slice(0, -2)
             ] = isNaN(+boxPatameter.value) ? boxPatameter.value : +boxPatameter.value;
           }

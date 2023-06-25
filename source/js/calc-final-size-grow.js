@@ -10,14 +10,14 @@ const calcGsfg = ({ gap }, length, sumFlexGrow) => gap * (length - 1) / sumFlexG
 // irr (итоговый размер расширения элемента) = (flex-basis - gsfg * flex-grow) + dsm (доля свободного места) * flex-grow
 const calcIrr = (item, { gsfg, dsm }) => item['flex-basis'] - gsfg * item['flex-grow'] + dsm * item['flex-grow'];
 
-const calcFinalSizeGrow = ({ parent, elements, calculations }) => {
-  const sumFlexGrow = sumFlexValues(elements, 'flex-grow');
+const calcFinalSizeGrow = ({ parent, items, calculations }) => {
+  const sumFlexGrow = sumFlexValues(items, 'flex-grow');
 
   flexBox.calculations.dsm = parseFloat(calcDsm(calculations, sumFlexGrow).toFixed(1));
-  flexBox.calculations.gsfg = calcGsfg(parent, elements.length, sumFlexGrow);
+  flexBox.calculations.gsfg = calcGsfg(parent, items.length, sumFlexGrow);
 
-  for (const item in elements) {
-    flexBox.elements[item].irr = parseFloat(calcIrr(elements[item], calculations).toFixed(1));
+  for (const item in items) {
+    flexBox.items[item].irr = parseFloat(calcIrr(items[item], calculations).toFixed(1));
   }
 };
 

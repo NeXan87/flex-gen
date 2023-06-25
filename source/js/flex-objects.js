@@ -9,7 +9,7 @@ const flexBox = {
     'align-items': document.querySelector('#align-items').value,
     'align-content': document.querySelector('#align-content').value,
   },
-  elements: {},
+  items: {},
   calculations: {
     op: 0, // op (оставшееся пространство)
     gsfs: 0, // gsfs (cумма всех flex-shrink, деленная на gap)

@@ -33,7 +33,7 @@ const renderCssElements = (items) => {
 
   const flexElements = Object.keys(items);
 
-  flexElements.forEach((item, index) => {
+  flexElements.forEach((item) => {
     const propertiesElements = Object.keys(items[item]);
     const flexElement = items[item];
 
@@ -44,7 +44,7 @@ const renderCssElements = (items) => {
       flexElement['order'] !== 0 ||
       flexElement['align-self'] !== 'auto'
     ) {
-      stylesElement.innerHTML += `.item-${index + 1} {<br/>`;
+      stylesElement.innerHTML += `.${item} {<br/>`;
 
       propertiesElements.forEach((property) => {
 
@@ -66,9 +66,9 @@ const renderCssElements = (items) => {
   });
 };
 
-const renderCss = ({ parent, elements }) => {
+const renderCss = ({ parent, items }) => {
   renderCssParent(parent);
-  renderCssElements(elements);
+  renderCssElements(items);
 };
 
 export { renderCss, minWidth };
