@@ -42,7 +42,7 @@ let boxParameters = document.querySelectorAll('.oninput');
 const addElementButton = document.querySelector('.add');
 let primaryLoad,
   pageWidth,
-  idElement = 0;
+  idElement = 1;
 
 function resizeWindow() {
   if (window.innerWidth > 1920) {
@@ -67,7 +67,7 @@ window.addEventListener('resize', resizeWindow, false);
 
 for (let i = 0; i < 2; i++) {
   addElement();
-  if (idElement === 1) {
+  if (idElement === 2) {
     primaryLoad = true;
   }
 }
@@ -81,7 +81,7 @@ function addElement() {
   <div class="button-background" onclick="removeElement(this)">
   <button type="button" class="button-element remove"></button>
   </div>
-  <legend class="elements-title">Элемент ${idElement + 1}</legend>
+  <legend class="elements-title">Элемент ${idElement}</legend>
   <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
   <input type="number" class="number flex-grow element element-${idElement} oninput input-child" id="flex-grow-${idElement}" placeholder="0-10">
   <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
@@ -105,7 +105,13 @@ function addElement() {
   <div class="result-item">ИРР<output name="result" class="irr"></output></div>
   </div>`;
     flexContainer.appendChild(fieldset);
-    flexBox.items[`item-${idElement}`] = flexItem;
+    flexBox.items[`item-${idElement}`] = {
+      'flex-grow': 0,
+      'flex-shrink': 1,
+      'flex-basis': 0,
+      'order': 0,
+      'align-self': 'auto',
+    };
     idElement++;
 
     if (primaryLoad) {
@@ -146,7 +152,7 @@ function updateItems() {
 function addToFlexBox() {
   for (const boxPatameter of boxParameters) {
     boxPatameter.oninput = function () {
-      for (let i = 0; i <= idElement; i++) {
+      for (let i = 1; i <= idElement; i++) {
         if (+boxPatameter.getAttribute('id').slice(-1) === i) {
           if (
             boxPatameter.value > pageWidth ||
