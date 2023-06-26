@@ -1,8 +1,10 @@
 import { flexBox, defaultValues } from './flex-objects.js';
-import { updateItems } from './update-items.js';
+import { updateTimeout, updateItems } from './update-items.js';
 import { removeItem } from './remove-item.js';
 import { renderElement, switchesButtonState } from './utils.js';
 
+const elementName = 'Элемент ';
+const elementNameEn = 'item-';
 const primaryLoadItems = 2;
 const maxItems = 5;
 const nonRemovableItems = 2;
@@ -31,10 +33,10 @@ const addItem = ({ parent: { width } }) => {
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
   const itemLegend = itemClone.querySelector('.elements-title');
   const itemInputs = itemClone.querySelectorAll('.oninput');
-  const item = `item-${countItems}`;
+  const item = elementNameEn + countItems;
 
   itemClone.id = item;
-  itemLegend.textContent = `Элемент ${countItems}`;
+  itemLegend.textContent = elementName + countItems;
 
   itemInputs.forEach((input) => {
     if (input.name === 'flex-basis') {
@@ -52,6 +54,7 @@ const addItem = ({ parent: { width } }) => {
 
   renderElement(flexContainer, itemClone);
   setItemData(item);
+  updateTimeout(flexBox);
 
   countItems++;
 };
@@ -76,4 +79,4 @@ const initAddItemActions = () => {
   }
 };
 
-export { initAddItemActions };
+export { initAddItemActions, elementName, elementNameEn };

@@ -44,8 +44,8 @@ const removeCssAxes = (cssHorizontal, cssVertical) => {
   renameAxes();
 };
 
-const renderAxes = (value) => {
-  switch (value) {
+const renderAxes = ({ parent: { 'flex-direction': flexDirection } }) => {
+  switch (flexDirection) {
     case 'row':
       addCssAxes([mainAxisClass], [crossAxisClass]);
       removeCssAxes([rowReverseClass, crossAxisClass], [columnReverseClass, mainAxisClass]);
