@@ -1,7 +1,7 @@
-import { flexBox } from './flex-objects.js';
+import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout } from './update-items.js';
 
-function resizeWindow() {
+function resizeWindow(siteLoaded) {
   const windowWidth = window.innerWidth;
   let boxWidth = 0;
 
@@ -15,16 +15,20 @@ function resizeWindow() {
     boxWidth = windowWidth - 80;
   }
 
-  // updateTimeout(flexBox);
+  flexBox.parent.width = boxWidth;
+  defaultValues.parent['max-width'] = boxWidth;
 
-  return boxWidth;
+  if (siteLoaded) {
+    updateTimeout(flexBox);
+  }
 }
 
 const onWindowResize = () => {
-  resizeWindow(flexBox);
+  resizeWindow(true);
 };
 
 const initResizeWindowActions = () => {
+  resizeWindow();
   window.addEventListener('resize', onWindowResize, false);
 };
 

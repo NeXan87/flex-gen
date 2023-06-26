@@ -30,7 +30,7 @@ const setItemData = (item) => {
   flexBox.items[item] = { ...defaultValues.items };
 };
 
-const addItem = ({ parent: { width } }) => {
+const addItem = ({ parent: { width } }, siteLoaded) => {
   const itemClone = itemTemplate.cloneNode(true);
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
   const itemLegend = itemClone.querySelector('.elements-title');
@@ -55,7 +55,10 @@ const addItem = ({ parent: { width } }) => {
 
   renderElement(flexContainer, itemClone);
   setItemData(item);
-  updateTimeout(flexBox);
+
+  if (siteLoaded) {
+    updateTimeout(flexBox);
+  }
 
   countItems++;
 };
@@ -65,7 +68,7 @@ const onAddItemButtonClick = () => {
     switchesButtonState(addItemButton);
   }
 
-  addItem(flexBox);
+  addItem(flexBox, true);
 };
 
 const initParentActions = ({ parent: { width } }) => {
@@ -89,7 +92,7 @@ const initAddItemActions = () => {
   for (let i = 1; i <= primaryLoadItems; i++) {
     addItem(flexBox);
 
-    if (flexBox.items.length === i) {
+    if (primaryLoadItems === i) {
       updateItems(flexBox);
     }
   }
