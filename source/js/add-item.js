@@ -1,6 +1,7 @@
 import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout, updateItems } from './update-items.js';
 import { removeItem } from './remove-item.js';
+import { setValues } from './set-values.js';
 import { renderElement, switchesButtonState } from './utils.js';
 
 const elementName = 'Элемент ';
@@ -17,7 +18,7 @@ const itemTemplate = document.querySelector('#item').content.querySelector('.ite
 const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove');
 
 const onFieldsInput = (evt) => {
-  console.log(evt.target.parentNode);
+  setValues(evt);
 };
 
 const onRemoveButtonClick = (evt) => {
@@ -73,6 +74,7 @@ const initParentActions = ({ parent: { width } }) => {
   parentFields.forEach((input) => {
     if (input.name === 'width') {
       input.placeholder = `240-${width}px`;
+      input.value = width;
     }
 
     input.addEventListener('input', onFieldsInput);

@@ -40,7 +40,7 @@
     <section class="wrapper-container parameters">
       <h2 class="visually-hidden">Параметры.</h2>
       <div class="pad">
-        <fieldset class="flex box-parent main-fieldset wrapper-parameters">
+        <fieldset class="flex box-parent main-fieldset wrapper-parameters" id="parent" data-flex="parent">
           <legend class="elements-title">Параметры родителя</legend>
           <label for="width" class="label-title element">Ширина</label>
           <input name="width" type="number" class="number element oninput input-parent width" id="width" value="" min="240">
@@ -165,7 +165,7 @@
 
   <!-- Шаблон добавления нового flex-элемента -->
   <template id="item">
-    <fieldset class="flex item wrapper-parameters" id="item-1">
+    <fieldset class="flex item wrapper-parameters" id="item-1" data-flex="items">
       <legend class="elements-title item__title"></legend>
       <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
       <input name="flex-grow" type="number" class="number flex-grow element oninput input-child" placeholder="0-10">

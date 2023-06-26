@@ -19,6 +19,7 @@ const flexBox = {
 
 const defaultValues = {
   parent: {
+    'width': 240, // мин. ширина
     'gap': 0,
     'flex-direction': 'row',
     'flex-wrap': 'nowrap',
