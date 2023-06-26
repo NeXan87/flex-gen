@@ -1,6 +1,7 @@
 import { flexBox, defaultValues } from './flex-objects.js';
 import { updateItems } from './update-items.js';
-import { renderElement } from './utils.js';
+import { removeItem } from './remove-item.js';
+import { renderElement, switchesButtonState } from './utils.js';
 
 const primaryLoadItems = 2;
 const maxItems = 5;
@@ -10,14 +11,15 @@ let countItems = 1;
 const addItemButton = document.querySelector('.button-element.add');
 const flexContainer = document.querySelector('.flex-items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.item');
-const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button-background');
+const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove');
 
 const onItemInputsInput = (evt) => {
   console.log(evt.target.name);
 };
 
-const onRemoveButtonClick = () => {
-  console.log('d');
+const onRemoveButtonClick = (evt) => {
+  removeItem(evt);
+  countItems--;
 };
 
 const setItemData = (item) => {
@@ -27,7 +29,6 @@ const setItemData = (item) => {
 const addItem = ({ parent: { width } }) => {
   const itemClone = itemTemplate.cloneNode(true);
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
-  const removeButton = removeButtonClone.querySelector('.button-element.remove');
   const itemLegend = itemClone.querySelector('.elements-title');
   const itemInputs = itemClone.querySelectorAll('.oninput');
   const item = `item-${countItems}`;
@@ -46,7 +47,7 @@ const addItem = ({ parent: { width } }) => {
 
   if (countItems > nonRemovableItems) {
     renderElement(itemClone, removeButtonClone);
-    removeButton.addEventListener('click', onRemoveButtonClick);
+    removeButtonClone.addEventListener('click', onRemoveButtonClick);
   }
 
   renderElement(flexContainer, itemClone);
@@ -57,7 +58,7 @@ const addItem = ({ parent: { width } }) => {
 
 const onAddItemButtonClick = () => {
   if (countItems === maxItems) {
-    addItemButton.disabled = true;
+    switchesButtonState(addItemButton);
   }
 
   addItem(flexBox);

@@ -33,13 +33,6 @@ initAddItemActions();
 
 window.addEventListener('resize', resizeWindow, false);
 
-function removeElement(input) {
-  delete flexBox.items[`item-${idElement - 1}`];
-  elements.removeChild(input.parentNode);
-  idElement--;
-  updateTimeout(flexBox);
-}
-
 // function addToFlexBox() {
 //   for (const boxPatameter of boxParameters) {
 //     boxPatameter.oninput = function () {

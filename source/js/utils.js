@@ -22,6 +22,10 @@ const sumFlexValues = (items, property) => {
   return sum ? sum : 1;
 };
 
+const switchesButtonState = (button) => {
+  button.disabled = !button.disabled;
+};
+
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
@@ -31,4 +35,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasMinWidth, hasPx, renderElement, sumFlexValues, debounce };
+export { hasMinWidth, hasPx, renderElement, sumFlexValues, switchesButtonState, debounce };

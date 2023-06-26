@@ -397,7 +397,7 @@ select {
   background: #ffffff url("../images/plus.svg") no-repeat;
 }
 
-.button-element.remove::before {
+.button--remove::before {
   content: "";
   left: -1px;
 
