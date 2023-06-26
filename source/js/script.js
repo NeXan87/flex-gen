@@ -29,7 +29,7 @@ function resizeWindow() {
 
 resizeWindow();
 initMenuButtonActions();
-initAddItemActions(flexBox);
+initAddItemActions();
 
 window.addEventListener('resize', resizeWindow, false);
 

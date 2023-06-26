@@ -21,7 +21,7 @@ const defaultValues = {
   parent: {
     'gap': 0,
     'flex-direction': 'row',
-    'flex-wrap': 'no-wrap',
+    'flex-wrap': 'nowrap',
     'justify-content': 'flex-start',
     'align-items': 'stretch',
     'align-content': 'stretch',
