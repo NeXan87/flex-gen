@@ -7,6 +7,8 @@ const hasPx = (property1) => {
   return properties.some((property2) => property1 === property2) ? 'px' : '';
 };
 
+const renderElement = (parent, child) => parent.append(child);
+
 const sumFlexValues = (items, property) => {
   let sum = 0;
 
@@ -29,4 +31,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasMinWidth, hasPx, sumFlexValues, debounce };
+export { hasMinWidth, hasPx, renderElement, sumFlexValues, debounce };

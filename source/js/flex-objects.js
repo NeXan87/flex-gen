@@ -17,12 +17,22 @@ const flexBox = {
   },
 };
 
-const flexItem = {
-  'flex-grow': 0,
-  'flex-shrink': 1,
-  'flex-basis': 0,
-  'order': 0,
-  'align-self': 'auto',
+const defaultValues = {
+  parent: {
+    'gap': 0,
+    'flex-direction': 'row',
+    'flex-wrap': 'no-wrap',
+    'justify-content': 'flex-start',
+    'align-items': 'stretch',
+    'align-content': 'stretch',
+  },
+  items: {
+    'flex-grow': 0,
+    'flex-shrink': 1,
+    'flex-basis': 0,
+    'order': 0,
+    'align-self': 'auto',
+  },
 };
 
-export { flexBox, flexItem };
+export { flexBox, defaultValues };

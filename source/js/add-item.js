@@ -1,42 +1,39 @@
-import { flexBox } from './flex-objects.js';
-import { renderFlexBox } from './render-flex-box.js';
-import { renderCss } from './render-css.js';
-import { calcFinalSizeShrink } from './calc-final-size-shrink.js';
-import { calcFinalSizeGrow } from './calc-final-size-grow.js';
-import { showData } from './show-data.js';
+import { flexBox, defaultValues } from './flex-objects.js';
+import { updateItems } from './update-items.js';
+import { renderElement } from './utils.js';
 
 const primaryLoadItems = 2;
 const maxItems = 5;
+const nonRemovableItems = 2;
 let countItems = 1;
 
 const addItemButton = document.querySelector('.button-element.add');
 const flexContainer = document.querySelector('.flex-items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.item');
+const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button-background');
 
 const onItemInputsInput = (evt) => {
   console.log(evt.target.name);
 };
 
-const createObject = (itemId) => {
-  flexBox.items[itemId] = {
-    'flex-grow': 0,
-    'flex-shrink': 1,
-    'flex-basis': 0,
-    'order': 0,
-    'align-self': 'auto',
-  };
+const onRemoveButtonClick = () => {
+  console.log('d');
+};
+
+const setItemData = (item) => {
+  flexBox.items[item] = { ...defaultValues.items };
 };
 
 const addItem = ({ parent: { width } }) => {
   const itemClone = itemTemplate.cloneNode(true);
+  const removeButtonClone = removeButtonTemplate.cloneNode(true);
+  const removeButton = removeButtonClone.querySelector('.button-element.remove');
   const itemLegend = itemClone.querySelector('.elements-title');
   const itemInputs = itemClone.querySelectorAll('.oninput');
-  const itemId = `item-${countItems}`;
+  const item = `item-${countItems}`;
 
-  itemClone.id = itemId;
+  itemClone.id = item;
   itemLegend.textContent = `Элемент ${countItems}`;
-
-  flexContainer.append(itemClone);
 
   itemInputs.forEach((input) => {
     if (input.name === 'flex-basis') {
@@ -47,7 +44,13 @@ const addItem = ({ parent: { width } }) => {
     input.id = `${input.name}-${countItems}`;
   });
 
-  createObject(itemId);
+  if (countItems > nonRemovableItems) {
+    renderElement(itemClone, removeButtonClone);
+    removeButton.addEventListener('click', onRemoveButtonClick);
+  }
+
+  renderElement(flexContainer, itemClone);
+  setItemData(item);
 
   countItems++;
 };
@@ -67,11 +70,7 @@ const initAddItemActions = () => {
     addItem(flexBox);
 
     if (flexBox.items.length === i) {
-      renderFlexBox(flexBox);
-      renderCss(flexBox);
-      calcFinalSizeShrink(flexBox);
-      calcFinalSizeGrow(flexBox);
-      showData(flexBox);
+      updateItems(flexBox);
     }
   }
 };

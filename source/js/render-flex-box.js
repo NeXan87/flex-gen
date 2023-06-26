@@ -1,10 +1,9 @@
-import { hasPx } from './utils.js';
+import { hasPx, renderElement } from './utils.js';
 
-const preview = document.querySelector('.preview-box');
+const previewElement = document.querySelector('.preview-box');
 
-const addStyles = (parent) => {
+const addStyles = (parent, css = '') => {
   const properties = Object.keys(parent);
-  let css = '';
 
   properties.forEach((property) => {
     const value = parent[property];
@@ -16,14 +15,14 @@ const addStyles = (parent) => {
 
 const hasFlexBasis = (value) => value !== 0 ? `flex-basis: ${value}px;` : false;
 
-const renderFlexContainer = (parent) => {
-  preview.style.cssText = `display: flex; ${addStyles(parent)}`;
+const addStylesFlexBox = (parent) => {
+  previewElement.style.cssText = `display: flex; ${addStyles(parent)}`;
 };
 
 const renderFlexItems = (items) => {
   const flexItems = Object.keys(items);
 
-  preview.innerHTML = '';
+  previewElement.innerHTML = '';
 
   flexItems.forEach((item) => {
     const flexItem = items[item];
@@ -35,12 +34,13 @@ const renderFlexItems = (items) => {
 											  flex-shrink: ${flexItem['flex-shrink']};
 											  order: ${flexItem['order']};
 											  ${hasFlexBasis(flexItem['flex-basis'])}`;
-    preview.append(li);
+
+    renderElement(previewElement, li);
   });
 };
 
 const renderFlexBox = ({ parent, items }) => {
-  renderFlexContainer(parent);
+  addStylesFlexBox(parent);
   renderFlexItems(items);
 };
 

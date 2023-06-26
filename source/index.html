@@ -166,9 +166,6 @@
   <!-- Шаблон добавления нового flex-элемента -->
   <template id="item">
     <fieldset class="flex item wrapper-parameters" id="item-1">
-      <div class="button-background" onclick="removeElement(this)">
-        <button type="button" class="button-element remove"></button>
-      </div>
       <legend class="elements-title"></legend>
       <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
       <input name="flex-grow" type="number" class="number flex-grow element oninput input-child" placeholder="0-10">
@@ -193,6 +190,12 @@
         <div class="result-item">ИРР<output name="result" class="irr"></output></div>
       </div>
     </fieldset>
+  </template>
+
+  <template id="remove-button">
+    <div class="button-background">
+      <button class="button-element remove" type="button" aria-label="Удалить текущий флекс-элемент"></button>
+    </div>
   </template>
 
   <script src="js/script.js" type="module"></script>

@@ -2,42 +2,12 @@ import './prototypes.js';
 import { initMenuButtonActions } from './mobile-menu.js';
 import { flexBox } from './flex-objects.js';
 import { initAddItemActions } from './add-item.js';
-import { calcFinalSizeShrink } from './calc-final-size-shrink.js';
-import { calcFinalSizeGrow } from './calc-final-size-grow.js';
-import { showData } from './show-data.js';
-import { renderAxes } from './render-axes.js';
-import { renderFlexBox } from './render-flex-box.js';
-import { renderCss } from './render-css.js';
-import { debounce } from './utils.js';
-
-const resetCalc = () => {
-  flexBox.calculations.op = 0; // op (оставшееся пространство)
-  flexBox.calculations.gsfs = 0; // gsfs (cумма всех flex-shrink, деленная на gap)
-  flexBox.calculations.spbr = 0; // spbr (сумма произведений базовых размеров)
-  flexBox.calculations.dsm = 0; // dsm (доля свободного места)
-  flexBox.calculations.gsfg = 0; // gsfg (cумма всех flex-grow, деленная на gap)
-};
-const calcTime = 300;
-const rerenderTime = 500;
-const calcFinalSize = (object) => {
-  resetCalc();
-  calcFinalSizeShrink(object);
-  calcFinalSizeGrow(object);
-};
-const renderElements = (data1, data2) => {
-  renderAxes(data2);
-  renderFlexBox(data1);
-  renderCss(data1);
-  showData(data1);
-};
-
-const calcTimeout = debounce((object) => calcFinalSize(object), calcTime);
-const rerenderTimeout = debounce((data1, data2) => renderElements(data1, data2), rerenderTime);
+import { updateTimeout } from './update-items.js';
 
 const htmlElement = document.querySelector('html');
 const elements = document.querySelector('.elements');
 // let boxParameters = document.querySelectorAll('.oninput');
-let pageWidth, idElement = 1;
+let pageWidth;
 
 function resizeWindow() {
   if (window.innerWidth > 1920) {
@@ -54,7 +24,7 @@ function resizeWindow() {
   // boxParameters[0].value = pageWidth;
   // boxParameters[0].setAttribute('placeholder', `240-${pageWidth}px`);
   flexBox.parent.width = pageWidth;
-  rerenderTimeout(flexBox);
+  updateTimeout(flexBox);
 }
 
 resizeWindow();
@@ -67,14 +37,7 @@ function removeElement(input) {
   delete flexBox.items[`item-${idElement - 1}`];
   elements.removeChild(input.parentNode);
   idElement--;
-  calcTimeout(flexBox);
-  rerenderTimeout(flexBox);
-  updateItems();
-}
-
-function updateItems() {
-  // boxParameters = document.querySelectorAll('.oninput');
-  // addToFlexBox();
+  updateTimeout(flexBox);
 }
 
 // function addToFlexBox() {
@@ -126,5 +89,3 @@ function updateItems() {
 //     };
 //   }
 // }
-
-export { flexBox, updateItems };
