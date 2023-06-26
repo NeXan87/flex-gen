@@ -1,7 +1,3 @@
-import { minWidth } from './render-css.js';
-
-const hasMinWidth = (property, value) => property === 'width' && value < minWidth ? minWidth : value;
-
 const hasPx = (property1) => {
   const properties = ['width', 'height', 'gap', 'flex-basis'];
   return properties.some((property2) => property1 === property2) ? 'px' : '';
@@ -35,4 +31,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasMinWidth, hasPx, renderElement, sumFlexValues, switchesButtonState, debounce };
+export { hasPx, renderElement, sumFlexValues, switchesButtonState, debounce };

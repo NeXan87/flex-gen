@@ -19,8 +19,6 @@ const flexBox = {
 
 const defaultValues = {
   parent: {
-    'min-width': 240,
-    'max-width': 768,
     'gap': 0,
     'flex-direction': 'row',
     'flex-wrap': 'nowrap',
@@ -35,6 +33,20 @@ const defaultValues = {
     'order': 0,
     'align-self': 'auto',
   },
+  minmax: {
+    'min-width': 240,
+    'max-width': 768, // присваивается после resizeWindow()
+    'min-gap': 0,
+    'max-gap': 100,
+    'min-flex-grow': 0,
+    'max-flex-grow': 10,
+    'min-flex-shrink': 0,
+    'max-flex-shrink': 10,
+    'min-flex-basis': 0,
+    'max-flex-basis': 768, // присваивается после resizeWindow()
+    'min-order': -20,
+    'max-order': 20,
+  }
 };
 
 export { flexBox, defaultValues };

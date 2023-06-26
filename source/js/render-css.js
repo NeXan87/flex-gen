@@ -1,6 +1,4 @@
-import { hasMinWidth, hasPx } from './utils.js';
-
-const minWidth = 240;
+import { hasPx } from './utils.js';
 
 const stylesElement = document.querySelector('.css-styles');
 
@@ -21,7 +19,7 @@ const renderCssParent = (parent) => {
       (property === 'align-items' && value !== 'stretch') ||
       (property === 'align-content' && value !== 'stretch')
     ) {
-      stylesElement.innerHTML += `  ${property}: ${hasMinWidth(property, value)}${hasPx(property)};<br/>`;
+      stylesElement.innerHTML += `  ${property}: ${value}${hasPx(property)};<br/>`;
     }
   });
 
@@ -71,4 +69,4 @@ const renderCss = ({ parent, items }) => {
   renderCssElements(items);
 };
 
-export { renderCss, minWidth };
+export { renderCss };

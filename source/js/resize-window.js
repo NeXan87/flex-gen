@@ -16,7 +16,8 @@ function resizeWindow(siteLoaded) {
   }
 
   flexBox.parent.width = boxWidth;
-  defaultValues.parent['max-width'] = boxWidth;
+  defaultValues.minmax['max-width'] = boxWidth;
+  defaultValues.minmax['max-flex-basis'] = boxWidth;
 
   if (siteLoaded) {
     updateTimeout(flexBox);
