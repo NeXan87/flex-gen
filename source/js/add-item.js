@@ -1,7 +1,7 @@
 import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout, updateItems } from './update-items.js';
 import { removeItem } from './remove-item.js';
-import { setValues } from './set-values.js';
+import { getData } from './get-data.js';
 import { renderElement, switchesButtonState } from './utils.js';
 
 const elementName = 'Элемент ';
@@ -18,7 +18,7 @@ const itemTemplate = document.querySelector('#item').content.querySelector('.ite
 const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove');
 
 const onFieldsInput = (evt) => {
-  setValues(evt);
+  getData(evt.target);
 };
 
 const onRemoveButtonClick = (evt) => {
