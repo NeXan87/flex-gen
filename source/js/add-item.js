@@ -10,13 +10,14 @@ const maxItems = 5;
 const nonRemovableItems = 2;
 let countItems = 1;
 
+const parentElement = document.querySelector('.box-parent');
 const addItemButton = document.querySelector('.button-element.add');
 const flexContainer = document.querySelector('.flex-items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.item');
 const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove');
 
-const onItemInputsInput = (evt) => {
-  console.log(evt.target.name);
+const onFieldsInput = (evt) => {
+  console.log(evt.target.parentNode);
 };
 
 const onRemoveButtonClick = (evt) => {
@@ -32,19 +33,18 @@ const addItem = ({ parent: { width } }) => {
   const itemClone = itemTemplate.cloneNode(true);
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
   const itemLegend = itemClone.querySelector('.elements-title');
-  const itemInputs = itemClone.querySelectorAll('.oninput');
+  const itemFields = itemClone.querySelectorAll('.oninput');
   const item = elementNameEn + countItems;
 
   itemClone.id = item;
   itemLegend.textContent = elementName + countItems;
 
-  itemInputs.forEach((input) => {
+  itemFields.forEach((input) => {
     if (input.name === 'flex-basis') {
       input.placeholder = `0-${width}px`;
     }
 
-    input.addEventListener('input', onItemInputsInput);
-    input.id = `${input.name}-${countItems}`;
+    input.addEventListener('input', onFieldsInput);
   });
 
   if (countItems > nonRemovableItems) {
@@ -67,7 +67,21 @@ const onAddItemButtonClick = () => {
   addItem(flexBox);
 };
 
+const initParentActions = ({ parent: { width } }) => {
+  const parentFields = parentElement.querySelectorAll('.oninput');
+
+  parentFields.forEach((input) => {
+    if (input.name === 'width') {
+      input.placeholder = `240-${width}px`;
+    }
+
+    input.addEventListener('input', onFieldsInput);
+  });
+};
+
 const initAddItemActions = () => {
+  initParentActions(flexBox);
+
   addItemButton.addEventListener('click', onAddItemButtonClick);
 
   for (let i = 1; i <= primaryLoadItems; i++) {

@@ -21,8 +21,6 @@ function resizeWindow() {
     pageWidth = window.innerWidth - 80;
   }
 
-  // boxParameters[0].value = pageWidth;
-  // boxParameters[0].setAttribute('placeholder', `240-${pageWidth}px`);
   flexBox.parent.width = pageWidth;
   updateTimeout(flexBox);
 }
