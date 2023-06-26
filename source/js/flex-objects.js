@@ -1,7 +1,9 @@
+import { resizeWindow } from './resize-window.js';
+
 const flexBox = {
   parent: {
     'display': 'flex',
-    'width': document.querySelector('#width').value,
+    'width': resizeWindow(),
     'gap': document.querySelector('#gap').value,
     'flex-direction': document.querySelector('#flex-direction').value,
     'flex-wrap': document.querySelector('#flex-wrap').value,
