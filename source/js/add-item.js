@@ -7,7 +7,7 @@ import { renderElement, switchesButtonState } from './utils.js';
 const elementName = 'Элемент ';
 const elementNameEn = 'item-';
 const primaryLoadItems = 2;
-const maxItems = 5;
+const maxItems = 15;
 const nonRemovableItems = 2;
 let countItems = 1;
 

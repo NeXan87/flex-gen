@@ -41,7 +41,7 @@ const renderCssItems = (items) => {
 
   flexItems.forEach((item) => {
     const propertiesElements = Object.keys(items[item]);
-    const flexItem = { ...items[item] };
+    const flexItem = items[item];
 
     if (isDefaultAllItems(flexItem)) {
       stylesElement.innerHTML += `.${item} {<br/>`;

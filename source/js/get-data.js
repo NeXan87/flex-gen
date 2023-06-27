@@ -21,6 +21,7 @@ const validate = (property, key, value) => {
   const min = defaultValues.minmax[`min-${key}`];
   const max = defaultValues.minmax[`max-${key}`];
 
+  value = value.length ? value : '0';
   value = isNaN(value) ? value : parseInt(value.replace(regEx, '$1'), 10);
 
   if (typeof value === 'number') {
