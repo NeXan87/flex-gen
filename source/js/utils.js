@@ -3,6 +3,8 @@ const hasPx = (property1) => {
   return properties.some((property2) => property1 === property2) ? 'px' : '';
 };
 
+const isEscapeKey = (key) => key === 'Escape';
+
 const renderElement = (parent, child) => parent.append(child);
 
 const sumFlexValues = (items, property) => {
@@ -31,4 +33,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasPx, renderElement, sumFlexValues, switchesButtonState, debounce };
+export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, debounce };
