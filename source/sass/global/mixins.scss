@@ -1,0 +1,29 @@
+@mixin vp-1920 {
+  @media screen and (min-width: calc($vp-1920 + 1px)) {
+    @content;
+  }
+}
+
+@mixin vp-1240 {
+  @media screen and (max-width: $vp-1240) {
+    @content;
+  }
+}
+
+@mixin vp-1024 {
+  @media screen and (max-width: $vp-1024) {
+    @content;
+  }
+}
+
+@mixin vp-768 {
+  @media screen and (max-width: $vp-768) {
+    @content;
+  }
+}
+
+@mixin vp-425 {
+  @media screen and (max-width: $vp-425) {
+    @content;
+  }
+}

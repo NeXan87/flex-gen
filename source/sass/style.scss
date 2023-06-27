@@ -1,72 +1,13 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+// GLOBAL
+@import "global/variables.scss";
+@import "global/mixins.scss";
+@import "global/reboot.scss";
+@import "global/utils.scss";
+@import "global/fonts.scss";
+@import "global/container.scss";
 
-  scrollbar-color: #cce8db #00763d;
-  scrollbar-width: thin;
-}
-
-*::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-*::-webkit-scrollbar-track {
-  background: #00763d;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: #cce8db;
-  border: 2px solid #00763d;
-  border-radius: 4px;
-}
-
-html {
-  width: 100%;
-  height: 100vh;
-  overflow-x: hidden;
-}
-
-body {
-  font-size: 14px;
-  font-family: Verdana, Geneva, sans-serif;
-
-  background-color: #f8f8f8;
-}
-
-input,
-select {
-  height: 22px;
-}
-
-.visually-hidden {
-  position: absolute;
-
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-
-  white-space: nowrap;
-
-  border: 0;
-
-  clip: rect(0 0 0 0);
-  clip-path: inset(100%);
-}
-
-.main-container {
-  display: grid;
-  max-width: 1920px;
-  height: 100vh;
-  margin: 0 auto;
-
-  gap: 20px;
-  grid-template-columns: 290px minmax(290px, 0.6fr) minmax(300px, 1fr) 300px;
-  grid-template-rows: auto minmax(300px, 1fr) auto;
-}
+// BLOCKS
+@import "blocks/header.scss";
 
 .wrapper-container {
   padding: 5px 10px 10px 10px;
@@ -88,111 +29,8 @@ select {
   border-radius: 5px;
 }
 
-.main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 50px;
-  padding: 10px 15px 12px;
-
-  color: white;
-
-  background-color: #00763d;
-
-  grid-column: 1 / -1;
-  grid-row: 1;
-}
-
-.main-title {
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-  padding-top: 3px;
-
-  font-weight: bold;
-  font-size: 34px;
-  line-height: 1;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-}
-
-.site-advantage {
-  margin-left: 15px;
-
-  font-style: italic;
-  font-weight: normal;
-  font-size: 9px;
-  color: #ffffffc9;
-  white-space: pre-line;
-}
-
 .top-menu {
   display: none;
-}
-
-.contacts {
-  position: relative;
-
-  overflow: hidden;
-}
-
-.contacts:first-of-type {
-  margin-right: 20px;
-}
-
-.contacts-link {
-  display: block;
-  height: 30px;
-  padding-left: 35px;
-
-  color: white;
-  text-decoration: none;
-}
-
-.contacts-link::before {
-  content: "";
-  position: absolute;
-  top: 3px;
-  left: 3px;
-
-  width: 25px;
-  height: 25px;
-
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.contacts-link::after {
-  position: absolute;
-  bottom: 3px;
-  left: 35px;
-
-  font-size: 9px;
-  line-height: 1;
-  color: #ffffffc9;
-}
-
-.github-link {
-  width: 130px;
-}
-
-.github-link::before {
-  background-image: url("../images/github.svg");
-}
-
-.github-link::after {
-  content: "Страница проекта";
-}
-
-.mailto-link {
-  width: 190px;
-}
-
-.mailto-link::before {
-  background-image: url("../images/email.svg");
-}
-
-.mailto-link::after {
-  content: "для предложений и замечаний";
 }
 
 .parameters {
@@ -206,9 +44,7 @@ select {
   border: 0;
   border-radius: 0;
 
-  grid-column: 1;
-  grid-row: 2 / -1;
-  justify-self: end;
+  grid-area: parameters;
 }
 
 .wrapper-parameters {
@@ -239,8 +75,7 @@ select {
   padding: 32px 33px;
   overflow: hidden;
 
-  grid-column: 2 / -2;
-  grid-row: 2;
+  grid-area: preview;
 }
 
 .article {
@@ -248,13 +83,13 @@ select {
 }
 
 .legend {
-  grid-column: 2;
-  grid-row: 3;
+  grid-area: legend;
 }
 
 .description {
   grid-column: 3;
   grid-row: 3;
+  grid-area: article;
 }
 
 .css-box {
@@ -264,9 +99,7 @@ select {
 
   cursor: text;
 
-  grid-column-end: -1;
-  grid-row: 2 / -1;
-  justify-self: left;
+  grid-area: css;
 }
 
 .title-h2 {
@@ -706,7 +539,7 @@ select {
 }
 
 .overlay {
-  visibility: hidden;
+  display: none;
 }
 
 @media screen and (min-width: 1921px) {

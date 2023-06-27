@@ -63,7 +63,7 @@ const svg = () => gulp
 
 const copy = (done) => {
   gulp
-    .src(['source/*.ico', 'source/**/*.webmanifest'], { base: 'source' })
+    .src(['source/fonts/*.{woff2,woff}', 'source/*.ico', 'source/**/*.webmanifest'], { base: 'source' })
     .pipe(gulp.dest('build'));
   done();
 };

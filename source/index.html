@@ -3,40 +3,40 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="images/favicons/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="images/favicons/favicon-16x16.png">
-  <link rel="manifest" href="images/favicons/site.webmanifest">
-  <link rel="stylesheet" href="css/style.min.css">
-  <link rel="canonical" href="https://flex-gen.ru">
   <title>Онлайн конструктор FlexBox с калькулятором и предпросмотром</title>
   <meta name="description" content="С помощью онлайн калькулятора FlexBox вы можете гибко рассчитать количество flex-элементов и посмотреть, как они будут выглядеть на практике">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="preload" href="fonts/open-sans.woff2" as="font" crossorigin="anonymous">
+  <link rel="preload" href="fonts/open-sans-bold.woff2" as="font" crossorigin="anonymous">
+  <link rel="icon" href="img/svg/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="img/favicons/icon-180x180.png">
+  <link rel="manifest" href="images/favicons/site.webmanifest">
+  <link rel="stylesheet" href="css/style.min.css">
 </head>
 
 <body>
-  <main class="main-container">
+  <header class="header">
+    <div class="header__logo">
+      <span class="header__text">FlexBox</span>
+      <span class="header__advantage header__advantage--first">конструктор</span>
+      <span class="header__advantage header__advantage--medium">калькулятор</span>
+      <span class="header__advantage header__advantage--last">предпросмотр</span>
+    </div>
+    <a class="header__link header__link--github" href="https://github.com/NeXan87/Calc-flex-grow-shrink" target="_blank" rel="nofollow noopener noreferrer" aria-label="Перейти на страницу проекта в GitHub">
+      <span class="header__link-name" aria-hidden="true">GitHub.com</span>
+      <span class="header__link-desc" aria-hidden="true">Страница проекта</span>
+    </a>
+    <a class="header__link header__link--mailto" href="mailto:nexan87@gmail.com" aria-label="Написать письмо на электронную почту">
+      <span class="header__link-name" aria-hidden="true">Электронная почта</span>
+      <span class="header__link-desc" aria-hidden="true">Для предложений и замечаний</span>
+    </a>
+    <div class="top-menu">
+      <span class="menu"></span>
+    </div>
+  </header>
 
-    <header class="main-header">
-      <h1 class="main-title">
-        FlexBox
-        <span class="site-advantage"> конструктор
-          калькулятор
-          предпросмотр
-        </span>
-      </h1>
-      <div class="contacts github">
-        <a class="contacts-link github-link" href="https://github.com/NeXan87/Calc-flex-grow-shrink" target="_blank" rel="nofollow noopener noreferrer">GitHub.com</a>
-      </div>
-      <div class="contacts mailto">
-        <a class="contacts-link mailto-link" href="mailto:nexan87@gmail.com">Электронная почта</a>
-      </div>
-      <div class="top-menu">
-        <span class="menu"></span>
-      </div>
-    </header>
-
+  <main class="container">
+    <h1 class="visually-hidden">Онлайн конструктор FlexBox с калькулятором и предпросмотром</h1>
     <section class="wrapper-container parameters">
       <h2 class="visually-hidden">Параметры.</h2>
       <div class="pad">

@@ -1,0 +1,57 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding: 8px 20px;
+
+  color: $color-white;
+
+  background-color: $color-jewel;
+
+  gap: 20px;
+
+  &__logo {
+    display: grid;
+    align-items: center;
+    margin-right: auto;
+
+    line-height: 1;
+    column-gap: 15px;
+
+    grid-template-columns: repeat(2, auto);
+    grid-template-areas: "title advantage_first" "title advantage_medium" "title advantage_last";
+  }
+
+  &__text {
+    font-weight: bold;
+    font-size: 34px;
+
+    grid-area: title;
+  }
+
+  &__advantage {
+    font-style: italic;
+    font-size: 9px;
+    color: $color-white-smoke;
+
+    &--first {
+      align-self: end;
+
+      grid-area: advantage_first;
+    }
+
+    &--medium {
+      grid-area: advantage_medium;
+    }
+
+    &--last {
+      align-self: start;
+
+      grid-area: advantage_last;
+    }
+  }
+
+  &__link {
+    color: $color-white;
+  }
+}
