@@ -54,6 +54,7 @@
   &__link {
     display: grid;
     align-items: center;
+    padding: 5px;
 
     line-height: 1;
     color: $color-white;
@@ -63,7 +64,8 @@
     grid-template-columns: repeat(2, auto);
     grid-template-areas: "icon name" "icon desc";
 
-    &:hover {
+    &:hover,
+    &:focus {
       .header__svg {
         transform: scale(1.2);
       }
@@ -71,7 +73,7 @@
   }
 
   &__svg {
-    transition: transform 0.2s ease-out;
+    transition: transform $trans-200 $ease-out;
 
     grid-area: icon;
   }
@@ -109,7 +111,7 @@
 
     background-color: $color-white;
 
-    transition: transform 0.2s;
+    transition: transform $trans-200 $ease-out;
 
     &:first-child {
       transform: translateY(-5px);
