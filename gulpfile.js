@@ -7,6 +7,7 @@ import csso from 'postcss-csso';
 import rename from 'gulp-rename';
 import htmlmin from 'gulp-htmlmin';
 import terser from 'gulp-terser';
+import svgstore from 'gulp-svgstore';
 import sourcemaps from 'gulp-sourcemaps';
 import squoosh from 'gulp-libsquoosh';
 import svgo from 'gulp-svgmin';
@@ -54,10 +55,12 @@ const copyImages = () => gulp.src('source/images/**/*.{jpg,png}').pipe(gulp.dest
 
 // SVG
 
-const svg = () => gulp
-  .src(['source/images/**/*.svg'])
+const sprite = () => gulp
+  .src('source/images/svg/**/*.svg')
   .pipe(svgo())
-  .pipe(gulp.dest('build/images/'));
+  .pipe(svgstore({ inlineSvg: true }))
+  .pipe(rename('sprite.svg'))
+  .pipe(gulp.dest('build/images/svg'));
 
 // Copy
 
@@ -104,7 +107,7 @@ const watcher = () => {
   gulp.watch('source/*.html', gulp.series(html, reload));
   gulp.watch('source/js/*.js', gulp.series(script));
   gulp.watch('source/images/**/*.{jpg,png}', gulp.series(copyImages, reload));
-  gulp.watch('source/images/svg/*.svg', gulp.series(svg, reload));
+  gulp.watch('source/images/svg/*.svg', gulp.series(sprite, reload));
 };
 
 // Build
@@ -113,7 +116,7 @@ export const build = gulp.series(
   clean,
   copy,
   optimizeImages,
-  gulp.parallel(styles, html, script, svg)
+  gulp.parallel(styles, html, script, sprite)
 );
 
 // Default
@@ -122,6 +125,6 @@ export default gulp.series(
   clean,
   copy,
   copyImages,
-  gulp.parallel(styles, html, script, svg),
+  gulp.parallel(styles, html, script, sprite),
   gulp.series(server, watcher)
 );

@@ -7,6 +7,7 @@
 @import "global/container.scss";
 
 // BLOCKS
+@import "blocks/button.scss";
 @import "blocks/header.scss";
 
 .wrapper-container {
@@ -27,10 +28,6 @@
   background-color: #ffffff;
   border: 1px solid #d5d5d5;
   border-radius: 5px;
-}
-
-.top-menu {
-  display: none;
 }
 
 .parameters {
@@ -662,69 +659,6 @@
     padding: 0 0 0 15px;
 
     box-shadow: 0 -1px 7px 0 #000000b8;
-  }
-
-  .top-menu {
-    display: block;
-    width: 65px;
-    height: 50px;
-    padding: 0 !important;
-
-    cursor: pointer;
-  }
-
-  .menu {
-    top: 23px;
-    right: 13px;
-    bottom: 0;
-
-    width: 35px;
-  }
-
-  .menu,
-  .menu::after,
-  .menu::before {
-    content: " ";
-    position: absolute;
-    right: 17px;
-
-    width: 35px;
-    height: 5px;
-
-    background-color: #ffffff;
-    border-radius: 2px;
-
-    transition: all 0.2s ease-in-out;
-  }
-
-  .menu::before {
-    top: -10px;
-    right: 0;
-  }
-
-  .menu::after {
-    right: 0;
-    bottom: -10px;
-  }
-
-  .is-open .menu {
-    right: 28px;
-
-    width: 0;
-  }
-
-  .is-open .menu::before {
-    top: 0;
-    right: -12px;
-
-    transform: rotate(45deg);
-  }
-
-  .is-open .menu::after {
-    right: -12px;
-    bottom: 0;
-
-    transform: rotate(-45deg);
   }
 
   .contacts {

@@ -8,7 +8,7 @@
 
   background-color: $color-jewel;
 
-  gap: 20px;
+  gap: 30px;
 
   &__logo {
     display: grid;
@@ -32,7 +32,7 @@
   &__advantage {
     font-style: italic;
     font-size: 9px;
-    color: $color-white-smoke;
+    color: $color-white-whisper;
 
     &--first {
       align-self: end;
@@ -52,6 +52,85 @@
   }
 
   &__link {
+    display: grid;
+    align-items: center;
+
+    line-height: 1;
     color: $color-white;
+    column-gap: 10px;
+
+    row-gap: 2px;
+    grid-template-columns: repeat(2, auto);
+    grid-template-areas: "icon name" "icon desc";
+
+    &:hover {
+      .header__svg {
+        transform: scale(1.2);
+      }
+    }
+  }
+
+  &__svg {
+    transition: transform 0.2s ease-out;
+
+    grid-area: icon;
+  }
+
+  &__link-name {
+    grid-area: name;
+  }
+
+  &__link-desc {
+    font-size: 9px;
+    color: $color-white-whisper;
+
+    grid-area: desc;
+  }
+
+  &__button {
+    position: relative;
+
+    display: block;
+    width: 65px;
+    height: 50px;
+    padding: 0;
+  }
+
+  &__line {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    width: 16px;
+    height: 2px;
+    margin: auto;
+
+    background-color: $color-white;
+
+    transition: transform 0.2s;
+
+    &:first-child {
+      transform: translateY(-5px);
+
+      .is-open & {
+        transform: rotate(45deg);
+      }
+    }
+
+    &:last-child {
+      transform: translateY(5px);
+
+      .is-open & {
+        transform: rotate(-45deg);
+      }
+    }
+
+    .is-open & {
+      &:not(:first-child):not(:last-child) {
+        transform: scaleX(0);
+      }
+    }
   }
 }

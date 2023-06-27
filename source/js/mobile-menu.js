@@ -1,5 +1,5 @@
 const htmlElement = document.querySelector('html');
-const menuButton = document.querySelector('.top-menu');
+const menuButton = document.querySelector('.header__button');
 const overlayElement = document.querySelector('.overlay');
 
 const toggleMenuClass = () => {
