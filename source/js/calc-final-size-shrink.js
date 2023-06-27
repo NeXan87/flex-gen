@@ -31,7 +31,7 @@ const calcFinalSizeShrink = ({ parent, items, calculations }) => {
   flexBox.calculations.spbr = calcSpbr(items, calculations);
 
   for (const item in items) {
-    flexBox.items[item].nks = parseFloat(calcNks(items[item], calculations).toFixed(2));
+    flexBox.items[item].nks = parseFloat(calcNks(items[item], calculations).toFixed(3));
     flexBox.items[item].irs = parseFloat(calcIrs(items[item], calculations).toFixed(1));
   }
 };

@@ -2,7 +2,6 @@ const textColor = '#CC0000';
 const notText = 'NOT';
 const maxText = 'MAX';
 const minText = 'MIN';
-const wopText = 'W=OP';
 
 const opElement = document.querySelector('.op'); // op (оставшееся пространство)
 const dsmElement = document.querySelector('.dsm'); // dsm (доля свободного места)
@@ -13,12 +12,10 @@ const showItemsData = (htmlElement, { width }, number, unit = '') => {
 
     if (number < 0) {
       return minText;
-    } else if (number > width) {
+    } else if (number >= width) {
       return maxText;
     } else if (number === 0) {
       return notText;
-    } else if (number === width) {
-      return wopText;
     }
 
   } else {
