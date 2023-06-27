@@ -1,6 +1,23 @@
 import { hasPx } from './utils.js';
+import { defaultValues } from './flex-objects.js';
 
 const stylesElement = document.querySelector('.css-styles');
+
+const isDefaultAllItems = (flexItem) => {
+  for (const item in defaultValues.items) {
+    if (flexItem[item] !== defaultValues.items[item]) {
+      return true;
+    }
+  }
+};
+
+const isDefaultValues = (term, property, value) => {
+  for (const key in defaultValues[term]) {
+    if (property === key && defaultValues[term][key] === (isNaN(value) ? value : +value)) {
+      return true;
+    }
+  }
+};
 
 const renderCssParent = (parent) => {
   const propertiesParent = Object.keys(parent);
@@ -10,15 +27,7 @@ const renderCssParent = (parent) => {
   propertiesParent.forEach((property) => {
     const value = parent[property];
 
-    if (
-      (property === 'display' || property === 'width') ||
-      (property === 'gap' && value !== 0) ||
-      (property === 'flex-direction' && value !== 'row') ||
-      (property === 'flex-wrap' && value !== 'nowrap') ||
-      (property === 'justify-content' && value !== 'flex-start') ||
-      (property === 'align-items' && value !== 'stretch') ||
-      (property === 'align-content' && value !== 'stretch')
-    ) {
+    if (!isDefaultValues('parent', property, value)) {
       stylesElement.innerHTML += `  ${property}: ${value}${hasPx(property)};<br/>`;
     }
   });
@@ -26,36 +35,22 @@ const renderCssParent = (parent) => {
   stylesElement.innerHTML += '}<br/><br/>';
 };
 
+const renderCssItems = (items) => {
 
-const renderCssElements = (items) => {
+  const flexItems = Object.keys(items);
 
-  const flexElements = Object.keys(items);
-
-  flexElements.forEach((item) => {
+  flexItems.forEach((item) => {
     const propertiesElements = Object.keys(items[item]);
-    const flexElement = items[item];
+    const flexItem = { ...items[item] };
 
-    if (
-      flexElement['flex-grow'] !== 0 ||
-      flexElement['flex-shrink'] !== 1 ||
-      flexElement['flex-basis'] !== 0 ||
-      flexElement['order'] !== 0 ||
-      flexElement['align-self'] !== 'auto'
-    ) {
+    if (isDefaultAllItems(flexItem)) {
       stylesElement.innerHTML += `.${item} {<br/>`;
 
       propertiesElements.forEach((property) => {
+        const value = items[item][property];
 
-        if (
-          property !== 'nks' &&
-          property !== 'irs' &&
-          property !== 'irr' &&
-          flexElement[property] !== 0 &&
-          flexElement[property] !== 'auto'
-        ) {
-
-          stylesElement.innerHTML += `  ${property}: ${flexElement[property]}${hasPx(property)};<br/>`;
-
+        if (!isDefaultValues('items', property, value) && property !== 'nks' && property !== 'irs' && property !== 'irr') {
+          stylesElement.innerHTML += `  ${property}: ${value}${hasPx(property)};<br/>`;
         }
       });
 
@@ -66,7 +61,7 @@ const renderCssElements = (items) => {
 
 const renderCss = ({ parent, items }) => {
   renderCssParent(parent);
-  renderCssElements(items);
+  renderCssItems(items);
 };
 
 export { renderCss };
