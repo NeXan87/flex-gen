@@ -1,14 +1,14 @@
 .section {
   padding: 5px 10px 10px 10px;
 
-  background-color: #ffffff;
-  border: 1px solid #d5d5d5;
+  background-color: $color-white;
+  border: 1px solid $color-light-gray;
   border-radius: 5px;
 
   @include vp-768 {
     border: 0;
-    border-top: 1px solid #d5d5d5;
-    border-bottom: 1px solid #d5d5d5;
+    border-top: 1px solid $color-light-gray;
+    border-bottom: 1px solid $color-light-gray;
     border-radius: 0;
   }
 

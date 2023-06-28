@@ -11,28 +11,7 @@
 @import "blocks/header.scss";
 @import "blocks/overlay.scss";
 @import "blocks/section.scss";
-
-.pad {
-  padding: 5px 10px 10px 10px;
-
-  background-color: #ffffff;
-  border: 1px solid #d5d5d5;
-  border-radius: 5px;
-}
-
-.parameters {
-  box-sizing: content-box;
-  width: 272px;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  background: none;
-  border: 0;
-  border-radius: 0;
-
-  grid-area: parameters;
-}
+@import "blocks/parameters.scss";
 
 .wrapper-parameters {
   position: relative;
@@ -74,13 +53,10 @@
 }
 
 .description {
-  grid-column: 3;
-  grid-row: 3;
   grid-area: article;
 }
 
 .css-box {
-  width: 280px;
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -269,7 +245,6 @@
 
 .arrow {
   position: absolute;
-  z-index: 10;
 
   display: flex;
   align-items: center;
@@ -525,66 +500,12 @@
   list-style: none;
 }
 
-@media screen and (max-width: 1240px) {
-  .main-container {
-    grid-template-columns: 290px minmax(170px, 1fr) minmax(170px, 1fr) 300px;
-    grid-template-rows: auto 500px auto auto;
-  }
-
-  .parameters {
-    max-height: 1500px;
-  }
-
-  .preview {
-    margin-right: 20px;
-
-    grid-column: 2 / -1;
-    grid-row: 2;
-  }
-
-  .legend {
-    margin-bottom: 0;
-
-    grid-column: 2 / 4;
-    grid-row: 3;
-  }
-
-  .description {
-    grid-column: 2 / 4;
-    grid-row: 4;
-  }
-
-  .css-box {
-    grid-column-end: -1;
-    grid-row: 3 / -1;
-  }
-}
-
 @media screen and (max-width: 1024px) {
-  .legend {
-    margin-right: 20px;
-    margin-bottom: 0;
-
-    grid-column: 2 / -1;
-    grid-row: 3;
-  }
-
-  .description {
-    margin-right: 20px;
-    margin-bottom: 0;
-
-    grid-column: 2 / -1;
-    grid-row: 4;
-  }
-
   .css-box {
     width: 100%;
     width: auto;
     max-height: 600px;
-    margin-right: 20px;
 
-    grid-column: 2 /-1;
-    grid-row: 5;
     justify-self: stretch;
   }
 }
@@ -596,33 +517,6 @@
     padding-right: 5px;
 
     font-size: 16px;
-  }
-
-  .parameters {
-    position: fixed;
-    top: 50px;
-    right: -280px;
-    z-index: 100;
-
-    height: calc(100% - 50px);
-    max-height: none;
-
-    background-color: #ffffff;
-    border: 0;
-    visibility: hidden;
-
-    transition: right 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
-
-    grid-column: none;
-    grid-row: none;
-  }
-
-  .is-open .parameters {
-    right: 0;
-
-    visibility: visible;
-
-    transition: right 0.3s ease-in-out, visibility 0s ease-in-out 0s;
   }
 
   .element {
@@ -649,29 +543,6 @@
     height: 25px;
   }
 
-  .pad {
-    border: 0;
-    border-radius: 0;
-  }
-
-  .preview,
-  .legend,
-  .css-box {
-    margin: 0;
-  }
-
-  .preview {
-    margin-top: 50px;
-
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  .legend {
-    grid-column: 1;
-    grid-row: 3;
-  }
-
   .article {
     padding-bottom: 20px;
 
@@ -682,17 +553,7 @@
     margin-bottom: 20px;
   }
 
-  .description {
-    margin-right: 0;
-
-    grid-column: 1;
-    grid-row: 4;
-  }
-
   .css-box {
     max-height: none;
-
-    grid-column: 1;
-    grid-row: 5;
   }
 }

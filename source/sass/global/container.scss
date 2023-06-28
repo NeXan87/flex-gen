@@ -10,11 +10,11 @@
   grid-template-columns: 272px minmax(290px, 0.6fr) minmax(300px, 1fr) 280px;
   grid-template-rows: minmax(300px, 1fr) auto;
   grid-template-areas: "parameters preview preview css" "parameters legend article css";
-  @include vp-1024 {
+  @include vp-1240 {
     height: auto;
 
     grid-template-columns: 272px minmax(400px, 1fr);
-    grid-template-rows: auto 510px repeat(3, auto);
+    grid-template-rows: auto 510px repeat(2, auto);
     grid-template-areas:
       "parameters preview"
       "parameters legend"
@@ -23,11 +23,13 @@
   }
   @include vp-768 {
     margin-top: 50px;
+    padding-right: 0;
+    padding-left: 0;
 
     column-gap: 0;
 
     grid-template-columns: auto;
     grid-template-rows: auto;
-    grid-template-areas: "parameters" "legend" "article" "css";
+    grid-template-areas: "preview" "legend" "article" "css";
   }
 }
