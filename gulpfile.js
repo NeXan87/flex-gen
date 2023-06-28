@@ -12,8 +12,14 @@ import sourcemaps from 'gulp-sourcemaps';
 import squoosh from 'gulp-libsquoosh';
 import svgo from 'gulp-svgmin';
 import { deleteAsync } from 'del';
+import bemlinter from 'gulp-html-bemlinter';
 import browser from 'browser-sync';
 import ghPages from 'gulp-gh-pages';
+
+export function lintBem() {
+  return gulp.src('source/*.html')
+    .pipe(bemlinter());
+}
 
 // Styles
 
