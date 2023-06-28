@@ -536,12 +536,6 @@
   list-style: none;
 }
 
-@media screen and (min-width: 1921px) {
-  .main-header {
-    border-radius: 0 0 20px 20px;
-  }
-}
-
 @media screen and (max-width: 1240px) {
   .main-container {
     grid-template-columns: 290px minmax(170px, 1fr) minmax(170px, 1fr) 300px;
