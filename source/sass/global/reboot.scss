@@ -22,6 +22,10 @@
   background-color: $color-mint-tulip;
   border: 2px solid $color-jewel;
   border-radius: 4px;
+
+  @include vp-768 {
+    border-radius: 0;
+  }
 }
 
 html {
@@ -37,6 +41,11 @@ html {
   color: $color-black;
 
   scrollbar-gutter: stable;
+  @include vp-768 {
+    &.is-open {
+      overflow-y: hidden;
+    }
+  }
 }
 
 body {

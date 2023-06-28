@@ -9,6 +9,18 @@
   background-color: $color-jewel;
 
   gap: 30px;
+  @include vp-768 {
+    position: fixed;
+    z-index: 300;
+
+    width: 100%;
+    padding: 0 0 0 15px;
+    padding-right: 0;
+
+    box-shadow: 0 -1px 7px 0 rgba($color-black, 0.72);
+
+    gap: 0;
+  }
 
   &__logo {
     display: grid;
@@ -33,6 +45,10 @@
     font-style: italic;
     font-size: 9px;
     color: $color-white-whisper;
+
+    @include vp-768 {
+      display: none;
+    }
 
     &--first {
       align-self: end;
@@ -63,11 +79,30 @@
     row-gap: 2px;
     grid-template-columns: repeat(2, auto);
     grid-template-areas: "icon name" "icon desc";
+    @include vp-768 {
+      justify-content: center;
+      align-content: center;
+      width: 50px;
+      height: 50px;
+      padding: 0;
+
+      gap: 0;
+      grid-template-columns: auto;
+      grid-template-areas: none;
+
+      &:not(:last-of-type) {
+        margin-right: 5px;
+      }
+    }
 
     &:hover,
     &:focus {
       .header__svg {
         transform: scale(1.2);
+
+        @include vp-768 {
+          transform: scale(1);
+        }
       }
     }
   }
@@ -76,10 +111,17 @@
     transition: transform $trans-200 $ease-out;
 
     grid-area: icon;
+    @include vp-768 {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &__link-name {
     grid-area: name;
+    @include vp-768 {
+      display: none;
+    }
   }
 
   &__link-desc {
@@ -87,52 +129,63 @@
     color: $color-white-whisper;
 
     grid-area: desc;
+    @include vp-768 {
+      display: none;
+    }
   }
 
   &__button {
-    position: relative;
+    display: none;
 
-    display: block;
-    width: 65px;
-    height: 50px;
-    padding: 0;
+    @include vp-768 {
+      position: relative;
+
+      display: block;
+      width: 65px;
+      height: 50px;
+      padding: 0;
+
+      &::before,
+      &::after,
+      .header__line {
+        content: "";
+        position: absolute;
+        top: -1px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        width: 35px;
+        height: 5px;
+        margin: auto;
+
+        background-color: $color-white;
+        border-radius: 2px;
+
+        transition: transform $trans-200 $ease-out;
+      }
+
+      &::before {
+        transform: translateY(-10px);
+
+        .is-open & {
+          transform: rotate(45deg);
+        }
+      }
+
+      &::after {
+        transform: translateY(10px);
+
+        .is-open & {
+          transform: rotate(-45deg);
+        }
+      }
+    }
   }
 
   &__line {
-    position: absolute;
-    top: -1px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    width: 16px;
-    height: 2px;
-    margin: auto;
-
-    background-color: $color-white;
-
-    transition: transform $trans-200 $ease-out;
-
-    &:first-child {
-      transform: translateY(-5px);
-
-      .is-open & {
-        transform: rotate(45deg);
-      }
-    }
-
-    &:last-child {
-      transform: translateY(5px);
-
-      .is-open & {
-        transform: rotate(-45deg);
-      }
-    }
-
     .is-open & {
-      &:not(:first-child):not(:last-child) {
-        transform: scaleX(0);
-      }
+      transform: scaleX(0);
     }
   }
 }

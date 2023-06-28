@@ -2,23 +2,20 @@ import { isEscapeKey } from './utils.js';
 
 const htmlElement = document.querySelector('html');
 const menuButton = document.querySelector('.header__button');
-const overlayElement = document.querySelector('.overlay');
 
 const toggleMenuClass = () => {
   htmlElement.classList.toggle('is-open');
 
   if (htmlElement.classList.contains('is-open')) {
     document.addEventListener('keydown', onDocumentKeydown);
+    document.addEventListener('click', onDocumentClick);
   } else {
     document.removeEventListener('keydown', onDocumentKeydown);
+    document.removeEventListener('click', onDocumentClick);
   }
 };
 
 const onMenuButtonClick = () => {
-  toggleMenuClass();
-};
-
-const onOverlayElementClick = () => {
   toggleMenuClass();
 };
 
@@ -28,9 +25,14 @@ function onDocumentKeydown(evt) {
   }
 }
 
+function onDocumentClick(evt) {
+  if (!evt.target.closest('.header__button') && !evt.target.closest('.parameters')) {
+    toggleMenuClass();
+  }
+}
+
 const initMenuButtonActions = () => {
   menuButton.addEventListener('click', onMenuButtonClick);
-  overlayElement.addEventListener('click', onOverlayElementClick);
 };
 
 export { initMenuButtonActions };

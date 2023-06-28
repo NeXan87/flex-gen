@@ -9,6 +9,7 @@
 // BLOCKS
 @import "blocks/button.scss";
 @import "blocks/header.scss";
+@import "blocks/overlay.scss";
 
 .wrapper-container {
   padding: 5px 10px 10px 10px;
@@ -535,10 +536,6 @@
   list-style: none;
 }
 
-.overlay {
-  display: none;
-}
-
 @media screen and (min-width: 1921px) {
   .main-header {
     border-radius: 0 0 20px 20px;
@@ -617,18 +614,6 @@
 }
 
 @media screen and (max-width: 768px) {
-  *::-webkit-scrollbar-track {
-    border-radius: 0 !important;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    border-radius: 0 !important;
-  }
-
-  html.is-open {
-    overflow-y: hidden;
-  }
-
   input,
   select {
     height: 30px;
@@ -649,45 +634,6 @@
     border-top: 1px solid #d5d5d5;
     border-bottom: 1px solid #d5d5d5;
     border-radius: 0;
-  }
-
-  .main-header {
-    position: fixed;
-    z-index: 300;
-
-    width: 100%;
-    padding: 0 0 0 15px;
-
-    box-shadow: 0 -1px 7px 0 #000000b8;
-  }
-
-  .contacts {
-    margin-right: 3px !important;
-  }
-
-  .contacts.github {
-    margin-right: 5px !important;
-  }
-
-  .contacts-link {
-    width: 50px;
-    height: 50px;
-    padding-left: 51px;
-  }
-
-  .contacts-link::before {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-
-    width: 32px;
-    height: 32px;
-    margin: auto;
-  }
-
-  .contacts-link::after {
-    display: none;
   }
 
   .parameters {
@@ -786,36 +732,5 @@
 
     grid-column: 1;
     grid-row: 5;
-  }
-
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-
-    width: 100%;
-    height: 150%;
-
-    background-color: #000000a6;
-    visibility: hidden;
-    opacity: 0;
-
-    transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0.3s;
-  }
-
-  .is-open .overlay {
-    visibility: visible;
-    opacity: 1;
-
-    transition: opacity 0.3s ease-in-out, visibility 0s ease-in-out 0s;
-  }
-}
-
-@media screen and (max-width: 425px) {
-  .site-advantage {
-    width: 0;
-
-    visibility: hidden;
   }
 }
