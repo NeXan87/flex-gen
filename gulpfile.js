@@ -55,6 +55,11 @@ const copyImages = () => gulp.src('source/images/**/*.{jpg,png}').pipe(gulp.dest
 
 // SVG
 
+const svg = () => gulp
+  .src(['source/images/**/*.svg', '!source/images/svg/*.svg'])
+  .pipe(svgo())
+  .pipe(gulp.dest('build/images'));
+
 const sprite = () => gulp
   .src('source/images/svg/**/*.svg')
   .pipe(svgo())
@@ -107,7 +112,7 @@ const watcher = () => {
   gulp.watch('source/*.html', gulp.series(html, reload));
   gulp.watch('source/js/*.js', gulp.series(script));
   gulp.watch('source/images/**/*.{jpg,png}', gulp.series(copyImages, reload));
-  gulp.watch('source/images/svg/*.svg', gulp.series(sprite, reload));
+  gulp.watch('source/images/**/*.svg', gulp.series(sprite, reload));
 };
 
 // Build
@@ -116,7 +121,7 @@ export const build = gulp.series(
   clean,
   copy,
   optimizeImages,
-  gulp.parallel(styles, html, script, sprite)
+  gulp.parallel(styles, html, script, svg, sprite)
 );
 
 // Default
@@ -125,6 +130,6 @@ export default gulp.series(
   clean,
   copy,
   copyImages,
-  gulp.parallel(styles, html, script, sprite),
+  gulp.parallel(styles, html, script, svg, sprite),
   gulp.series(server, watcher)
 );
