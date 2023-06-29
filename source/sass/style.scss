@@ -7,6 +7,7 @@
 @import "global/container.scss";
 
 // BLOCKS
+@import "blocks/title.scss";
 @import "blocks/button.scss";
 @import "blocks/header.scss";
 @import "blocks/overlay.scss";
@@ -55,18 +56,6 @@
 
 .description {
   grid-area: article;
-}
-
-.title-h2 {
-  margin-bottom: 15px;
-  padding: 2px 0 7px;
-
-  font-size: 18px;
-  font-family: Tahoma, Geneva, sans-serif;
-  text-align: center;
-  color: #444444;
-
-  border-bottom: 1px dotted #c0c0c0;
 }
 
 .article-text {
@@ -520,9 +509,5 @@
     padding-bottom: 20px;
 
     font-size: 14px;
-  }
-
-  .article .title-h2 {
-    margin-bottom: 20px;
   }
 }

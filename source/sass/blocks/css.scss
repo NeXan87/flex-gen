@@ -14,14 +14,13 @@
     max-height: none;
   }
 
-  &__title {
-    margin-bottom: 5px;
-  }
-
   &__wrapper {
     display: flex;
     flex-direction: column;
-    padding: 0 5px;
+
+    font-size: 14px;
+    line-height: 1.2;
+    font-family: $ff-monospace;
   }
 
   &__class {
