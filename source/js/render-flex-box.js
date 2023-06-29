@@ -1,6 +1,6 @@
 import { hasPx, renderElement } from './utils.js';
 
-const previewElement = document.querySelector('.preview-box');
+const previewElement = document.querySelector('.preview__list');
 
 const addStyles = (parent, css = '') => {
   const properties = Object.keys(parent);
@@ -28,7 +28,7 @@ const renderFlexItems = (items) => {
     const flexItem = items[item];
     const li = document.createElement('li');
 
-    li.classList.add('flexbox-item');
+    li.classList.add('preview__item');
     li.style.cssText = `align-self: ${flexItem['align-self']};
 											  flex-grow: ${flexItem['flex-grow']};
 											  flex-shrink: ${flexItem['flex-shrink']};

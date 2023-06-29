@@ -1,0 +1,68 @@
+.preview {
+  position: relative;
+
+  padding: 32px 33px;
+  overflow: hidden;
+
+  grid-area: preview;
+
+  &__wrapper {
+    position: relative;
+
+    width: fit-content;
+    height: 100%;
+    max-height: 600px;
+    margin: auto;
+  }
+
+  &__list {
+    box-sizing: content-box;
+    width: 100%;
+    min-width: 240px;
+    height: calc(100% - 10px);
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+
+    border: 1px dashed $color-silver;
+    border-radius: 5px;
+
+    counter-reset: section;
+  }
+
+  &__item {
+    position: relative;
+
+    box-sizing: border-box;
+    min-width: 50px;
+    min-height: 50px;
+    overflow: hidden;
+
+    list-style: none;
+    text-align: center;
+
+    background-color: rgba($color-jewel, 0.45);
+    border: 1px solid $color-jewel;
+
+    &::before {
+      content: "" counter(section) "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+
+      width: 25px;
+      height: 25px;
+      margin: auto;
+
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 24px;
+      color: $color-jewel;
+
+      background-color: $color-white;
+      border-radius: 50%;
+
+      counter-increment: section;
+    }
+  }
+}

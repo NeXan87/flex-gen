@@ -1,15 +1,15 @@
 const mainAxisText = 'главная ось';
 const crossAxisText = 'поперечная ось';
-const mainAxisClass = 'main-coord';
-const crossAxisClass = 'cross-coord';
-const rowReverseClass = 'row-reverse';
-const columnReverseClass = 'column-reverse';
+const mainAxisClass = 'axis--main';
+const crossAxisClass = 'axis--cross';
+const rowReverseClass = 'axis--row-reverse';
+const columnReverseClass = 'axis--column-reverse';
 
-const axesElements = document.querySelectorAll('.arrow');
+const axesElements = document.querySelectorAll('.axis');
 
 const renameAxes = () => {
   axesElements.forEach((axis) => {
-    const axisText = axis.querySelector('.arrow-title');
+    const axisText = axis.querySelector('.axis__text');
 
     if (axis.classList.contains(mainAxisClass)) {
       axisText.textContent = mainAxisText;
@@ -22,7 +22,7 @@ const renameAxes = () => {
 
 const addCssAxes = (cssHorizontal, cssVertical) => {
   axesElements.forEach((axis) => {
-    if (axis.classList.contains('horizontal-arrow')) {
+    if (axis.classList.contains('axis--horizontal')) {
       axis.classList.add(...cssHorizontal);
     } else {
       axis.classList.add(...cssVertical);
@@ -34,7 +34,7 @@ const addCssAxes = (cssHorizontal, cssVertical) => {
 
 const removeCssAxes = (cssHorizontal, cssVertical) => {
   axesElements.forEach((axis) => {
-    if (axis.classList.contains('horizontal-arrow')) {
+    if (axis.classList.contains('axis--horizontal')) {
       axis.classList.remove(...cssHorizontal);
     } else {
       axis.classList.remove(...cssVertical);
