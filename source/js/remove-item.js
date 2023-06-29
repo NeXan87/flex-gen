@@ -6,8 +6,8 @@ import { switchesButtonState } from './utils.js';
 const addItemButton = document.querySelector('.button-element.add');
 
 const reCalcNumbersItems = () => {
-  const fieldsetElements = document.querySelectorAll('.item');
-  const legendElements = document.querySelectorAll('.item__title');
+  const fieldsetElements = document.querySelectorAll('.parameters__fields--item');
+  const legendElements = document.querySelectorAll('.subtitle--item');
   const flexItems = Object.keys(flexBox.items);
   const tempItems = {};
 

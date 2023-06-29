@@ -13,8 +13,8 @@ let countItems = 1;
 
 const parentElement = document.querySelector('.parameters__fields--parent');
 const addItemButton = document.querySelector('.button-element.add');
-const flexContainer = document.querySelector('.flex-items');
-const itemTemplate = document.querySelector('#item').content.querySelector('.item');
+const flexContainer = document.querySelector('.parameters__items');
+const itemTemplate = document.querySelector('#item').content.querySelector('.parameters__fields--item');
 const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove');
 
 const onFieldsInput = (evt) => {
@@ -33,8 +33,8 @@ const setItemData = (item) => {
 const addItem = ({ parent: { width } }, siteLoaded) => {
   const itemClone = itemTemplate.cloneNode(true);
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
-  const itemLegend = itemClone.querySelector('.elements-title');
-  const itemFields = itemClone.querySelectorAll('.oninput');
+  const itemLegend = itemClone.querySelector('.parameters__title-text--item');
+  const itemFields = itemClone.querySelectorAll('.field');
   const item = elementNameEn + countItems;
 
   itemClone.id = item;
@@ -72,7 +72,7 @@ const onAddItemButtonClick = () => {
 };
 
 const initParentActions = ({ parent: { width } }) => {
-  const parentFields = parentElement.querySelectorAll('.oninput');
+  const parentFields = parentElement.querySelectorAll('.field');
 
   parentFields.forEach((input) => {
     if (input.name === 'width') {

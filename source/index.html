@@ -51,24 +51,24 @@
             <span class="parameters__title-text">Параметры родителя</span>
           </h3>
           <label class="parameters__label" for="width">Ширина</label>
-          <input class="parameters__field input input--number oninput" id="width" name="width" type="number" value="" min="240">
+          <input class="parameters__field field field--number width" id="width" name="width" type="number" value="" min="240">
           <label class="label-title element" for="gap">gap</label>
-          <input class="parameters__field input input--number oninput" id="gap" name="gap" type="number" value="5" placeholder="0-100px">
+          <input class="parameters__field field field--number gap" id="gap" name="gap" type="number" value="5" placeholder="0-100px">
           <label class="parameters__label" for="flex-direction">flex-direction</label>
-          <select class="parameters__field input input--select oninput" id="flex-direction" name="flex-direction">
+          <select class="parameters__field field field--select" id="flex-direction" name="flex-direction">
             <option value="row" selected>row</option>
             <option value="row-reverse">row-reverse</option>
             <option value="column">column</option>
             <option value="column-reverse">column-reverse</option>
           </select>
           <label class="parameters__label" for="flex-wrap">flex-wrap</label>
-          <select class="parameters__field input input--select oninput" id="flex-wrap" name="flex-wrap">
+          <select class="parameters__field field field--select flex-wrap" id="flex-wrap" name="flex-wrap">
             <option value="nowrap">nowrap</option>
             <option value="wrap" selected>wrap</option>
             <option value="wrap-reverse">wrap-reverse</option>
           </select>
           <label class="parameters__label" for="justify-content">justify-content</label>
-          <select class="parameters__field input input--select oninput" id="justify-content" name="justify-content">
+          <select class="parameters__field field field--select justify-content" id="justify-content" name="justify-content">
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
             <option value="center" selected>center</option>
@@ -77,7 +77,7 @@
             <option value="space-evenly">space-evenly</option>
           </select>
           <label class="parameters__label" for="align-items">align-items</label>
-          <select class="parameters__field input input--select oninput" id="align-items" name="align-items">
+          <select class="parameters__field field field--select align-items" id="align-items" name="align-items">
             <option value="stretch">stretch</option>
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
@@ -85,7 +85,7 @@
             <option value="baseline">baseline</option>
           </select>
           <label class="parameters__label" for="align-content">align-content</label>
-          <select class="parameters__field input input--select oninput" id="align-content" name="align-content">
+          <select class="parameters__field field field--select align-content" id="align-content" name="align-content">
             <option value="stretch">stretch</option>
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
@@ -95,21 +95,25 @@
             <option value="space-evenly">space-evenly</option>
           </select>
         </div>
-        <fieldset class="elements main-fieldset wrapper-parameters">
-          <legend class="elements-title">Параметры элементов</legend>
+        <div class="parameters__fields parameters__fields--items">
+          <h3 class="parameters__title subtitle">
+            <span class="parameters__title-text">Параметры элементов</span>
+          </h3>
           <div class="button-background add">
             <button type="button" class="button-element add"></button>
           </div>
-          <div class="result-box general">
-            <div class="result-item">ОП:
-              <output name="result" class="op">...</output>
-            </div>
-            <div class="result-item">ДСМ:
-              <output name="result" class="dsm">...</output>
-            </div>
-            <div class="flex-items"></div>
-          </div>
-        </fieldset>
+          <ul class="parameters__result parameters__result--global">
+            <li class="parameters__result-item">
+              <b>ОП</b>
+              <output class="parameters__op" name="result">...</output>
+            </li>
+            <li class="parameters__result-item">
+              <b>ДСМ</b>
+              <output class="parameters__dsm" name="result">...</output>
+            </li>
+          </ul>
+          <div class="parameters__items"></div>
+        </div>
       </div>
     </section>
 
@@ -169,18 +173,20 @@
 
   <!-- Шаблон добавления нового flex-элемента -->
   <template id="item">
-    <fieldset class="flex item wrapper-parameters" id="item-1" data-flex="items">
-      <legend class="elements-title item__title"></legend>
-      <label for="flex-grow-${idElement}" class="element label-title">flex-grow</label>
-      <input name="flex-grow" type="number" class="number flex-grow element oninput input-child" placeholder="0-10">
-      <label for="flex-shrink-${idElement}" class="label-title element">flex-shrink</label>
-      <input name="flex-shrink" type="number" class="number flex-shrink element oninput input-child" placeholder="0-10">
-      <label for="flex-basis-${idElement}" class="label-title element">flex-basis</label>
-      <input name="flex-basis" type="number" class="number flex-basis element  oninput input-child" placeholder="">
-      <label for="order-${idElement}" class="label-title element">order</label>
-      <input name="order" type="number" class="number order element oninput input-child" placeholder="+-20">
-      <label for="align-self-${idElement}" class="label-title element">align-self</label>
-      <select name="align-self" class="select element align-self oninput input-child">
+    <div class="parameters__fields parameters__fields--item" id="item-1">
+      <h3 class="parameters__title subtitle">
+        <span class="parameters__title-text parameters__title-text--item">Элемент 1</span>
+      </h3>
+      <label class="parameters__label" for="flex-grow-${idElement}">flex-grow</label>
+      <input class="parameters__field field field--number flex-grow" id="" name="flex-grow" type="number" placeholder="0-10">
+      <label class="parameters__label" for="flex-shrink-${idElement}">flex-shrink</label>
+      <input class="parameters__field field field--number flex-shrink" id="" name="flex-shrink" type="number" placeholder="0-10">
+      <label class="parameters__label" for="flex-basis-${idElement}">flex-basis</label>
+      <input class="parameters__field field field--number flex-basis" id="" name="flex-basis" type="number" placeholder="">
+      <label class="parameters__label" for="order-${idElement}">order</label>
+      <input class="parameters__field field field--number order" id="" name="order" type="number" placeholder="+-20">
+      <label class="parameters__label" for="align-self-${idElement}">align-self</label>
+      <select class="parameters__field field field--select align-self" id="" name="align-self">
         <option value="auto" selected>auto</option>
         <option value="flex-start">flex-start</option>
         <option value="flex-end">flex-end</option>
@@ -188,12 +194,21 @@
         <option value="baseline">baseline</option>
         <option value="stretch">stretch</option>
       </select>
-      <div class="result-box">
-        <div class="result-item">НКС<output name="result" class="nks"></output></div>
-        <div class="result-item">ИРС<output name="result" class="irs"></output></div>
-        <div class="result-item">ИРР<output name="result" class="irr"></output></div>
-      </div>
-    </fieldset>
+      <ul class="parameters__result parameters__result--item">
+        <li class="parameters__result-item">
+          <b>НКС</b>
+          <output class="parameters__nks" name="result">...</output>
+        </li>
+        <li class="parameters__result-item">
+          <b>ИРС</b>
+          <output class="parameters__irs" name="result">...</output>
+        </li>
+        <li class="parameters__result-item">
+          <b>ИРР</b>
+          <output class="parameters__irr" name="result">...</output>
+        </li>
+      </ul>
+    </div>
   </template>
 
   <template id="remove-button">
