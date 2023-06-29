@@ -11,7 +11,7 @@ const maxItems = 15;
 const nonRemovableItems = 2;
 let countItems = 1;
 
-const parentElement = document.querySelector('.box-parent');
+const parentElement = document.querySelector('.fieldset--parent');
 const addItemButton = document.querySelector('.button-element.add');
 const flexContainer = document.querySelector('.flex-items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.item');

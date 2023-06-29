@@ -1,0 +1,14 @@
+.fieldset {
+  display: grid;
+
+  border: 2px solid $color-silver;
+  border-radius: 5px;
+
+  grid-template-columns: 100px 1fr;
+
+  &__legend {
+    padding: 0 5px;
+
+    font-weight: bold;
+  }
+}

@@ -46,8 +46,8 @@
     <section class="section section--parameters parameters">
       <h2 class="visually-hidden">Параметры</h2>
       <div class="parameters__wrapper">
-        <fieldset class="flex box-parent main-fieldset wrapper-parameters" id="parent" data-flex="parent">
-          <legend class="elements-title">Параметры родителя</legend>
+        <div class="fieldset fieldset--parent" id="parent">
+          <legend class="parameters__legend">Параметры родителя</legend>
           <label for="width" class="label-title element">Ширина</label>
           <input name="width" type="number" class="number element oninput input-parent width" id="width" value="" min="240">
           <label for="gap" class="label-title element">gap</label>
@@ -92,7 +92,7 @@
             <option value="space-around">space-around</option>
             <option value="space-evenly">space-evenly</option>
           </select>
-        </fieldset>
+        </div>
         <fieldset class="elements main-fieldset wrapper-parameters">
           <legend class="elements-title">Параметры элементов</legend>
           <div class="button-background add">
