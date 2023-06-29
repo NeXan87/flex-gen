@@ -9,6 +9,7 @@
 // BLOCKS
 @import "blocks/title.scss";
 @import "blocks/button.scss";
+@import "blocks/text.scss";
 @import "blocks/header.scss";
 @import "blocks/overlay.scss";
 @import "blocks/section.scss";
@@ -38,12 +39,6 @@
 
 .element:focus {
   outline: none;
-}
-
-.article-text {
-  padding: 0 5px 5px 5px;
-
-  text-indent: 10px;
 }
 
 .flex {

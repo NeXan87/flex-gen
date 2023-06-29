@@ -7,6 +7,7 @@ const cssName = 'css__class';
 const cssDeclaration = 'css__declaration';
 const cssProperty = 'css__property';
 const cssBracket = 'css__bracket';
+const cssUnion = 'css__union';
 
 const isDefaultAllItems = (flexItem) => {
   for (const item in defaultValues.items) {
@@ -29,7 +30,7 @@ const renderSelector = (element, selector) => {
 };
 
 const renderDeclaration = (element, property, value) => {
-  element.innerHTML += `<span class=${cssDeclaration}><span class=${cssProperty}>${property}</span>: ${value}${hasPx(property)};</span>`;
+  element.innerHTML += `<span class=${cssDeclaration}><span class=${cssProperty}>${property}</span>: ${value}<span class=${cssUnion}>${hasPx(property)}</span>;</span>`;
 };
 
 const renderBracket = (element) => {
