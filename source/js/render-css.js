@@ -1,7 +1,12 @@
 import { hasPx } from './utils.js';
 import { defaultValues } from './flex-objects.js';
 
-const stylesElement = document.querySelector('.css-styles');
+const stylesElement = document.querySelector('.css__wrapper');
+const cssSelector = 'css__selector';
+const cssName = 'css__class';
+const cssDeclaration = 'css__declaration';
+const cssProperty = 'css__property';
+const cssBracket = 'css__bracket';
 
 const isDefaultAllItems = (flexItem) => {
   for (const item in defaultValues.items) {
@@ -19,23 +24,36 @@ const isDefaultValues = (term, property, value) => {
   }
 };
 
-const renderCssParent = (parent) => {
+const renderSelector = (element, selector) => {
+  element.innerHTML += `<span class=${cssSelector}>.<span class=${cssName}>${selector}</span> {</span>`;
+};
+
+const renderProperty = (element, property, value) => {
+  element.innerHTML += `<span class=${cssDeclaration}><span class=${cssProperty}>${property}</span>: ${value}${hasPx(property)};</span>`;
+};
+
+const renderСlosingBracket = (element) => {
+  element.innerHTML += `<span class=${cssBracket}>}</span>`;
+};
+
+const getCssParent = (parent) => {
   const propertiesParent = Object.keys(parent);
 
-  stylesElement.innerHTML = '.parent {<br/>';
+  stylesElement.innerHTML = '';
+  renderSelector(stylesElement, 'parent');
 
   propertiesParent.forEach((property) => {
     const value = parent[property];
 
     if (!isDefaultValues('parent', property, value)) {
-      stylesElement.innerHTML += `  ${property}: ${value}${hasPx(property)};<br/>`;
+      renderProperty(stylesElement, property, value);
     }
   });
 
-  stylesElement.innerHTML += '}<br/><br/>';
+  renderСlosingBracket(stylesElement);
 };
 
-const renderCssItems = (items) => {
+const getCssItems = (items) => {
 
   const flexItems = Object.keys(items);
 
@@ -44,24 +62,24 @@ const renderCssItems = (items) => {
     const flexItem = items[item];
 
     if (isDefaultAllItems(flexItem)) {
-      stylesElement.innerHTML += `.${item} {<br/>`;
+      renderSelector(stylesElement, item);
 
       propertiesElements.forEach((property) => {
         const value = items[item][property];
 
         if (!isDefaultValues('items', property, value) && property !== 'nks' && property !== 'irs' && property !== 'irr') {
-          stylesElement.innerHTML += `  ${property}: ${value}${hasPx(property)};<br/>`;
+          renderProperty(stylesElement, property, value);
         }
       });
 
-      stylesElement.innerHTML += '}<br/><br/>';
+      renderСlosingBracket(stylesElement);
     }
   });
 };
 
 const renderCss = ({ parent, items }) => {
-  renderCssParent(parent);
-  renderCssItems(items);
+  getCssParent(parent);
+  getCssItems(items);
 };
 
 export { renderCss };

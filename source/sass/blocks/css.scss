@@ -1,0 +1,42 @@
+.css {
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  grid-area: css;
+  @include vp-1024 {
+    width: 100%;
+    width: auto;
+    max-height: 600px;
+
+    justify-self: stretch;
+  }
+  @include vp-768 {
+    max-height: none;
+  }
+
+  &__title {
+    margin-bottom: 5px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+  }
+
+  &__class {
+    color: $color-red;
+  }
+
+  &__declaration {
+    margin-left: 18px;
+  }
+
+  &__property {
+    color: $color-moody-blue;
+  }
+
+  &__bracket {
+    margin-bottom: 20px;
+  }
+}

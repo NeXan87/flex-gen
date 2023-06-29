@@ -12,6 +12,7 @@
 @import "blocks/overlay.scss";
 @import "blocks/section.scss";
 @import "blocks/parameters.scss";
+@import "blocks/css.scss";
 
 .wrapper-parameters {
   position: relative;
@@ -56,15 +57,6 @@
   grid-area: article;
 }
 
-.css-box {
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  cursor: text;
-
-  grid-area: css;
-}
-
 .title-h2 {
   margin-bottom: 15px;
   padding: 2px 0 7px;
@@ -81,15 +73,6 @@
   padding: 0 5px 5px 5px;
 
   text-indent: 10px;
-}
-
-.css-box-title {
-  margin-bottom: 5px;
-}
-
-.css-styles {
-  display: block;
-  padding: 0 5px;
 }
 
 .flex {
@@ -500,16 +483,6 @@
   list-style: none;
 }
 
-@media screen and (max-width: 1024px) {
-  .css-box {
-    width: 100%;
-    width: auto;
-    max-height: 600px;
-
-    justify-self: stretch;
-  }
-}
-
 @media screen and (max-width: 768px) {
   input,
   select {
@@ -551,9 +524,5 @@
 
   .article .title-h2 {
     margin-bottom: 20px;
-  }
-
-  .css-box {
-    max-height: none;
   }
 }
