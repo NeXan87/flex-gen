@@ -6,9 +6,9 @@ function resizeWindow(siteLoaded) {
   let boxWidth = 0;
 
   if (windowWidth > 1920) {
-    boxWidth = 1210;
+    boxWidth = 1190;
   } else if (windowWidth > 1240) {
-    boxWidth = windowWidth - 718;
+    boxWidth = windowWidth - 738;
   } else if (windowWidth > 768) {
     boxWidth = windowWidth - 410;
   } else {
