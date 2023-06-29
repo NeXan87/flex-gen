@@ -4,7 +4,6 @@
   width: 100%;
   max-width: 1920px;
   height: 50px;
-  margin: 0 auto;
   padding: 8px 20px;
 
   color: $color-white;
@@ -26,6 +25,10 @@
     box-shadow: 0 -1px 7px 0 rgba($color-black, 0.72);
 
     gap: 0;
+  }
+
+  &--margin {
+    margin: 0 auto;
   }
 
   &__logo {
