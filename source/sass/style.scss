@@ -15,6 +15,7 @@
 @import "blocks/parameters.scss";
 @import "blocks/preview.scss";
 @import "blocks/axis.scss";
+@import "blocks/legend.scss";
 @import "blocks/css.scss";
 
 .wrapper-parameters {
@@ -185,12 +186,6 @@
   font-size: 0.9em;
 }
 
-.legend-list {
-  padding: 0 10px 5px 10px;
-
-  list-style: none;
-}
-
 @media screen and (max-width: 768px) {
   input,
   select {
@@ -222,11 +217,5 @@
   .button-element.add::before {
     width: 25px;
     height: 25px;
-  }
-
-  .article {
-    padding-bottom: 20px;
-
-    font-size: 14px;
   }
 }

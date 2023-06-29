@@ -34,10 +34,16 @@
 
   &--legend {
     grid-area: legend;
+    @include vp-768 {
+      padding-bottom: 20px;
+    }
   }
 
   &--description {
     grid-area: article;
+    @include vp-768 {
+      padding-bottom: 20px;
+    }
   }
 
   &--css {

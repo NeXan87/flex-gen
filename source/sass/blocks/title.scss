@@ -8,4 +8,8 @@
   color: $color-charcoal;
 
   border-bottom: 1px dotted $color-light-gray;
+
+  &--margin {
+    margin-bottom: 15px;
+  }
 }
