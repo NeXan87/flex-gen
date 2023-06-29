@@ -1,0 +1,35 @@
+.input {
+  width: 100%;
+  height: 25px;
+  padding: 2px 5px 2px 5px;
+
+  font-size: 14px;
+  line-height: 1;
+
+  background-color: $color-white;
+  border: 1px solid $color-silver;
+  border-radius: 3px;
+
+  &--number {
+    text-align: right;
+  }
+
+  &--select {
+    appearance: none;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $color-jewel;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+
+    pointer-events: none;
+  }
+}
