@@ -1,13 +1,4 @@
 .parameters {
-  box-sizing: content-box;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-
-  background: none;
-  border: 0;
-
-  grid-area: parameters;
   @include vp-1024 {
     max-height: 1500px;
   }

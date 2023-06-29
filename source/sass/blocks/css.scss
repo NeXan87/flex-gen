@@ -2,13 +2,10 @@
   overflow-x: hidden;
   overflow-y: auto;
 
-  grid-area: css;
   @include vp-1024 {
     width: 100%;
     width: auto;
     max-height: 600px;
-
-    justify-self: stretch;
   }
   @include vp-768 {
     max-height: none;
