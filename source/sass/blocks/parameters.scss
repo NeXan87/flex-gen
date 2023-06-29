@@ -38,4 +38,17 @@
       border-radius: 0;
     }
   }
+
+  &__fieldset {
+    display: grid;
+
+    border: 2px solid $color-silver;
+    border-radius: 5px;
+
+    grid-template-columns: 100px 1fr;
+  }
+
+  &__title {
+    padding: 0 15px;
+  }
 }
