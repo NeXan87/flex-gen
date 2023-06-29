@@ -3,7 +3,6 @@
   flex-grow: 1;
   max-width: 1920px;
   height: calc(100vh - 50px);
-  margin: 0 auto;
   padding: 20px;
 
   gap: 20px;
@@ -22,7 +21,6 @@
       "parameters css";
   }
   @include vp-768 {
-    margin-top: 50px;
     padding-right: 0;
     padding-left: 0;
 
@@ -30,5 +28,81 @@
 
     grid-template-columns: auto;
     grid-template-areas: "preview" "legend" "article" "css";
+  }
+
+  &--margin {
+    margin: 0 auto;
+
+    @include vp-768 {
+      margin-top: 50px;
+    }
+  }
+
+  &__parameters {
+    box-sizing: content-box;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: none;
+    border: 0;
+
+    grid-area: parameters;
+  }
+
+  &__preview {
+    grid-area: preview;
+  }
+
+  &__legend {
+    grid-area: legend;
+    @include vp-768 {
+      padding-bottom: 20px;
+    }
+  }
+
+  &__description {
+    grid-area: article;
+    @include vp-768 {
+      padding-bottom: 20px;
+    }
+  }
+
+  &__css {
+    grid-area: css;
+    @include vp-1024 {
+      justify-self: stretch;
+    }
+  }
+
+  &__overlay {
+    display: none;
+
+    visibility: hidden;
+
+    @include vp-768 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+
+      display: block;
+      width: 100%;
+      height: 150%;
+
+      background-color: rgba($color-black, 0.65);
+      opacity: 0;
+
+      transition: opacity $trans-200 $ease-out,
+        visibility $trans-0 $ease-out $trans-200;
+
+      .is-open & {
+        visibility: visible;
+        opacity: 1;
+
+        transition: opacity $trans-200 $ease-out,
+          visibility $trans-0 $ease-out $trans-0;
+      }
+    }
   }
 }

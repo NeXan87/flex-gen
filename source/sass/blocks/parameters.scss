@@ -2,27 +2,29 @@
   @include vp-1024 {
     max-height: 1500px;
   }
-  @include vp-768 {
-    position: fixed;
-    top: 50px;
-    right: 0;
-    z-index: 2;
+  &--position {
+    @include vp-768 {
+      position: fixed;
+      top: 50px;
+      right: 0;
+      z-index: 2;
 
-    height: calc(100% - 50px);
+      height: calc(100% - 50px);
 
-    background-color: $color-white;
-    transform: translateX(280px);
-    visibility: hidden;
-
-    transition: transform $trans-200 $ease-out,
-      visibility $trans-0 $ease-out $trans-200;
-
-    .is-open & {
-      transform: translateX(0);
-      visibility: visible;
+      background-color: $color-white;
+      transform: translateX(280px);
+      visibility: hidden;
 
       transition: transform $trans-200 $ease-out,
-        visibility $trans-0 $ease-out $trans-0;
+        visibility $trans-0 $ease-out $trans-200;
+
+      .is-open & {
+        transform: translateX(0);
+        visibility: visible;
+
+        transition: transform $trans-200 $ease-out,
+          visibility $trans-0 $ease-out $trans-0;
+      }
     }
   }
 

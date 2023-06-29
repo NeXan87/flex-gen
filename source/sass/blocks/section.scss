@@ -15,41 +15,4 @@
   &::-webkit-scrollbar-track {
     border-radius: 0 5px 5px 0;
   }
-
-  &--parameters {
-    box-sizing: content-box;
-    padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    background: none;
-    border: 0;
-
-    grid-area: parameters;
-  }
-
-  &--preview {
-    grid-area: preview;
-  }
-
-  &--legend {
-    grid-area: legend;
-    @include vp-768 {
-      padding-bottom: 20px;
-    }
-  }
-
-  &--description {
-    grid-area: article;
-    @include vp-768 {
-      padding-bottom: 20px;
-    }
-  }
-
-  &--css {
-    grid-area: css;
-    @include vp-1024 {
-      justify-self: stretch;
-    }
-  }
 }

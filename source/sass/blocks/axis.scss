@@ -1,8 +1,10 @@
 .axis {
-  position: absolute;
-
   display: flex;
   align-items: center;
+
+  &--position {
+    position: absolute;
+  }
 
   &--horizontal {
     right: 0;

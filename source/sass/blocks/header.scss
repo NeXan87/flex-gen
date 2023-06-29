@@ -14,21 +14,22 @@
   @include vp-1920 {
     border-radius: 0 0 20px 20px;
   }
-  @include vp-768 {
-    position: fixed;
-    z-index: 2;
 
-    width: 100%;
-    padding: 0 0 0 15px;
-    padding-right: 0;
-
-    box-shadow: 0 -1px 7px 0 rgba($color-black, 0.72);
-
-    gap: 0;
-  }
-
-  &--margin {
+  &--position {
     margin: 0 auto;
+
+    @include vp-768 {
+      position: fixed;
+      z-index: 2;
+
+      width: 100%;
+      padding: 0 0 0 15px;
+      padding-right: 0;
+
+      box-shadow: 0 -1px 7px 0 rgba($color-black, 0.72);
+
+      gap: 0;
+    }
   }
 
   &__logo {
