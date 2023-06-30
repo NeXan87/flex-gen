@@ -8,5 +8,3 @@ initPreloaderActions();
 initMenuButtonActions();
 initResizeWindowActions();
 initAddItemActions();
-
-
