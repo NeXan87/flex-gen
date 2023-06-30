@@ -1,3 +1,4 @@
+import { defaultValues } from './flex-objects.js';
 import { hasPx, renderElement } from './utils.js';
 
 const previewElement = document.querySelector('.preview__list');
@@ -13,14 +14,13 @@ const addStyles = (parent, css = '') => {
   return css;
 };
 
-const hasFlexBasis = (value) => value !== 0 ? `flex-basis: ${value}px;` : false;
-
 const addStylesFlexBox = (parent) => {
   previewElement.style.cssText = `display: flex; ${addStyles(parent)}`;
 };
 
-const renderFlexItems = (items) => {
+const addStylesFlexItems = (items) => {
   const flexItems = Object.keys(items);
+  const flexProperties = Object.keys(defaultValues.items);
 
   previewElement.innerHTML = '';
 
@@ -29,11 +29,10 @@ const renderFlexItems = (items) => {
     const li = document.createElement('li');
 
     li.classList.add('preview__item');
-    li.style.cssText = `align-self: ${flexItem['align-self']};
-											  flex-grow: ${flexItem['flex-grow']};
-											  flex-shrink: ${flexItem['flex-shrink']};
-											  order: ${flexItem['order']};
-											  ${hasFlexBasis(flexItem['flex-basis'])}`;
+
+    flexProperties.forEach((property) => {
+      li.style.cssText += `${property}: ${flexItem[property]}${hasPx(property)}; `;
+    });
 
     renderElement(previewElement, li);
   });
@@ -41,7 +40,7 @@ const renderFlexItems = (items) => {
 
 const renderFlexBox = ({ parent, items }) => {
   addStylesFlexBox(parent);
-  renderFlexItems(items);
+  addStylesFlexItems(items);
 };
 
 export { renderFlexBox };

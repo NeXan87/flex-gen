@@ -32,7 +32,7 @@
     "editorconfig": "editorconfig-cli",
     "stylelint": "stylelint \"source/sass/**/*.scss\" --customSyntax postcss-scss",
     "lint": "npm run editorconfig && npm run stylelint",
-    "bemlinter": "gulp lintBem --silent",
+    "bemlint": "gulp lintBem --silent",
     "eslint": "eslint source/js",
     "build": "gulp build",
     "start": "gulp"
