@@ -3,7 +3,6 @@
   overflow-y: auto;
 
   @include vp-1024 {
-    width: 100%;
     width: auto;
     max-height: 600px;
   }

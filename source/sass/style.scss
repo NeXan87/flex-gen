@@ -20,25 +20,3 @@
 @import "blocks/axis.scss";
 @import "blocks/legend.scss";
 @import "blocks/css.scss";
-
-@media screen and (max-width: 768px) {
-  .button-background.add {
-    top: -24px;
-    right: 7px;
-
-    width: 33px;
-    height: 30px;
-  }
-
-  .button-element.add {
-    top: 3px;
-
-    width: 25px;
-    height: 25px;
-  }
-
-  .button-element.add::before {
-    width: 25px;
-    height: 25px;
-  }
-}
