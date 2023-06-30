@@ -1,0 +1,78 @@
+.preloader {
+  position: fixed;
+  z-index: 10;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  background-color: $color-white;
+
+  &--hiding {
+    opacity: 0;
+
+    transition: 0.3s opacity;
+  }
+
+  &--loaded {
+    display: none;
+  }
+
+  &__row {
+    position: relative;
+
+    width: 70px;
+    height: 70px;
+
+    animation: preloader-rotate 2s infinite linear;
+
+    .preloader--loaded & {
+      animation-play-state: paused;
+    }
+
+    &::before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+
+      width: 35px;
+      height: 35px;
+
+      background-color: $color-jewel;
+      border-radius: 50%;
+
+      animation: preloader-bounce 2s infinite ease-in-out;
+
+      .preloader--loaded & {
+        animation-play-state: paused;
+      }
+    }
+
+    &::after {
+      top: auto;
+      bottom: 0;
+
+      animation-delay: -1s;
+    }
+  }
+}
+
+@keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes preloader-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
