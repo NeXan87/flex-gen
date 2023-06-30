@@ -102,6 +102,8 @@
     &--item {
       justify-content: flex-start;
 
+      font-size: 15px;
+
       &::before {
         order: 2;
         width: 10px;
