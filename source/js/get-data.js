@@ -17,7 +17,7 @@ const setData = (property, key, value) => {
 
 const validate = (property, key, value) => {
   const fieldset = document.querySelector(`#${property}`);
-  const input = fieldset.querySelector(`.${key}`);
+  const input = fieldset.querySelector(`[name='${key}']`);
   const min = defaultValues.minmax[`min-${key}`];
   const max = defaultValues.minmax[`max-${key}`];
 

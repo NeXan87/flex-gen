@@ -4,8 +4,8 @@ import { removeItem } from './remove-item.js';
 import { getData } from './get-data.js';
 import { renderElement, switchesButtonState } from './utils.js';
 
-const elementName = 'Элемент ';
-const elementNameEn = 'item-';
+const elementName = 'Элемент';
+const elementNameEn = 'item';
 const primaryLoadItems = 2;
 const maxItems = 15;
 const nonRemovableItems = 2;
@@ -30,16 +30,25 @@ const setItemData = (item) => {
   flexBox.items[item] = { ...defaultValues.items };
 };
 
+const setAttributes = (elements, attr) => {
+  elements.forEach((element) => {
+    element.setAttribute(attr, `${element.getAttribute(attr)}-${countItems}`);
+  });
+};
+
 const addItem = ({ parent: { width } }, siteLoaded) => {
   const itemClone = itemTemplate.cloneNode(true);
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
   const itemTitle = itemClone.querySelector('.parameters__title--item');
   const itemTitleText = itemClone.querySelector('.parameters__title-text--item');
+  const itemLabels = itemClone.querySelectorAll('.parameters__label');
   const itemFields = itemClone.querySelectorAll('.field');
-  const item = elementNameEn + countItems;
 
-  itemClone.id = item;
-  itemTitleText.textContent = elementName + countItems;
+  setAttributes(itemLabels, 'for');
+  setAttributes(itemFields, 'id');
+
+  itemClone.id = `${elementNameEn}-${countItems}`;
+  itemTitleText.textContent = `${elementName} ${countItems}`;
 
   itemFields.forEach((input) => {
     if (input.name === 'flex-basis') {
@@ -55,7 +64,7 @@ const addItem = ({ parent: { width } }, siteLoaded) => {
   }
 
   renderElement(flexContainer, itemClone);
-  setItemData(item);
+  setItemData(`${elementNameEn}-${countItems}`);
 
   if (siteLoaded) {
     updateTimeout(flexBox);

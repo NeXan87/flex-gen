@@ -3,7 +3,13 @@ import { elementName, elementNameEn } from './add-item.js';
 import { updateTimeout } from './update-items.js';
 import { switchesButtonState } from './utils.js';
 
+const regExp = /-|[0-9]/g;
+
 const addItemButton = document.querySelector('.button--add-item');
+
+const renameAttributes = (elements, attr, index) => {
+  elements.forEach((element) => element.setAttribute(attr, `${element.getAttribute(attr).replace(regExp, '')}-${index + 1}`));
+};
 
 const reCalcNumbersItems = () => {
   const fieldsetElements = document.querySelectorAll('.parameters__fields--item');
@@ -12,15 +18,21 @@ const reCalcNumbersItems = () => {
   const tempItems = {};
 
   fieldsetElements.forEach((element, index) => {
-    element.id = elementNameEn + (index + 1);
+    element.id = `${elementNameEn}-${index + 1}`;
+
+    const labels = element.querySelectorAll('.parameters__label');
+    const fields = element.querySelectorAll('.field');
+
+    renameAttributes(labels, 'for', index);
+    renameAttributes(fields, 'id', index);
   });
 
   legendElements.forEach((element, index) => {
-    element.textContent = elementName + (index + 1);
+    element.textContent = `${elementName} ${index + 1}`;
   });
 
   flexItems.forEach((item, index) => {
-    tempItems[elementNameEn + (index + 1)] = { ...flexBox.items[item] };
+    tempItems[`${elementNameEn}-${index + 1}`] = { ...flexBox.items[item] };
     delete flexBox.items[item];
   });
 
@@ -28,7 +40,7 @@ const reCalcNumbersItems = () => {
 };
 
 const removeItem = (evt) => {
-  const itemElement = evt.target.parentNode.parentNode.parentNode.parentNode;
+  const itemElement = evt.target.closest('.parameters__title--item').parentNode;
   const item = itemElement.id;
 
   delete flexBox.items[item];

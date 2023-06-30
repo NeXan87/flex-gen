@@ -51,9 +51,9 @@
             <span class="parameters__title-text">Параметры родителя</span>
           </h3>
           <label class="parameters__label" for="width">Ширина</label>
-          <input class="parameters__field field field--number width" id="width" name="width" type="number" value="" min="240">
+          <input class="parameters__field field field--number" id="width" name="width" type="number" value="" min="240">
           <label class="label-title element" for="gap">gap</label>
-          <input class="parameters__field field field--number gap" id="gap" name="gap" type="number" value="5" placeholder="0-100px">
+          <input class="parameters__field field field--number" id="gap" name="gap" type="number" value="5" placeholder="0-100px">
           <label class="parameters__label" for="flex-direction">flex-direction</label>
           <select class="parameters__field field field--select" id="flex-direction" name="flex-direction">
             <option value="row" selected>row</option>
@@ -62,13 +62,13 @@
             <option value="column-reverse">column-reverse</option>
           </select>
           <label class="parameters__label" for="flex-wrap">flex-wrap</label>
-          <select class="parameters__field field field--select flex-wrap" id="flex-wrap" name="flex-wrap">
+          <select class="parameters__field field field--select" id="flex-wrap" name="flex-wrap">
             <option value="nowrap">nowrap</option>
             <option value="wrap" selected>wrap</option>
             <option value="wrap-reverse">wrap-reverse</option>
           </select>
           <label class="parameters__label" for="justify-content">justify-content</label>
-          <select class="parameters__field field field--select justify-content" id="justify-content" name="justify-content">
+          <select class="parameters__field field field--select" id="justify-content" name="justify-content">
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
             <option value="center" selected>center</option>
@@ -77,7 +77,7 @@
             <option value="space-evenly">space-evenly</option>
           </select>
           <label class="parameters__label" for="align-items">align-items</label>
-          <select class="parameters__field field field--select align-items" id="align-items" name="align-items">
+          <select class="parameters__field field field--select" id="align-items" name="align-items">
             <option value="stretch">stretch</option>
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
@@ -85,7 +85,7 @@
             <option value="baseline">baseline</option>
           </select>
           <label class="parameters__label" for="align-content">align-content</label>
-          <select class="parameters__field field field--select align-content" id="align-content" name="align-content">
+          <select class="parameters__field field field--select" id="align-content" name="align-content">
             <option value="stretch">stretch</option>
             <option value="flex-start">flex-start</option>
             <option value="flex-end">flex-end</option>
@@ -177,20 +177,20 @@
 
   <!-- Шаблон добавления нового flex-элемента -->
   <template id="item">
-    <div class="parameters__fields parameters__fields--item" id="item-1">
+    <div class="parameters__fields parameters__fields--item" id="item">
       <h4 class="parameters__title parameters__title--item subtitle">
-        <span class="parameters__title-text parameters__title-text--item">Элемент 1</span>
+        <span class="parameters__title-text parameters__title-text--item">Элемент</span>
       </h4>
-      <label class="parameters__label" for="flex-grow-${idElement}">flex-grow</label>
-      <input class="parameters__field field field--number flex-grow" id="" name="flex-grow" type="number" placeholder="0-10">
-      <label class="parameters__label" for="flex-shrink-${idElement}">flex-shrink</label>
-      <input class="parameters__field field field--number flex-shrink" id="" name="flex-shrink" type="number" placeholder="0-10">
-      <label class="parameters__label" for="flex-basis-${idElement}">flex-basis</label>
-      <input class="parameters__field field field--number flex-basis" id="" name="flex-basis" type="number" placeholder="">
-      <label class="parameters__label" for="order-${idElement}">order</label>
-      <input class="parameters__field field field--number order" id="" name="order" type="number" placeholder="+-20">
-      <label class="parameters__label" for="align-self-${idElement}">align-self</label>
-      <select class="parameters__field field field--select align-self" id="" name="align-self">
+      <label class="parameters__label" for="flex-grow">flex-grow</label>
+      <input class="parameters__field field field--number" id="flex-grow" name="flex-grow" type="number" placeholder="0-10">
+      <label class="parameters__label" for="flex-shrink">flex-shrink</label>
+      <input class="parameters__field field field--number" id="flex-shrink" name="flex-shrink" type="number" placeholder="0-10">
+      <label class="parameters__label" for="flex-basis">flex-basis</label>
+      <input class="parameters__field field field--number" id="flex-basis" name="flex-basis" type="number" placeholder="">
+      <label class="parameters__label" for="order">order</label>
+      <input class="parameters__field field field--number" id="order" name="order" type="number" placeholder="+-20">
+      <label class="parameters__label" for="align-self">align-self</label>
+      <select class="parameters__field field field--select" id="align-self" name="align-self">
         <option value="auto" selected>auto</option>
         <option value="flex-start">flex-start</option>
         <option value="flex-end">flex-end</option>
