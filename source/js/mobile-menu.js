@@ -15,9 +15,7 @@ const toggleMenuClass = () => {
   }
 };
 
-const onMenuButtonClick = () => {
-  toggleMenuClass();
-};
+const onMenuButtonClick = () => toggleMenuClass();
 
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt.key)) {

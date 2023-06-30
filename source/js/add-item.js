@@ -17,9 +17,7 @@ const flexContainer = document.querySelector('.parameters__items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.parameters__fields--item');
 const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove-item');
 
-const onFieldsInput = (evt) => {
-  getData(evt.target);
-};
+const onFieldsInput = (evt) => getData(evt.target);
 
 const onRemoveButtonClick = (evt) => {
   removeItem(evt);

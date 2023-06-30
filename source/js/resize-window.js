@@ -36,9 +36,7 @@ const resizeWindow = (siteLoaded) => {
   }
 };
 
-const onWindowResize = () => {
-  resizeWindow(true);
-};
+const onWindowResize = () => resizeWindow(true);
 
 const initResizeWindowActions = () => {
   resizeWindow();
