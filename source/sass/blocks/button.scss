@@ -1,3 +1,51 @@
 .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 8px;
+
   cursor: pointer;
+
+  transition: $trans-200 $ease-out;
+
+  &--circle {
+    padding: 0;
+
+    color: $color-jewel;
+
+    border-radius: 50%;
+
+    &:disabled {
+      color: $color-grey;
+    }
+  }
+
+  &--add-item {
+    width: 27px;
+    height: 27px;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+
+    &:active {
+      transform: scale(1.1);
+    }
+  }
+
+  &--remove-item {
+    order: 1;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    &:hover {
+      color: darken($color-jewel, 5);
+    }
+  }
+
+  &:disabled {
+    pointer-events: none;
+  }
 }

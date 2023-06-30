@@ -99,13 +99,17 @@
           <h3 class="parameters__title subtitle">
             <span class="parameters__title-text">Параметры элементов</span>
           </h3>
-          <div class="button-background add">
-            <button type="button" class="button-element add"></button>
-          </div>
           <ul class="parameters__result parameters__result--global">
             <li class="parameters__result-item">
               <b>ОП</b>
               <output class="parameters__op" name="result">...</output>
+            </li>
+            <li class="parameters__result-item">
+              <button class="parameters__button button button--circle button--add-item" type="button" aria-label="Добавить флекс-элемент на страницу">
+                <svg class="parameters__svg" width="27" height="27" role="img">
+                  <use xlink:href="images/svg/sprite.svg#plus" />
+                </svg>
+              </button>
             </li>
             <li class="parameters__result-item">
               <b>ДСМ</b>
@@ -174,9 +178,9 @@
   <!-- Шаблон добавления нового flex-элемента -->
   <template id="item">
     <div class="parameters__fields parameters__fields--item" id="item-1">
-      <h3 class="parameters__title subtitle">
+      <h4 class="parameters__title parameters__title--item subtitle">
         <span class="parameters__title-text parameters__title-text--item">Элемент 1</span>
-      </h3>
+      </h4>
       <label class="parameters__label" for="flex-grow-${idElement}">flex-grow</label>
       <input class="parameters__field field field--number flex-grow" id="" name="flex-grow" type="number" placeholder="0-10">
       <label class="parameters__label" for="flex-shrink-${idElement}">flex-shrink</label>
@@ -211,8 +215,13 @@
     </div>
   </template>
 
+  <!-- Шаблон кнопки удаления элемента -->
   <template id="remove-button">
-    <button class="button-element button--remove" type="button" aria-label="Удалить текущий флекс-элемент"></button>
+    <button class="parameters__button button button--circle button--remove-item" type="button" aria-label="Удалить текущий флекс-элемент">
+      <svg class="parameters__svg" width="20" height="20" role="img">
+        <use xlink:href="images/svg/sprite.svg#minus" />
+      </svg>
+    </button>
   </template>
 
   <script src="js/main.js" type="module"></script>

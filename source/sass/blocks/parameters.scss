@@ -35,7 +35,7 @@
 
   &__wrapper {
     width: 272px;
-    padding: 15px 10px 10px 10px;
+    padding: 15px;
 
     background-color: $color-white;
     border: 1px solid $color-light-gray;
@@ -59,18 +59,14 @@
 
     display: grid;
     align-items: center;
-    padding: 10px 5px 5px 5px;
 
     column-gap: 5px;
 
-    border: 1px solid $color-silver;
-    border-radius: 5px;
-
-    row-gap: 5px;
+    row-gap: 4px;
     grid-template-columns: 110px 1fr;
 
     &--parent {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
     &--items {
@@ -83,34 +79,43 @@
   }
 
   &__title {
-    position: absolute;
-    top: -11px;
-    left: 0;
-    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
-    margin-right: 5px;
-    margin-left: 5px;
-    padding: 0 5px;
+    font-size: 16px;
+    line-height: 1;
 
-    justify-self: start;
     grid-column: 1 / -1;
 
+    &::before,
     &::after {
       content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
 
       width: 100%;
-      height: 100%;
 
-      background-color: $color-white;
+      border-bottom: 1px solid $color-silver;
+    }
+
+    &--item {
+      justify-content: flex-start;
+
+      &::before {
+        order: 2;
+        width: 10px;
+      }
     }
   }
 
   &__title-text {
-    position: relative;
-    z-index: 1;
+    flex-shrink: 0;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    &--item {
+      margin-left: 0;
+    }
   }
 
   &__label {
@@ -129,14 +134,18 @@
     justify-items: center;
 
     &--global {
-      margin-top: 5px;
-      margin-bottom: 15px;
+      margin-top: 10px;
+      margin-bottom: 10px;
 
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
+
+      .parameters__result-item:last-child {
+        grid-column: 3;
+      }
     }
 
     &--item {
-      margin: 3px 0;
+      margin-top: 3px;
 
       grid-template-columns: repeat(3, 1fr);
       grid-column: 1 / -1;
@@ -147,5 +156,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  &__svg {
+    z-index: 1;
   }
 }

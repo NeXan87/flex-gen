@@ -12,10 +12,10 @@ const nonRemovableItems = 2;
 let countItems = 1;
 
 const parentElement = document.querySelector('.parameters__fields--parent');
-const addItemButton = document.querySelector('.button-element.add');
+const addItemButton = document.querySelector('.button--add-item');
 const flexContainer = document.querySelector('.parameters__items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.parameters__fields--item');
-const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove');
+const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove-item');
 
 const onFieldsInput = (evt) => {
   getData(evt.target);
@@ -33,12 +33,13 @@ const setItemData = (item) => {
 const addItem = ({ parent: { width } }, siteLoaded) => {
   const itemClone = itemTemplate.cloneNode(true);
   const removeButtonClone = removeButtonTemplate.cloneNode(true);
-  const itemLegend = itemClone.querySelector('.parameters__title-text--item');
+  const itemTitle = itemClone.querySelector('.parameters__title--item');
+  const itemTitleText = itemClone.querySelector('.parameters__title-text--item');
   const itemFields = itemClone.querySelectorAll('.field');
   const item = elementNameEn + countItems;
 
   itemClone.id = item;
-  itemLegend.textContent = elementName + countItems;
+  itemTitleText.textContent = elementName + countItems;
 
   itemFields.forEach((input) => {
     if (input.name === 'flex-basis') {
@@ -49,7 +50,7 @@ const addItem = ({ parent: { width } }, siteLoaded) => {
   });
 
   if (countItems > nonRemovableItems) {
-    renderElement(itemClone, removeButtonClone);
+    renderElement(itemTitle, removeButtonClone);
     removeButtonClone.addEventListener('click', onRemoveButtonClick);
   }
 

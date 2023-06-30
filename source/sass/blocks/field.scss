@@ -7,8 +7,7 @@
   line-height: 1;
 
   background-color: $color-white;
-  border: 1px solid $color-silver;
-  border-radius: 3px;
+  border-bottom: 2px solid rgba($color-jewel, 0.4);
 
   @include vp-768 {
     height: 30px;
@@ -25,9 +24,19 @@
     @include vp-768 {
       padding-right: 5px;
     }
+
+    &::placeholder {
+      color: $color-grey;
+    }
   }
 
   &--select {
+    padding-right: 15px;
+
+    background-image: url("../images/svg/arrow-down.svg");
+    background-repeat: no-repeat;
+    background-position: right center;
+
     appearance: none;
   }
 
@@ -41,6 +50,7 @@
   }
 
   &:disabled {
+    border-color: $color-light-gray;
     opacity: 0.6;
 
     pointer-events: none;

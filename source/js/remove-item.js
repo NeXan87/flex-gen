@@ -3,11 +3,11 @@ import { elementName, elementNameEn } from './add-item.js';
 import { updateTimeout } from './update-items.js';
 import { switchesButtonState } from './utils.js';
 
-const addItemButton = document.querySelector('.button-element.add');
+const addItemButton = document.querySelector('.button--add-item');
 
 const reCalcNumbersItems = () => {
   const fieldsetElements = document.querySelectorAll('.parameters__fields--item');
-  const legendElements = document.querySelectorAll('.subtitle--item');
+  const legendElements = document.querySelectorAll('.parameters__title-text--item');
   const flexItems = Object.keys(flexBox.items);
   const tempItems = {};
 
@@ -28,7 +28,7 @@ const reCalcNumbersItems = () => {
 };
 
 const removeItem = (evt) => {
-  const itemElement = evt.target.parentNode;
+  const itemElement = evt.target.parentNode.parentNode.parentNode.parentNode;
   const item = itemElement.id;
 
   delete flexBox.items[item];
