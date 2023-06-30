@@ -1,5 +1,5 @@
 import { flexBox, defaultValues } from './flex-objects.js';
-import { updateTimeout, updateItems } from './update-items.js';
+import { updateTimeout, updateAll } from './update-items.js';
 import { removeItem } from './remove-item.js';
 import { getData } from './get-data.js';
 import { renderElement, switchesButtonState } from './utils.js';
@@ -103,7 +103,7 @@ const initAddItemActions = () => {
     addItem(flexBox);
 
     if (primaryLoadItems === i) {
-      updateItems(flexBox);
+      updateAll(flexBox);
     }
   }
 };

@@ -78,9 +78,9 @@ const getCssItems = (items) => {
   });
 };
 
-const renderCss = ({ parent, items }) => {
+const insertCss = ({ parent, items }) => {
   getCssParent(parent);
   getCssItems(items);
 };
 
-export { renderCss };
+export { insertCss };

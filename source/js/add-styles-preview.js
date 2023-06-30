@@ -3,7 +3,7 @@ import { hasPx, renderElement } from './utils.js';
 
 const previewElement = document.querySelector('.preview__list');
 
-const addStyles = (parent, css = '') => {
+const addDeclaration = (parent, css = '') => {
   const properties = Object.keys(parent);
 
   properties.forEach((property) => {
@@ -15,7 +15,7 @@ const addStyles = (parent, css = '') => {
 };
 
 const addStylesFlexBox = (parent) => {
-  previewElement.style.cssText = `display: flex; ${addStyles(parent)}`;
+  previewElement.style.cssText = `display: flex; ${addDeclaration(parent)}`;
 };
 
 const addStylesFlexItems = (items) => {
@@ -38,9 +38,9 @@ const addStylesFlexItems = (items) => {
   });
 };
 
-const renderFlexBox = ({ parent, items }) => {
+const addStylesPreview = ({ parent, items }) => {
   addStylesFlexBox(parent);
   addStylesFlexItems(items);
 };
 
-export { renderFlexBox };
+export { addStylesPreview };

@@ -20,11 +20,11 @@ const reCalcNumbersItems = () => {
   fieldsetElements.forEach((element, index) => {
     element.id = `${elementNameEn}-${index + 1}`;
 
-    const labels = element.querySelectorAll('.parameters__label');
-    const fields = element.querySelectorAll('.field');
+    const labelElements = element.querySelectorAll('.parameters__label');
+    const fieldElements = element.querySelectorAll('.field');
 
-    renameAttributes(labels, 'for', index);
-    renameAttributes(fields, 'id', index);
+    renameAttributes(labelElements, 'for', index);
+    renameAttributes(fieldElements, 'id', index);
   });
 
   legendElements.forEach((element, index) => {

@@ -1,5 +1,5 @@
 import { flexBox, defaultValues } from './flex-objects.js';
-import { updateItems } from './update-items.js';
+import { updateAll } from './update-items.js';
 import { debounce } from './utils.js';
 
 const validateTime = 500;
@@ -41,7 +41,7 @@ const validate = (property, key, value) => {
 
 function validateData(property, key, value) {
   validate(property, key, value);
-  updateItems(flexBox);
+  updateAll(flexBox);
 }
 
 const getData = (target) => {
