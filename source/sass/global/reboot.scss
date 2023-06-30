@@ -40,7 +40,6 @@ html {
   font-family: $ff-open-sans;
   color: $color-black;
 
-  scrollbar-gutter: stable;
   @include vp-768 {
     &.is-open {
       overflow-y: hidden;
