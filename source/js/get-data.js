@@ -1,11 +1,11 @@
 import { flexBox, defaultValues } from './flex-objects.js';
-import { updateAll } from './update-items.js';
+import { updateTimeout } from './update-items.js';
 import { debounce } from './utils.js';
 
 const validateTime = 500;
 const regEx = /^0+(0$|[1-9])/mg;
 
-const validateTimeout = debounce((property, key, value) => validateData(property, key, value), validateTime);
+const validateTimeout = debounce((input, value) => сhangeValuesInputs(input, value), validateTime);
 
 const setData = (property, key, value) => {
   if (property === 'parent') {
@@ -13,6 +13,12 @@ const setData = (property, key, value) => {
   } else {
     flexBox.items[property][key] = value;
   }
+
+  updateTimeout(flexBox);
+};
+
+const сhangeValueInput = (input, value) => {
+  input.value = value;
 };
 
 const validate = (property, key, value) => {
@@ -26,29 +32,27 @@ const validate = (property, key, value) => {
 
   if (typeof value === 'number') {
     if (value < min) {
-      input.value = min;
+      validateTimeout(input, min);
       value = min;
     } else if (value > max) {
-      input.value = max;
+      validateTimeout(input, max);
       value = max;
     } else {
-      input.value = value;
+      validateTimeout(input, value);
     }
   }
 
   setData(property, key, value);
 };
 
-function validateData(property, key, value) {
-  validate(property, key, value);
-  updateAll(flexBox);
+function сhangeValuesInputs(input, value) {
+  сhangeValueInput(input, value);
 }
 
 const getData = (target) => {
   const key = target.parentNode.id;
   const { name, value } = target;
-
-  validateTimeout(key, name, value);
+  validate(key, name, value);
 };
 
 export { getData };
