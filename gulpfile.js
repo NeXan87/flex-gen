@@ -1,5 +1,6 @@
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
+import gulpIf from 'gulp-if';
 import sass from 'gulp-dart-sass';
 import postcss from 'gulp-postcss';
 import autoprefixer from 'autoprefixer';
@@ -16,6 +17,8 @@ import bemlinter from 'gulp-html-bemlinter';
 import browser from 'browser-sync';
 import ghPages from 'gulp-gh-pages';
 
+let isDev = true;
+
 export function lintBem() {
   return gulp.src('source/*.html')
     .pipe(bemlinter());
@@ -24,7 +27,7 @@ export function lintBem() {
 // Styles
 
 export const styles = () => gulp
-  .src('source/sass/style.scss', { sourcemaps: true })
+  .src('source/sass/style.scss', { sourcemaps: isDev })
   .pipe(plumber())
   .pipe(sass().on('error', sass.logError))
   .pipe(postcss([autoprefixer(), csso()]))
@@ -46,7 +49,7 @@ const script = () => gulp
   .src('source/js/*.js')
   .pipe(sourcemaps.init())
   .pipe(terser())
-  .pipe(sourcemaps.write('./'))
+  .pipe(gulpIf(isDev, sourcemaps.write('./')))
   .pipe(gulp.dest('build/js'))
   .pipe(browser.stream());
 
@@ -123,12 +126,15 @@ const watcher = () => {
 
 // Build
 
-export const build = gulp.series(
-  clean,
-  copy,
-  optimizeImages,
-  gulp.parallel(styles, html, script, svg, sprite)
-);
+export const build = (done) => {
+  isDev = false;
+  gulp.series(
+    clean,
+    copy,
+    optimizeImages,
+    gulp.parallel(styles, html, script, svg, sprite)
+  )(done);
+};
 
 // Default
 
