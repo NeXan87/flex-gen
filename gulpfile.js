@@ -47,7 +47,7 @@ const html = () => gulp
 
 const script = () => gulp
   .src('source/js/*.js')
-  .pipe(sourcemaps.init())
+  .pipe(gulpIf(isDev, sourcemaps.init()))
   .pipe(terser())
   .pipe(gulpIf(isDev, sourcemaps.write('./')))
   .pipe(gulp.dest('build/js'))
