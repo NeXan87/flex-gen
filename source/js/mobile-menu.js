@@ -26,7 +26,9 @@ function onDocumentKeydown(evt) {
 }
 
 function onDocumentClick(evt) {
-  if (!evt.target.closest('.header__button') && !evt.target.closest('.parameters')) {
+  if (!evt.target.closest('.header__button') &&
+    !evt.target.closest('.parameters') &&
+    !evt.target.closest('.button--remove-item')) {
     toggleMenuClass();
   }
 }
