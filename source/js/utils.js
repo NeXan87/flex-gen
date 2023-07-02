@@ -30,6 +30,8 @@ const setDataInput = (input, min, max) => {
   input.max = max;
 };
 
+const setNameItem = (name, sign, count, num = 0) => name + sign + (count + num);
+
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
@@ -39,4 +41,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, setDataInput, debounce };
+export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, setDataInput, setNameItem, debounce };

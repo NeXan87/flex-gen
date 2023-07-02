@@ -2,7 +2,7 @@ import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout, updateAll } from './update-items.js';
 import { removeItem } from './remove-item.js';
 import { getData } from './get-data.js';
-import { renderElement, switchesButtonState, setDataInput } from './utils.js';
+import { renderElement, switchesButtonState, setDataInput, setNameItem } from './utils.js';
 
 const elementNameRu = 'Элемент';
 const elementNameEn = 'item';
@@ -47,8 +47,6 @@ const setItemData = (item) => {
   flexBox.items[item] = { ...defaultValues.items };
 };
 
-const setNameItem = (name, sign) => name + sign + countItems;
-
 const setAttributes = (elements, attr) => {
   elements.forEach((element) => {
     element.setAttribute(attr, setNameItem(element.getAttribute(attr), '-', countItems));
@@ -64,8 +62,8 @@ const addItem = (siteLoaded) => {
   const itemTitleText = itemClone.querySelector('.parameters__title-text--item');
   const itemLabels = itemClone.querySelectorAll('.parameters__label');
   const itemFields = itemClone.querySelectorAll('.field');
-  const titleItemEn = setNameItem(elementNameEn, '-');
-  const titleItemRu = setNameItem(elementNameRu, ' ');
+  const titleItemEn = setNameItem(elementNameEn, '-', countItems);
+  const titleItemRu = setNameItem(elementNameRu, ' ', countItems);
 
   setAttributes(itemLabels, 'for');
   setAttributes(itemFields, 'id');

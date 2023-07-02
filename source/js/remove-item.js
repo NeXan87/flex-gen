@@ -1,7 +1,7 @@
 import { flexBox } from './flex-objects.js';
 import { elementNameRu, elementNameEn } from './item-actions.js';
 import { updateTimeout } from './update-items.js';
-import { switchesButtonState } from './utils.js';
+import { switchesButtonState, setNameItem } from './utils.js';
 
 const regExp = /-|[0-9]/g;
 
@@ -18,7 +18,7 @@ const reCalcNumbersItems = () => {
   const tempItems = {};
 
   fieldsetElements.forEach((element, index) => {
-    element.id = `${elementNameEn}-${index + 1}`;
+    element.id = setNameItem(elementNameEn, '-', index, 1);
 
     const labelElements = element.querySelectorAll('.parameters__label');
     const fieldElements = element.querySelectorAll('.field');
@@ -28,11 +28,11 @@ const reCalcNumbersItems = () => {
   });
 
   legendElements.forEach((element, index) => {
-    element.textContent = `${elementNameRu} ${index + 1}`;
+    element.textContent = setNameItem(elementNameRu, ' ', index, 1);
   });
 
   flexItems.forEach((item, index) => {
-    tempItems[`${elementNameEn}-${index + 1}`] = { ...flexBox.items[item] };
+    tempItems[setNameItem(elementNameEn, '-', index, 1)] = { ...flexBox.items[item] };
     delete flexBox.items[item];
   });
 
