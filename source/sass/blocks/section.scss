@@ -14,5 +14,9 @@
 
   &::-webkit-scrollbar-track {
     border-radius: 0 5px 5px 0;
+
+    @include vp-768 {
+      border-radius: 0;
+    }
   }
 }
