@@ -44,7 +44,7 @@ const defaultValues = {
     'max-flex-shrink': 10,
     'min-flex-basis': 0,
     'max-flex-basis': 768, // присваивается после resizeWindow()
-    'min-order': -20,
+    'min-order': 0,
     'max-order': 20,
   }
 };

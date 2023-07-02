@@ -24,6 +24,12 @@ const switchesButtonState = (button) => {
   button.disabled = !button.disabled;
 };
 
+const setDataInput = (input, min, max) => {
+  input.placeholder = `${min}-${max}${hasPx(input.name)}`;
+  input.min = min;
+  input.max = max;
+};
+
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
@@ -33,4 +39,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, debounce };
+export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, setDataInput, debounce };

@@ -1,5 +1,5 @@
 import { flexBox } from './flex-objects.js';
-import { elementName, elementNameEn } from './add-item.js';
+import { elementNameRu, elementNameEn } from './item-actions.js';
 import { updateTimeout } from './update-items.js';
 import { switchesButtonState } from './utils.js';
 
@@ -28,7 +28,7 @@ const reCalcNumbersItems = () => {
   });
 
   legendElements.forEach((element, index) => {
-    element.textContent = `${elementName} ${index + 1}`;
+    element.textContent = `${elementNameRu} ${index + 1}`;
   });
 
   flexItems.forEach((item, index) => {

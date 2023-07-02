@@ -1,16 +1,7 @@
 import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout } from './update-items.js';
-import { debounce } from './utils.js';
 
 const widthInput = document.querySelector('#width');
-
-const updateTime = 500;
-
-const updateWidth = (width) => {
-  widthInput.value = width;
-};
-
-const widthTimeout = debounce((width) => updateWidth(width), updateTime);
 
 const resizeWindow = (siteLoaded) => {
   const windowWidth = window.innerWidth;
@@ -26,8 +17,8 @@ const resizeWindow = (siteLoaded) => {
     boxWidth = windowWidth - 80;
   }
 
-  widthTimeout(boxWidth);
   flexBox.parent.width = boxWidth;
+  widthInput.value = boxWidth;
   defaultValues.minmax['max-width'] = boxWidth;
   defaultValues.minmax['max-flex-basis'] = boxWidth;
 
