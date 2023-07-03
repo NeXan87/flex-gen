@@ -30,6 +30,19 @@ const setDataInput = (input, min, max) => {
   input.max = max;
 };
 
+const getMinMaxValues = ({ minmax }, input) => {
+  const keys = ['width', 'gap', 'flex-grow', 'flex-shrink', 'flex-basis', 'order'];
+
+  keys.forEach((key) => {
+    const min = minmax[`min-${key}`];
+    const max = minmax[`max-${key}`];
+
+    if (key === input.name) {
+      setDataInput(input, min, max);
+    }
+  });
+};
+
 const setNameItem = (name, sign, count, num = 0) => name + sign + (count + num);
 
 const debounce = (callback, timeoutDelay) => {
@@ -41,4 +54,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, setDataInput, setNameItem, debounce };
+export { hasPx, isEscapeKey, renderElement, sumFlexValues, switchesButtonState, getMinMaxValues, setNameItem, debounce };

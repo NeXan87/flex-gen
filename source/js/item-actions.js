@@ -2,7 +2,7 @@ import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout, updateAll } from './update-items.js';
 import { removeItem } from './remove-item.js';
 import { getData } from './get-data.js';
-import { renderElement, switchesButtonState, setDataInput, setNameItem } from './utils.js';
+import { renderElement, switchesButtonState, getMinMaxValues, setNameItem } from './utils.js';
 
 const elementNameRu = 'Элемент';
 const elementNameEn = 'item';
@@ -15,28 +15,6 @@ const addItemButton = document.querySelector('.button--add-item');
 const flexContainer = document.querySelector('.parameters__items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.parameters__fields--item');
 const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove-item');
-
-const getMinMaxValues = (input) => {
-  const { minmax: {
-    'min-flex-grow': minFlexGrow,
-    'max-flex-grow': maxFlexGrow,
-    'min-flex-shrink': minFlexShrink,
-    'max-flex-shrink': maxFlexShrink,
-    'min-flex-basis': minFlexBasis,
-    'max-flex-basis': maxFlexBasis,
-    'min-order': minOrder,
-    'max-order': maxOrder, } } = defaultValues;
-
-  if (input.name === 'flex-grow') {
-    setDataInput(input, minFlexGrow, maxFlexGrow);
-  } else if (input.name === 'flex-shrink') {
-    setDataInput(input, minFlexShrink, maxFlexShrink);
-  } else if (input.name === 'flex-basis') {
-    setDataInput(input, minFlexBasis, maxFlexBasis);
-  } else if (input.name === 'order') {
-    setDataInput(input, minOrder, maxOrder);
-  }
-};
 
 const onRemoveButtonClick = (evt) => {
   removeItem(evt);
@@ -72,7 +50,7 @@ const addItem = (siteLoaded) => {
   itemTitleText.textContent = titleItemRu;
 
   itemFields.forEach((input) => {
-    getMinMaxValues(input);
+    getMinMaxValues(defaultValues, input);
     input.addEventListener('input', onItemFieldsInput);
   });
 
