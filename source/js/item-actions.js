@@ -63,7 +63,9 @@ const addItem = (siteLoaded) => {
   countItems++;
 };
 
-const onAddItemButtonClick = () => {
+const onAddItemButtonClick = (evt) => {
+  evt.stopPropagation();
+
   if (countItems === maxItems) {
     switchesButtonState(addItemButton);
   }

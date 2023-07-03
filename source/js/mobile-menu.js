@@ -15,18 +15,20 @@ const toggleMenuClass = () => {
   }
 };
 
-const onMenuButtonClick = () => toggleMenuClass();
+const onMenuButtonClick = (evt) => {
+  evt.stopPropagation();
+  toggleMenuClass();
+};
 
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt.key)) {
+    evt.preventDefault();
     toggleMenuClass();
   }
 }
 
 function onDocumentClick(evt) {
-  if (!evt.target.closest('.header__button') &&
-    !evt.target.closest('.parameters') &&
-    !evt.target.closest('.button--remove-item')) {
+  if (!evt.target.closest('.parameters')) {
     toggleMenuClass();
   }
 }
