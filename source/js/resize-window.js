@@ -3,6 +3,13 @@ import { updateTimeout } from './update-items.js';
 
 const widthInput = document.querySelector('#width');
 
+const setWidth = (width) => {
+  flexBox.parent.width = width;
+  widthInput.value = width;
+  defaultValues.minmax['max-width'] = width;
+  defaultValues.minmax['max-flex-basis'] = width;
+};
+
 const resizeWindow = (siteLoaded) => {
   const windowWidth = window.innerWidth;
   let boxWidth = 0;
@@ -17,10 +24,7 @@ const resizeWindow = (siteLoaded) => {
     boxWidth = windowWidth - 80;
   }
 
-  flexBox.parent.width = boxWidth;
-  widthInput.value = boxWidth;
-  defaultValues.minmax['max-width'] = boxWidth;
-  defaultValues.minmax['max-flex-basis'] = boxWidth;
+  setWidth(boxWidth);
 
   if (siteLoaded) {
     updateTimeout(flexBox);
