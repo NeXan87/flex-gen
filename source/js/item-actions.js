@@ -1,6 +1,6 @@
 import { flexBox, defaultValues } from './flex-objects.js';
 import { updateTimeout, updateAll } from './update-items.js';
-import { removeItem } from './remove-item.js';
+import { addRemoveButton } from './remove-item.js';
 import { getData } from './get-data.js';
 import { renderElement, switchesButtonState, getMinMaxValues, setNameItem } from './utils.js';
 
@@ -14,12 +14,8 @@ let countItems = 1;
 const addItemButton = document.querySelector('.button--add-item');
 const flexContainer = document.querySelector('.parameters__items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.parameters__fields--item');
-const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove-item');
 
-const onRemoveButtonClick = (evt) => {
-  removeItem(evt);
-  countItems--;
-};
+const decreaseCount = () => countItems--;
 
 const setItemData = (item) => {
   flexBox.items[item] = { ...defaultValues.items };
@@ -35,7 +31,6 @@ const onItemFieldsInput = (evt) => getData(evt.target);
 
 const addItem = (siteLoaded) => {
   const itemClone = itemTemplate.cloneNode(true);
-  const removeButtonClone = removeButtonTemplate.cloneNode(true);
   const itemTitle = itemClone.querySelector('.parameters__title--item');
   const itemTitleText = itemClone.querySelector('.parameters__title-text--item');
   const itemLabels = itemClone.querySelectorAll('.parameters__label');
@@ -58,8 +53,7 @@ const addItem = (siteLoaded) => {
   setItemData(titleItemEn);
 
   if (countItems > nonRemovableItems) {
-    renderElement(itemTitle, removeButtonClone);
-    removeButtonClone.addEventListener('click', onRemoveButtonClick);
+    addRemoveButton(itemTitle);
   }
 
   if (siteLoaded) {
@@ -89,4 +83,4 @@ const initItemActions = () => {
   }
 };
 
-export { initItemActions, elementNameRu, elementNameEn };
+export { initItemActions, decreaseCount, elementNameRu, elementNameEn };

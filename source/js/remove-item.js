@@ -1,11 +1,12 @@
 import { flexBox } from './flex-objects.js';
-import { elementNameRu, elementNameEn } from './item-actions.js';
+import { elementNameRu, elementNameEn, decreaseCount } from './item-actions.js';
 import { updateTimeout } from './update-items.js';
-import { switchesButtonState, setNameItem } from './utils.js';
+import { switchesButtonState, setNameItem, renderElement } from './utils.js';
 
 const regExp = /-|[0-9]/g;
 
 const addItemButton = document.querySelector('.button--add-item');
+const removeButtonTemplate = document.querySelector('#remove-button').content.querySelector('.button--remove-item');
 
 const renameAttributes = (elements, attr, index) => {
   elements.forEach((element) => element.setAttribute(attr, `${element.getAttribute(attr).replace(regExp, '')}-${index + 1}`));
@@ -54,4 +55,16 @@ const removeItem = (evt) => {
   updateTimeout(flexBox);
 };
 
-export { removeItem };
+const onRemoveButtonClick = (evt) => {
+  removeItem(evt);
+  decreaseCount();
+};
+
+const addRemoveButton = (itemTitle) => {
+  const removeButtonClone = removeButtonTemplate.cloneNode(true);
+
+  renderElement(itemTitle, removeButtonClone);
+  removeButtonClone.addEventListener('click', onRemoveButtonClick);
+};
+
+export { addRemoveButton };
