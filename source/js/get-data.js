@@ -21,11 +21,11 @@ const сhangeValueInput = (input, value) => {
   input.value = value;
 };
 
-const validate = (property, key, value) => {
+const validate = ({ minmax }, property, key, value) => {
   const fieldset = document.querySelector(`#${property}`);
   const input = fieldset.querySelector(`[name='${key}']`);
-  const min = defaultValues.minmax[`min-${key}`];
-  const max = defaultValues.minmax[`max-${key}`];
+  const min = minmax[`min-${key}`];
+  const max = minmax[`max-${key}`];
 
   value = value.length ? value : '0';
   value = isNaN(value) ? value : parseInt(value.replace(regEx, '$1'), 10);
@@ -52,7 +52,7 @@ function сhangeValuesInputs(input, value) {
 const getData = (target) => {
   const key = target.parentNode.id;
   const { name, value } = target;
-  validate(key, name, value);
+  validate(defaultValues, key, name, value);
 };
 
 export { getData };
