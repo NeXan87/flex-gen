@@ -14,6 +14,7 @@ let countItems = 1;
 const addItemButton = document.querySelector('.button--add-item');
 const flexContainer = document.querySelector('.parameters__items');
 const itemTemplate = document.querySelector('#item').content.querySelector('.parameters__fields--item');
+const maxItemsElement = document.querySelector('.text__max-elements');
 
 const decreaseCount = () => countItems--;
 
@@ -75,6 +76,7 @@ const onAddItemButtonClick = (evt) => {
 
 const initItemActions = () => {
   addItemButton.addEventListener('click', onAddItemButtonClick);
+  maxItemsElement.textContent = maxItems;
 
   for (let i = 1; i <= primaryLoadItems; i++) {
     addItem();

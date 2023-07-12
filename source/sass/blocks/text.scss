@@ -7,4 +7,14 @@
   @include vp-768 {
     font-size: 15px;
   }
+
+  &__code {
+    padding: 0 3px;
+
+    font-family: $ff-monospace;
+
+    background-color: $color-white-smoke;
+    border: 1px solid $color-light-gray;
+    border-radius: 4px;
+  }
 }
