@@ -56,6 +56,7 @@ const removeItem = (evt) => {
 };
 
 const onRemoveButtonClick = (evt) => {
+  evt.stopPropagation();
   removeItem(evt);
   decreaseCount();
 };
