@@ -29,7 +29,7 @@ const setAttributes = (elements, attr) => {
 
 const onItemFieldsInput = (evt) => getData(evt.target);
 
-const addItem = (siteLoaded) => {
+const addItem = (isSiteLoaded = false) => {
   const itemClone = itemTemplate.cloneNode(true);
   const itemTitle = itemClone.querySelector('.parameters__title--item');
   const itemTitleText = itemClone.querySelector('.parameters__title-text--item');
@@ -56,7 +56,7 @@ const addItem = (siteLoaded) => {
     addRemoveButton(itemTitle);
   }
 
-  if (siteLoaded) {
+  if (isSiteLoaded) {
     updateTimeout(flexBox);
   }
 
